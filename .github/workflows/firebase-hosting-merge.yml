@@ -1,10 +1,4 @@
-      - name: Deploy to Firebase Hosting for PR preview
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FJZ_LLC }}'
-          projectId: fjz-llc
-          entryPoint: ghi
+name: Deploy to Firebase Hosting on merge
 
 on:
   push:
@@ -31,4 +25,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FJZ_LLC }}'
           channelId: live
           projectId: fjz-llc
-# fix
+          entryPoint: ghi
