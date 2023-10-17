@@ -1,4 +1,10 @@
-name: Deploy to Firebase Hosting on PR
+      - name: Deploy to Firebase Hosting for PR preview
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FJZ_LLC }}'
+          projectId: fjz-llc
+          entryPoint: ghi
 
 on:
   pull_request:
@@ -24,4 +30,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FJZ_LLC }}'
           projectId: fjz-llc
-# fix
+# fix update workflow setting
