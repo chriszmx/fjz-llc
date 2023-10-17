@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@firebase/functions": "^0.10.0"
+  }
+}
