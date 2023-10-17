@@ -1,6 +1,6 @@
 import React from "react";
 import { getAuth, signOut } from 'firebase/auth';
-import { app } from "../firebase";
+import { app } from "../Firebase";
 
 const Logout = () => {
     const auth = getAuth(app);

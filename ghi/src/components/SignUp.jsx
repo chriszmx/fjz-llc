@@ -3,7 +3,7 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { app } from "../firebase";
+import { app } from "../Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
