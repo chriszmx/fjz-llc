@@ -16,9 +16,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: |
-          cd ghi
-          npm run build
+        run: cd ghi && npm run build
 
       - name: Deploy to Firebase Hosting for PR preview
         uses: FirebaseExtended/action-hosting-deploy@v0
