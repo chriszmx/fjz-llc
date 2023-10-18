@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NavBar from "./components/navbar/NavBar"
 import Home from "./components/Home"
-// import firebase from "./Firebase"
-import Login from "./components/Login"
+import Login from "./components/login/Login"
+
+// import Login from "./components/LoginTest"
 import SignUp from "./components/SignUp"
 import Logout from "./components/Logout"
 import Status from "./components/Status"
@@ -18,6 +19,7 @@ function App() {
       <>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/application" element={<h1>Application</h1>} />
           <Route path="/admin" element={<h1>Admin</h1>} />
           <Route path="/employee" element={<h1>Employee</h1>} />
@@ -27,7 +29,7 @@ function App() {
           <Test />
           <Logout />
           <ApplicationForm />
-          <Login />
+          {/* <Login /> */}
           <SignUp />
       </>
     </BrowserRouter>
