@@ -4,6 +4,8 @@ import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
     createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
 } from "firebase/auth";
 import { app } from "../../Firebase";
 import { ToastContainer, toast } from "react-toastify";
@@ -23,6 +25,17 @@ const Login = () => {
         } catch (error) {
             console.error(error);
             toast.error("Error logging in!");
+        }
+    };
+
+    const signInWithGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            await signInWithPopup(auth, provider);
+            toast.success("Successfully logged in with Google!");
+        } catch (error) {
+            console.error(error);
+            toast.error("Error logging in with Google!");
         }
     };
 
@@ -85,6 +98,13 @@ const Login = () => {
                             onClick={handleLogin}
                         >
                             Login
+                        </button>
+                        <button
+                            className="w-full mt-2 bg-red-500 text-white py-2 px-4 rounded focus:outline-none hover:bg-red-600"
+                            type="button"
+                            onClick={signInWithGoogle}
+                        >
+                            Login with Google
                         </button>
                         <p className="mt-3 text-sm text-right text-gray-600 hover:text-indigo-700 cursor-pointer" onClick={handleForgotPassword}>
                             Forgot Password?
