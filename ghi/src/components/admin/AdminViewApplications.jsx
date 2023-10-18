@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
 
 const AdminViewApplications = () => {
@@ -29,6 +29,30 @@ const AdminViewApplications = () => {
         setSelectedApplication(prev => ({ ...prev, status: status }));
     };
 
+    const handleDelete = async (appId) => {
+        const db = getFirestore(app);
+        await deleteDoc(doc(db, 'application', appId));
+        const updatedApplications = applications.filter(app => app.id !== appId);
+        setApplications(updatedApplications);
+        setSelectedApplication(null);
+    };
+
+    const handleDeleteAndSendEmail = async (appId, email) => {
+        await handleDelete(appId);
+
+        // Call the cloud function to send an email
+        const sendEmail = functions.httpsCallable('sendEmail');
+        sendEmail({ email: email })
+          .then(result => {
+            console.log(result);
+          })
+          .catch(error => {
+            console.error("Error sending email: ", error);
+          });
+    };
+
+
+
     const renderDetails = application => (
         <>
             {Object.entries(application).map(([key, value], index) => {
@@ -43,7 +67,12 @@ const AdminViewApplications = () => {
             })}
             <button className="bg-green-500 m-2 p-2 text-white" onClick={() => handleStatusChange(application.id, "accepted")}>Accept</button>
             <button className="bg-red-500 m-2 p-2 text-white" onClick={() => handleStatusChange(application.id, "denied")}>Deny</button>
+            <button className="bg-red-500 m-2 p-2 text-white" onClick={() => handleDelete(application.id)}>Delete</button>
+            <button className="bg-red-600 m-2 p-2 text-white" onClick={() => handleDeleteAndSendEmail(application.id, application.email)}>Delete and Send Email</button>
         </>
+
+
+
     );
 
     return (
