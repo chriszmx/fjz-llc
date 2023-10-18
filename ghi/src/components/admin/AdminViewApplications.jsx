@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
+// import { getFunctions } from "firebase/functions";
+import { httpsCallable } from "firebase/functions";
+
+
+// const functions = getFunctions(app);
 
 const AdminViewApplications = () => {
     const [applications, setApplications] = useState([]);
@@ -38,18 +43,26 @@ const AdminViewApplications = () => {
     };
 
     const handleDeleteAndSendEmail = async (appId, email) => {
-        await handleDelete(appId);
+        const db = getFirestore(app);
 
-        // Call the cloud function to send an email
-        const sendEmail = functions.httpsCallable('sendEmail');
-        sendEmail({ email: email })
-          .then(result => {
-            console.log(result);
-          })
-          .catch(error => {
-            console.error("Error sending email: ", error);
-          });
+        // Create a notification document
+        const notificationRef = doc(collection(db, 'mail'));
+        await setDoc(notificationRef, {
+            to: email,
+            message: {
+                subject: 'Application Update!',
+                text: 'you have been denied!!!',
+                html: 'You have been denied!!!',
+            }
+        });
+
+        // Delete the application
+        await handleDelete(appId);
     };
+
+
+
+
 
 
 

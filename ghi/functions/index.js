@@ -1,6 +1,49 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const nodemailer = require('nodemailer');
 admin.initializeApp();
+
+const gmailEmail = functions.config().gmail.email;
+const gmailPassword = functions.config().gmail.password;
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: gmailEmail,
+        pass: gmailPassword
+    }
+});
+
+const cors = require('cors')({origin: true});
+
+exports.sendEmail = functions.https.onRequest((request, response) => {
+  cors(request, response, async () => {
+      // Ensure it's a POST request
+      if (request.method !== 'POST') {
+          response.status(405).send('Method Not Allowed');
+          return;
+      }
+
+      const data = request.body;
+
+      // Function body remains the same
+      const mailOptions = {
+          from: gmailEmail,
+          to: data.email,
+          subject: 'Application Status',
+          text: 'Your application has been deleted.'
+      };
+
+      try {
+          const info = await transporter.sendMail(mailOptions);
+          response.send(info); // send the success info to the client
+      } catch (error) {
+          console.error('Error sending email:', error);
+          response.status(500).send('Failed to send email.');
+      }
+  });
+});
+
 
 exports.assignAdminRole = functions.https.onCall((data, context) => {
    // Check if the request is made by an authenticated user
