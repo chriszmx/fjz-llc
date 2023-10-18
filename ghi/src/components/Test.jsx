@@ -100,8 +100,9 @@ function Test() {
             <select value={selectedRole} onChange={e => setSelectedRole(e.target.value)}>
               <option value="" disabled>Select Role</option>
               <option value="admin">Admin</option>
-              <option value="user">User</option>
+              <option value="employee">Employee</option>
               <option value="guest">Guest</option>
+              <option value="renter">Renter</option>
             </select>
 
             <button onClick={handleRoleChange}>Assign Role</button>
