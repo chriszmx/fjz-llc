@@ -37,22 +37,22 @@ const AdminPanel = () => {
                 <h1 className="text-2xl">Admin Panel</h1>
             </header>
             <main className="p-4">
-                <section className="mb-8">
-                    <h2 className="text-xl font-bold mb-4">Rental Applications</h2>
-                    {/* This can be a list or table displaying rental application data */}
-                </section>
-                <section>
-                    <h2 className="text-xl font-bold mb-4">Other Section</h2>
-                    {/* Any other section you'd like to add */}
-                </section>
-                <section>
-                    <h2 className="text-xl font-bold mb-4">Assign Role</h2>
-                    <AssignRole />
-                </section>
+
                 <section>
                     <h2 className="text-xl font-bold mb-4">View Applications</h2>
                     <AdminViewApplications />
                 </section>
+
+                <section>
+                    <h2 className="text-xl font-bold mb-4">Other Section</h2>
+                    {/* Any other section you'd like to add */}
+                </section>
+
+                <section>
+                    <h2 className="text-xl font-bold mb-4">Assign Role</h2>
+                    <AssignRole />
+                </section>
+                
             </main>
         </div>
     );

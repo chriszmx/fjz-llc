@@ -7,10 +7,7 @@ import AdminPanel from "./components/admin/AdminPanel"
 import Profile from "./components/profile/Profile"
 import Application from "./components/application/Application"
 
-import Logout from "./components/Logout"
 import Status from "./components/Status"
-import Test from "./components/Test"
-import ApplicationForm from "./components/ApplicationForm"
 
 function App() {
 
@@ -27,9 +24,8 @@ function App() {
           <Route path="/employee" element={<h1>Employee</h1>} />
         </Routes>
         <Status />
-        <Test />
-        <Logout />
-        <ApplicationForm />
+
+
       </>
     </BrowserRouter>
   );

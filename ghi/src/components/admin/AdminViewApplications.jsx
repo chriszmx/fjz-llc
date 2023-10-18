@@ -52,7 +52,7 @@ const AdminViewApplications = () => {
             message: {
                 subject: 'Application Update!',
                 text: 'you have been denied!!!',
-                html: 'You have been denied!!!',
+                html: 'You have been denied, bitch!!!!',
             }
         });
 
