@@ -72,7 +72,7 @@ const Login = () => {
                             className="cursor-pointer text-indigo-500 hover:text-indigo-700"
                             onClick={() => setIsLogin(!isLogin)}
                         >
-                            {isLogin ? "Register now!" : "Login!"}
+                            {isLogin ? "Register now or login with Google!" : "Login!"}
                         </span>
                     </p>
                 </div>

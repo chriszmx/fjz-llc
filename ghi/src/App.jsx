@@ -5,6 +5,7 @@ import Home from "./components/Home"
 import Login from "./components/login/Login"
 import AdminPanel from "./components/admin/AdminPanel"
 import Profile from "./components/profile/Profile"
+import Application from "./components/application/Application"
 
 import Logout from "./components/Logout"
 import Status from "./components/Status"
@@ -22,7 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/application" element={<h1>Application</h1>} />
+          <Route path="/application" element={<Application />} />
           <Route path="/employee" element={<h1>Employee</h1>} />
         </Routes>
         <Status />

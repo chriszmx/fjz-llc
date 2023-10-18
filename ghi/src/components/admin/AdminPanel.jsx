@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { app, firestore } from '../../Firebase';
 import AssignRole from './AssignRole';
+import AdminViewApplications from './AdminViewApplications';
 
 const AdminPanel = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -47,6 +48,10 @@ const AdminPanel = () => {
                 <section>
                     <h2 className="text-xl font-bold mb-4">Assign Role</h2>
                     <AssignRole />
+                </section>
+                <section>
+                    <h2 className="text-xl font-bold mb-4">View Applications</h2>
+                    <AdminViewApplications />
                 </section>
             </main>
         </div>
