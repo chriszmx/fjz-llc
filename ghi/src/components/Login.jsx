@@ -28,7 +28,7 @@ const Login = () => {
             <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
                 <div className="text-center">
                     <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
-                        Sign in to your account
+                       Test Sign in to your account
                     </h2>
                 </div>
                 <input
