@@ -42,28 +42,27 @@
     .btn-secondary {
         @apply bg-white hover:bg-gray-50 text-indigo-600;
     }
-}
 
 
 
+    
+    /* dakr mode style */
 
- /* Dark Mode Styles */
-.dark {
     @layer base {
-        .dark body {
-            @apply text-gray-200 bg-gray-900;
-        }
+      .dark body {
+         @apply text-gray-200 bg-gray-900
+      }
 
-        .dark .bg-white {
-            @apply bg-gray-800;
-        }
+      .dark .bg-white {
+         @apply bg-gray-800
+      }
 
-        .dark .btn-primary {
-            @apply bg-indigo-500 hover:bg-indigo-600;
-        }
+      .dark .btn-primary {
+         @apply bg-indigo-500 hover:bg-indigo-600
+      }
 
-        .dark .btn-secondary {
-            @apply bg-gray-800 hover:bg-gray-700 text-indigo-500;
-        }
+      .dark .btn-secondary {
+         @apply bg-gray-800 hover:bg-gray-700 text-indigo-500
+      }
     }
 }
