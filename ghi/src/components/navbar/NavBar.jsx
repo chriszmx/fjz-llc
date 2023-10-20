@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { app } from '../../Firebase';
+import DarkModeToggle from '../darkMode/DarkModeToggle';
 
 const NavBar = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -56,12 +57,15 @@ const NavBar = () => {
     ];
 
     return (
-        <nav className="bg-white shadow-lg">
+        <nav className="bg-white shadow-lg dark:bg-gray-800">
             <div className="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
                 <div className="flex justify-between items-center">
-                    <Link to="/" className="text-gray-800 text-xl font-bold md:text-2xl">FJZ LLC</Link>
+                    <div className="flex items-center space-x-4">
+                        <Link to="/" className="text-gray-800 hover:text-gray-700 focus:outline-none focus:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400">FJZ LLC</Link>
+                        <DarkModeToggle className="md:mr-4" />
+                    </div>
                     <div className="md:hidden">
-                        <button onClick={toggleMenu} className="text-gray-800 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                        <button onClick={toggleMenu} className="text-gray-800 hover:text-gray-700 focus:outline-none focus:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400">
                             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
                                 {showMenu ? (
                                     // Close icon
@@ -79,11 +83,11 @@ const NavBar = () => {
                     <div className="flex flex-col md:flex-row md:mx-6">
                         {links.map((link, index) =>
                             link.onClick ? (
-                                <button key={index} onClick={link.onClick} className="my-1 text-sm text-gray-700 hover:underline md:mx-4 md:my-0">
+                                <button key={index} onClick={link.onClick} className="my-1 text-sm text-gray-700 hover:underline md:mx-4 md:my-0 dark:text-gray-200">
                                     {link.text}
                                 </button>
                             ) : (
-                                <Link key={index} to={link.to} className="my-1 text-gray-700 hover:underline md:mx-4 md:my-0">
+                                <Link key={index} to={link.to} className="my-1 text-gray-700 hover:underline md:mx-4 md:my-0 dark:text-gray-200">
                                     {link.text}
                                 </Link>
                             )
