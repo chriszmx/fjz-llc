@@ -49,9 +49,10 @@ const NavBar = () => {
         { to: "/", text: "Home" },
         ...role === 'admin' ? [{ to: "/admin", text: "Admin" }] : [],
         ...role === 'employee' || role === 'admin' ? [{ to: "/employee", text: "Employee" }] : [],
+        ...role === 'guest' || role === 'admin' ? [{ to: "/application", text: "Fill Out Application" }] : [],
         ...loggedIn ? [
             { to: "/profile", text: "Profile" },
-            { to: "/application", text: "Fill Out Application" },
+            // { to: "/application", text: "Fill Out Application" },
             { text: "Logout", onClick: handleLogout }
         ] : []
     ];

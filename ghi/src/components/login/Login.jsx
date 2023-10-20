@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     getAuth,
     signInWithEmailAndPassword,
@@ -7,6 +8,7 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
 } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +18,43 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [isLogin, setIsLogin] = useState(true);
 
+    const navigate = useNavigate();
+    const db = getFirestore(app);
     const auth = getAuth(app);
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            (async () => {  // This is an immediately invoked async function
+                if (user) {
+                    const userRef = doc(db, "users", user.uid);
+                    const userSnap = await getDoc(userRef);
+
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data();
+                        switch (userData.role) {
+                            case "admin":
+                                navigate("/admin");
+                                break;
+                            case "guest":
+                                navigate("/application");
+                                break;
+                            case "employee":
+                                navigate("/employee");
+                                break;
+                            case "renter":
+                                navigate("/profile");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            })();
+        });
+
+        return () => unsubscribe();
+    }, [auth, db, navigate]);
+
 
     const handleLogin = async () => {
         try {
@@ -63,13 +101,13 @@ const Login = () => {
         <div className="min-h-screen bg-gradient-to-r from-indigo-500 via-blue-500 to-green-400 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
                 <div className="text-center">
-                    <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
+                    <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900 dark:text-gray-200">
                         {isLogin ? "Sign In to your account" : "Register a new account"}
                     </h2>
-                    <p className="mt-2 text-sm text-gray-600">
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
                         {isLogin ? "New to us? " : "Already have an account? "}
                         <span
-                            className="cursor-pointer text-indigo-500 hover:text-indigo-700"
+                            className="cursor-pointer text-indigo-500 hover:text-indigo-700 dark:text-indigo-400"
                             onClick={() => setIsLogin(!isLogin)}
                         >
                             {isLogin ? "Register now or login with Google!" : "Login!"}
@@ -77,14 +115,14 @@ const Login = () => {
                     </p>
                 </div>
                 <input
-                    className="w-full px-3 py-2 mt-8 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 mt-8 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
                     type="text"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
-                    className="w-full px-3 py-2 mt-4 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 mt-4 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-gray-200 dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
                     type="password"
                     placeholder="Password"
                     value={password}
@@ -106,7 +144,7 @@ const Login = () => {
                         >
                             Login with Google
                         </button>
-                        <p className="mt-3 text-sm text-right text-gray-600 hover:text-indigo-700 cursor-pointer" onClick={handleForgotPassword}>
+                        <p className="mt-3 text-sm text-right text-gray-600 hover:text-indigo-700 cursor-pointer dark:text-gray-200" onClick={handleForgotPassword}>
                             Forgot Password?
                         </p>
                     </>
