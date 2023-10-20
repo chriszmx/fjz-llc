@@ -27,7 +27,7 @@ const Login = () => {
             (async () => {  // This is an immediately invoked async function
                 if (user) {
                     const userRef = doc(db, "users", user.uid);
-                    const userSnap = await getDoc(userRef);  // Now you can use await here
+                    const userSnap = await getDoc(userRef); 
 
                     if (userSnap.exists()) {
                         const userData = userSnap.data();
