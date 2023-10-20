@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { setPersistence, browserLocalPersistence } from "firebase/auth";
 import {
     getAuth,
@@ -19,6 +19,8 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [isLogin, setIsLogin] = useState(true);
 
+    const location = useLocation();
+
     const navigate = useNavigate();
     const db = getFirestore(app);
     const auth = getAuth(app);
@@ -26,7 +28,7 @@ const Login = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             (async () => {  // This is an immediately invoked async function
-                if (user) {
+                if (user && location.pathname === "/login") {
                     const userRef = doc(db, "users", user.uid);
                     const userSnap = await getDoc(userRef);
 
@@ -54,7 +56,7 @@ const Login = () => {
         });
 
         return () => unsubscribe();
-    }, [auth, db, navigate]);
+    }, [auth, db, navigate, location]);
 
 
     const handleLogin = async () => {

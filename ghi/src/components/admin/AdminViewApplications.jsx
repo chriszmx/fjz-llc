@@ -50,9 +50,9 @@ const AdminViewApplications = () => {
         await setDoc(notificationRef, {
             to: email,
             message: {
-                subject: 'Application Update!',
-                text: 'you have been denied!!!',
-                html: 'You have been denied',
+                subject: 'Application Update',
+                text: 'you have been denied',
+                html: 'Thank you for application, unfortunately, you have not been selected at this time. Please keep an eye out for other opportunities that peak your interest.',
             }
         });
 
