@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setPersistence, browserLocalPersistence } from "firebase/auth";
 import {
     getAuth,
     signInWithEmailAndPassword,
@@ -58,6 +59,7 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
+            await setPersistence(auth, browserLocalPersistence);
             await signInWithEmailAndPassword(auth, email, password);
             toast.success("Successfully logged in!");
         } catch (error) {
@@ -67,8 +69,9 @@ const Login = () => {
     };
 
     const signInWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
         try {
+            await setPersistence(auth, browserLocalPersistence);
+            const provider = new GoogleAuthProvider();
             await signInWithPopup(auth, provider);
             toast.success("Successfully logged in with Google!");
         } catch (error) {
@@ -79,6 +82,7 @@ const Login = () => {
 
     const handleRegister = async () => {
         try {
+            await setPersistence(auth, browserLocalPersistence);
             await createUserWithEmailAndPassword(auth, email, password);
             toast.success("Successfully registered!");
         } catch (error) {
@@ -86,6 +90,7 @@ const Login = () => {
             toast.error("Error during registration!");
         }
     };
+
 
     const handleForgotPassword = async () => {
         try {
