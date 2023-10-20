@@ -38,7 +38,7 @@ const Home = () => {
 
             {/* Footer */}
             <footer className="mt-auto text-sm">
-                <p>© 2023 FJZ LLC. All rights reserved.</p>
+                <p className='pt-10 pb-10'>© 2023 FJZ LLC. All rights reserved.</p>
             </footer>
         </div>
     );

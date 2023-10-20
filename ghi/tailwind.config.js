@@ -9,7 +9,10 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('postcss-nesting'),
+    require('tailwindcss'),
+  ],
 }
 
 
