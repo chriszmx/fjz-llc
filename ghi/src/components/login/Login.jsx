@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     getAuth,
     signInWithEmailAndPassword,
@@ -7,6 +8,7 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
 } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +18,43 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [isLogin, setIsLogin] = useState(true);
 
+    const navigate = useNavigate();
+    const db = getFirestore(app);
     const auth = getAuth(app);
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            (async () => {  // This is an immediately invoked async function
+                if (user) {
+                    const userRef = doc(db, "users", user.uid);
+                    const userSnap = await getDoc(userRef);  // Now you can use await here
+
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data();
+                        switch (userData.role) {
+                            case "admin":
+                                navigate("/admin");
+                                break;
+                            case "guest":
+                                navigate("/application");
+                                break;
+                            case "employee":
+                                navigate("/employee");
+                                break;
+                            case "renter":
+                                navigate("/profile");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            })();
+        });
+
+        return () => unsubscribe();
+    }, [auth, db, navigate]);
+
 
     const handleLogin = async () => {
         try {
