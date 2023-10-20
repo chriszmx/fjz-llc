@@ -5,6 +5,29 @@
 /* Import Inter Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+
+/* General scrollbar styles */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #303030;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #0e1d3fa0;
+    border-radius: 5px;
+    border: 2px solid rgba(11, 36, 128, 0.5);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #6e57f3;  /* A slightly darker gold on hover */
+}
+
+
 @layer base {
     /* Default (Light mode) styles */
     body {
@@ -45,7 +68,7 @@
 
 
 
-    
+
     /* dakr mode style */
 
     @layer base {
