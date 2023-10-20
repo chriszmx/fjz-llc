@@ -1,3 +1,69 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import Inter Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+    /* Default (Light mode) styles */
+    body {
+        @apply font-sans text-gray-800 bg-gray-100;
+    }
+
+    h1, h2, h3 {
+        @apply font-bold;
+    }
+
+    h1 {
+        @apply text-4xl;
+    }
+
+    h3 {
+        @apply text-2xl;
+    }
+
+    p {
+        @apply text-base;
+    }
+
+    .cta-btn {
+        @apply px-5 py-3 border border-transparent text-base font-medium rounded-md;
+    }
+
+
+
+
+    /* Global button styles for light mode */
+    .btn-primary {
+        @apply bg-indigo-600 hover:bg-indigo-700 text-white;
+    }
+
+    .btn-secondary {
+        @apply bg-white hover:bg-gray-50 text-indigo-600;
+    }
+}
+
+
+
+
+ /* Dark Mode Styles */
+.dark {
+    @layer base {
+        .dark body {
+            @apply text-gray-200 bg-gray-900;
+        }
+
+        .dark .bg-white {
+            @apply bg-gray-800;
+        }
+
+        .dark .btn-primary {
+            @apply bg-indigo-500 hover:bg-indigo-600;
+        }
+
+        .dark .btn-secondary {
+            @apply bg-gray-800 hover:bg-gray-700 text-indigo-500;
+        }
+    }
+}
