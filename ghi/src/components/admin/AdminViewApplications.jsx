@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, setDoc, getDoc } from "firebase/firestore";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import { app } from "../../Firebase";
+// import { getStorage } from "firebase/storage";
 
 const AdminViewApplications = () => {
     const [applications, setApplications] = useState([]);
@@ -34,11 +36,51 @@ const AdminViewApplications = () => {
 
     const handleDelete = async (appId) => {
         const db = getFirestore(app);
-        await deleteDoc(doc(db, 'application', appId));
+        const storage = getStorage(app);
+
+        // 1. Fetch the application entry
+        const appDocRef = doc(db, 'application', appId);
+        const appSnapshot = await getDoc(appDocRef);
+        const appData = appSnapshot.data();
+
+        if (appData) {
+            // Array of the keys that point to image URLs in your Firestore doc.
+            const imageKeys = ["ID Proof", "Proof Income 1", "Proof Income 2"];
+
+            // 2. Parse the URLs to get the storage paths
+            const imagePaths = imageKeys.map(key => {
+                if (appData[key]) {
+                    const imageUrl = appData[key];
+                    // Extract the path from the URL
+                    // Assuming your URLs look something like: https://firebasestorage.googleapis.com/v0/b/your-app-id.appspot.com/o/path-to-file?token=token-value
+                    // The following will extract 'path-to-file'
+                    const pathRegex = /o\/(.*?)\?/;
+                    const match = imageUrl.match(pathRegex);
+                    return match ? match[1] : null;
+                }
+                return null;
+            }).filter(path => !!path); // Remove null values
+
+            // 3. Delete each file from Firebase Storage
+            for (const imagePath of imagePaths) {
+                const imageRef = ref(storage, decodeURIComponent(imagePath)); // Decode URI since Firebase Storage path in the URL will be encoded
+                try {
+                    await deleteObject(imageRef);
+                } catch (error) {
+                    console.error("Error deleting file from storage:", imagePath, error);
+                }
+            }
+        }
+
+        // Delete the document from Firestore
+        await deleteDoc(appDocRef);
+
+        // Update local state
         const updatedApplications = applications.filter(app => app.id !== appId);
         setApplications(updatedApplications);
         setSelectedApplication(null);
     };
+
 
     const handleDeleteAndSendEmail = async (appId, email) => {
         const db = getFirestore(app);
@@ -143,10 +185,13 @@ const AdminViewApplications = () => {
         <>
             {Object.entries(application).map(([key, value], index) => {
                 if (key !== "id" && value !== "") {
-                    if (key === "image" && value) {
+                    if (["ID Proof", "Proof Income 1", "Proof Income 2"].includes(key) && value.startsWith("https://firebasestorage.googleapis.com/")) {
                         return (
                             <div key={index} className="mb-2">
-                                <img src={value} alt="Application related" className="max-w-xs"/>
+                                <strong>{key}:</strong>
+                                <div>
+                                    <img src={value} alt="Application related" className="max-w-xs"/>
+                                </div>
                             </div>
                         );
                     }

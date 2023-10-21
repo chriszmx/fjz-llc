@@ -74,7 +74,7 @@ const FormTemplate = ({ user }) => {
     const [formData, setFormData] = useState({});
 
     const handleInputChange = (name, value, e) => {
-        if (name === "ID Proof") {
+        if (e.target.type === "file") {
             const file = e.target.files[0];
             setFormData(prev => ({
                 ...prev,
@@ -87,6 +87,7 @@ const FormTemplate = ({ user }) => {
             }));
         }
     };
+
 
 
     const handleFormSubmit = async (event) => {
@@ -108,6 +109,7 @@ const FormTemplate = ({ user }) => {
             // Iterate over formData and upload if the value is a File
             for (const [key, value] of Object.entries(formData)) {
                 if (value instanceof File) {
+                    console.log("Uploading file for key:", key);
                     const storageRef = ref(storage, 'applications/' + value.name);
                     const uploadTask = uploadBytesResumable(storageRef, value);
 
