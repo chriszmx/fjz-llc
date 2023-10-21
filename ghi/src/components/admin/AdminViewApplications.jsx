@@ -143,6 +143,13 @@ const AdminViewApplications = () => {
         <>
             {Object.entries(application).map(([key, value], index) => {
                 if (key !== "id" && value !== "") {
+                    if (key === "image" && value) {
+                        return (
+                            <div key={index} className="mb-2">
+                                <img src={value} alt="Application related" className="max-w-xs"/>
+                            </div>
+                        );
+                    }
                     return (
                         <div key={index} className="mb-2">
                             <strong>{key}:</strong> {value}
