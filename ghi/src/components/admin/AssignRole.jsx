@@ -66,8 +66,8 @@ function AssignRole() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-6 text-indigo-600">All Users</h1>
+    <div className="min-h-screen bg-gray-100 p-6 dark:bg-gray-800">
+      <h1 className="text-3xl font-bold mb-6 text-indigo-600 dark:text-indogo-800">All Users</h1>
       <h2 className="text-xl mb-6">Logged in User Role: <span className="text-indigo-500">{currentUserRole}</span></h2>
 
       <table className="min-w-full bg-white rounded-md overflow-hidden shadow-md">
@@ -79,7 +79,7 @@ function AssignRole() {
         </thead>
         <tbody className="divide-y divide-gray-200">
           {users.map(user => (
-            <tr key={user.uid} className="hover:bg-gray-50">
+            <tr key={user.uid} className="hover:bg-gray-50 dark:hover:bg-gray-700">
               <td className="py-2 px-4">{user.email}</td>
               <td className="py-2 px-4">{user.role}</td>
             </tr>
@@ -91,14 +91,14 @@ function AssignRole() {
         <div className="mt-10">
           <h2 className="text-2xl font-semibold mb-6 text-indigo-600">Update Role</h2>
           <div className="space-y-4">
-            <select value={selectedEmail} onChange={e => setSelectedEmail(e.target.value)} className="w-full p-3 border rounded-md">
+            <select value={selectedEmail} onChange={e => setSelectedEmail(e.target.value)} className="w-full p-3 border rounded-md dark:bg-gray-700">
               <option value="" disabled>Select User by Email</option>
               {users.map(user => (
                 <option key={user.uid} value={user.email}>{user.email}</option>
               ))}
             </select>
 
-            <select value={selectedRole} onChange={e => setSelectedRole(e.target.value)} className="w-full p-3 border rounded-md">
+            <select value={selectedRole} onChange={e => setSelectedRole(e.target.value)} className="w-full p-3 border rounded-md dark:bg-gray-700">
               <option value="" disabled>Select Role</option>
               <option value="admin">Admin</option>
               <option value="employee">Employee</option>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { app, firestore } from '../../Firebase';
+
 import AssignRole from './AssignRole';
 import AdminViewApplications from './AdminViewApplications';
 
@@ -32,27 +33,22 @@ const AdminPanel = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <header className="bg-indigo-600 text-white p-4">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+            <header className="bg-indigo-600 text-white p-4 dark:bg-indigo-900 dark:text-gray-200">
                 <h1 className="text-2xl">Admin Panel</h1>
             </header>
             <main className="p-4">
 
-                <section>
+                <section className='mt-5 mb-10'>
                     <h2 className="text-xl font-bold mb-4">View Applications</h2>
                     <AdminViewApplications />
                 </section>
 
-                <section>
-                    <h2 className="text-xl font-bold mb-4">Other Section</h2>
-                    {/* Any other section you'd like to add */}
-                </section>
-
-                <section>
+                <section className='mt-10 mb-10'>
                     <h2 className="text-xl font-bold mb-4">Assign Role</h2>
                     <AssignRole />
                 </section>
-                
+
             </main>
         </div>
     );

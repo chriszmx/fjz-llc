@@ -90,6 +90,9 @@ const AdminViewApplications = () => {
                 case 'deleteAndSendEmail':
                     handleDeleteAndSendEmail(selectedApplication.id, selectedApplication.email);
                     break;
+                case 'sendApplicationByEmail':
+                    sendApplicationByEmail(selectedApplication);
+                    break;
                 default:
                     break;
             }
@@ -117,6 +120,7 @@ const AdminViewApplications = () => {
             deny: 'Confirm application denial?',
             delete: '**WARNING** Confirm application deletion? WILL NOT NOTIFIY APPLICANT.',
             deleteAndSendEmail: 'Confirm application deletion and sending of email?',
+            sendApplicationByEmail: 'Confirm sending of application details email?',
         };
 
         return (
@@ -147,16 +151,37 @@ const AdminViewApplications = () => {
                 }
                 return null;
             })}
-            <button className="bg-green-500 m-2 p-2 text-white" onClick={() => openModal('accept')}>Accept</button>
-            <button className="bg-green-600 m-2 p-2 text-white" onClick={() => openModal('sendAcceptanceEmail')}>Send Acceptance Email</button>
-            <button className="bg-red-500 m-2 p-2 text-white" onClick={() => openModal('deny')}>Deny</button>
-            <button className="bg-red-500 m-2 p-2 text-white" onClick={() => openModal('delete')}>Delete</button>
-            <button className="bg-red-600 m-2 p-2 text-white" onClick={() => openModal('deleteAndSendEmail')}>Delete and Send Email</button>
+            <button className="bg-green-400 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>Accept</button>
+            <button className="bg-green-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendAcceptanceEmail')}>Send Acceptance Email</button>
+            <button className="bg-red-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deny')}>Deny</button>
+            <button className="bg-red-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>Delete</button>
+            <button className="bg-red-900 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deleteAndSendEmail')}>Delete and Send Email</button>
+            <button className="bg-blue-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendApplicationByEmail')}>Email Application</button>
+
         </>
-
-
-
     );
+
+    const sendApplicationByEmail = async (application) => {
+        const db = getFirestore(app);
+        const notificationRef = doc(collection(db, 'mail'));
+
+        // Convert application details into a string for the email content
+        let emailContent = '';
+        for (let [key, value] of Object.entries(application)) {
+            if (key !== "id") {
+                emailContent += `<strong>${key}:</strong> ${value}<br>`;
+            }
+        }
+
+        await setDoc(notificationRef, {
+            to: 'c.r.zambito@gmail.com', // Use the email of the logged-in user here
+            message: {
+                subject: `Application Details for ${application.email}`,
+                text: 'See application details below:',
+                html: emailContent,
+            }
+        });
+    };
 
     return (
         <div className="flex space-x-6">
