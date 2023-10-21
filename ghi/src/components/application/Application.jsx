@@ -41,7 +41,7 @@ const FormTemplate = ({ user }) => {
                 { name: "Last Name", type: "text", required: true },
                 { name: "Email", type: "email", required: true },
                 { name: "Phone Number", type: "tel", required: true },
-                { name: "Date of Birth (DOB)", type: "date", required: true },
+                { name: "Date of Birth (DOB)", type: "text", required: true },
                 { name: "Marital Status", type: "text", required: true }
             ]
         },
@@ -56,8 +56,6 @@ const FormTemplate = ({ user }) => {
             ]
         },
 
-        // ... (your existing Identity Verification and Proof of Income sections) ...
-
         {
             title: 'Current Residence Details',
             description: '',
@@ -69,15 +67,73 @@ const FormTemplate = ({ user }) => {
                 { name: "Landlord Phone", type: "tel", required: true },
                 { name: "Amount of Rent", type: "number", required: true },
                 { name: "Reason for Leaving", type: "text", required: false },
-                { name: "Is your present rent up to date?", type: "checkbox", required: false },
-                { name: "Have you ever been locked out of your apartment by the sheriff?", type: "checkbox", required: false },
-                { name: "Have you ever been brought to court by another landlord?", type: "checkbox", required: false },
-                { name: "Have you ever moved owing rent or damaged an apartment?", type: "checkbox", required: false }
+                { name: "Is your present rent up to date?", type: "text", required: false },
+                { name: "Have you ever been locked out of your apartment by the sheriff?", type: "text", required: false },
+                { name: "Have you ever been brought to court by another landlord?", type: "text", required: false },
+                { name: "Have you ever moved owing rent or damaged an apartment?", type: "text", required: false }
             ]
         },
 
-        // ... (the rest of your new sections: Household Information, Vehicle Information, Employment & Income, Financial Information, References & History) ...
+        {
+            title: 'Household Information',
+            description: 'Tell us about your household.',
+            isOpen: false,
+            fields: [
+                { name: "Number of occupants", type: "text", required: true },
+                { name: "Details of each occupant (Name, Age, Occupation).", type: "text", required: true },
+                { name: "Do you have pets? How many & type.", type: "text", required: true },
+            ]
+        },
 
+        {
+            title: 'Vehicle Information',
+            description: 'Tell us about your vehicle(s).',
+            isOpen: false,
+            fields: [
+                { name: "Number of vehicles", type: "number", required: true },
+                { name: "Details of each vehicle (Make, Model, Color, Plate, Year).", type: "text", required: true },
+            ]
+        },
+
+        {
+            title: 'Employment & Income',
+            description: 'Tell us about your employment and income.',
+            isOpen: false,
+            fields: [
+                { name: "Employment Status", type: "text", required: true },
+                { name: "Current Employer", type: "text", required: true },
+                { name: "Occupation", type: "text", required: true },
+                { name: "Hours per Week", type: "number", required: true },
+                { name: "Supervisor Name", type: "text", required: true },
+                { name: "Current Income/Amount", type: "number", required: true },
+            ]
+        },
+
+        {
+            title: 'Financial Information',
+            description: 'Tell us about your financial situation.',
+            isOpen: false,
+            fields: [
+                { name: "Current Car Debt", type: "number", required: true },
+                { name: "Current Credit Card Debt", type: "number", required: true },
+                { name: "Is the total move-in amount available now?", type: "text", required: true },
+            ]
+        },
+
+        {
+            title: 'References & History',
+            description: 'Tell us about your references and history.',
+            isOpen: false,
+            fields: [
+                { name: "Emergency Contact (Name, Phone, Relationship)", type: "text", required: true },
+                { name: "Personal Reference (Name, Phone, Relationship)", type: "text", required: true },
+                { name: "Have you ever been sued for bills?", type: "text", required: true },
+                { name: "Have you ever filed for bankruptcy?", type: "text", required: true },
+                { name: "Have you ever been found guilty of a felony?", type: "text", required: true },
+                { name: "Have you ever been evicted?", type: "text", required: true },
+                { name: "Have you ever broken a lease?", type: "text", required: true },
+            ]
+        },
 
         {
             title: 'Identity Verification',
@@ -141,7 +197,7 @@ const FormTemplate = ({ user }) => {
         event.preventDefault();
 
     // Validate form data before submitting
-    const requiredFields = ["First Name", "ID Proof", "Proof Income 1", "Proof Income 2"];
+    const requiredFields = ["First Name"];
     for (let field of requiredFields) {
         if (!formData[field]) {
             alert(`Please provide ${field}`);
