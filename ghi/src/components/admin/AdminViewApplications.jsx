@@ -236,8 +236,8 @@ const AdminViewApplications = () => {
     };
 
     return (
-        <div className="flex space-x-6">
-            <div className="w-1/3">
+        <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
+            <div className="w-full md:w-1/3">
                 <h2 className="text-xl font-bold mb-4">Pending Applications</h2>
                 {applications.filter(app => app.status === 'pending').map(application => (
                     <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded">
@@ -257,12 +257,13 @@ const AdminViewApplications = () => {
                     </div>
                 ))}
             </div>
-            <div className="w-2/3 p-6 bg-white rounded shadow-lg">
+            <div className="w-full md:w-2/3 p-6 bg-white rounded shadow-lg">
                 {selectedApplication ? renderDetails(selectedApplication) : <p>Select an application to view details.</p>}
             </div>
             {renderModal()}
         </div>
     );
+
 };
 
 export default AdminViewApplications;
