@@ -36,11 +36,48 @@ const FormTemplate = ({ user }) => {
             description: 'Tell us a bit about yourself.',
             isOpen: true,
             fields: [
-                { name: "Full Name", type: "text", required: true },
-                { name: "Date of Birth", type: "date", required: true },
-                { name: "Phone Number", type: "tel", required: true }
+                { name: "First Name", type: "text", required: true },
+                { name: "Middle Initial", type: "text", required: false },
+                { name: "Last Name", type: "text", required: true },
+                { name: "Email", type: "email", required: true },
+                { name: "Phone Number", type: "tel", required: true },
+                { name: "Date of Birth (DOB)", type: "date", required: true },
+                { name: "Marital Status", type: "text", required: true }
             ]
         },
+
+        {
+            title: 'Identification',
+            description: 'Verify your identity.',
+            isOpen: false,
+            fields: [
+                { name: "Last 4 of SSN", type: "text", required: true },
+                { name: "Driver License Number", type: "text", required: true },
+            ]
+        },
+
+        // ... (your existing Identity Verification and Proof of Income sections) ...
+
+        {
+            title: 'Current Residence Details',
+            description: '',
+            isOpen: false,
+            fields: [
+                { name: "Present Home Address", type: "text", required: true },
+                { name: "Apartment/Location Apt#", type: "text", required: false },
+                { name: "Length of Time at Address", type: "text", required: true },
+                { name: "Landlord Phone", type: "tel", required: true },
+                { name: "Amount of Rent", type: "number", required: true },
+                { name: "Reason for Leaving", type: "text", required: false },
+                { name: "Is your present rent up to date?", type: "checkbox", required: false },
+                { name: "Have you ever been locked out of your apartment by the sheriff?", type: "checkbox", required: false },
+                { name: "Have you ever been brought to court by another landlord?", type: "checkbox", required: false },
+                { name: "Have you ever moved owing rent or damaged an apartment?", type: "checkbox", required: false }
+            ]
+        },
+
+        // ... (the rest of your new sections: Household Information, Vehicle Information, Employment & Income, Financial Information, References & History) ...
+
 
         {
             title: 'Identity Verification',
@@ -67,7 +104,17 @@ const FormTemplate = ({ user }) => {
             fields: [
                 { name: "Proof Income 2", type: "file", required: true }
             ]
-        }
+        },
+
+        {
+            title: 'Authorization',
+            description: "Applicant authorizes the landlord to contact past and present landlords, employers, creditors, credit bureaus, neighbors and any other sources deemed necessary to investigate applicant. All information is true, accurate and complete to the best of applicant's knowledge. Landlord reserves the right to disqualify tenant if information is not as represented. ANY PERSON OR FIRM IS AUTHORIZED TO RELEASE INFORMATION ABOUT THE UNDERSIGNED UPON PRESENTATION OF THIS FORM OR A PHOTOCOPY OF THIS FORM AT ANY TIME.",
+            isOpen: false,
+            fields: [
+                { name: "Sign Here", type: "text", required: true },
+                { name: "Today's Date", type: "date", required: true, defaultValue: new Date().toISOString().split('T')[0] } // Auto-populates today's date
+            ]
+        },
 
     ]);
 
@@ -94,7 +141,7 @@ const FormTemplate = ({ user }) => {
         event.preventDefault();
 
     // Validate form data before submitting
-    const requiredFields = ["Full Name", "Date of Birth", "Phone Number", "ID Proof", "Proof Income 1", "Proof Income 2"];
+    const requiredFields = ["First Name", "ID Proof", "Proof Income 1", "Proof Income 2"];
     for (let field of requiredFields) {
         if (!formData[field]) {
             alert(`Please provide ${field}`);
