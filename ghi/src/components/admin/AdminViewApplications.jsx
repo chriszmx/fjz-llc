@@ -188,19 +188,19 @@ const AdminViewApplications = () => {
             <div className="w-1/3">
                 <h2 className="text-xl font-bold mb-4">Pending Applications</h2>
                 {applications.filter(app => app.status === 'pending').map(application => (
-                    <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 p-2 rounded">
+                    <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded">
                         {application.email}
                     </div>
                 ))}
                 <h2 className="text-xl font-bold mb-4 mt-8">Approved Applications</h2>
                 {applications.filter(app => app.status === 'accepted').map(application => (
-                    <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 p-2 rounded">
+                    <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded">
                         {application.email}
                     </div>
                 ))}
                 <h2 className="text-xl font-bold mb-4 mt-8">Denied Applications</h2>
                 {applications.filter(app => app.status === 'denied').map(application => (
-                    <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 p-2 rounded">
+                    <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded">
                         {application.email}
                     </div>
                 ))}
