@@ -157,12 +157,12 @@ const AdminViewApplications = () => {
         if (!showModal || !actionType) return null;
 
         const message = {
-            accept: 'Confirm application acceptance?',
-            sendAcceptanceEmail: 'Confirm sending acceptance email?',
-            deny: 'Confirm application denial?',
-            delete: '**WARNING** Confirm application deletion? WILL NOT NOTIFIY APPLICANT.',
-            deleteAndSendEmail: 'Confirm application deletion and sending of email?',
-            sendApplicationByEmail: 'Confirm sending of application details email?',
+            accept: '**SAFE** Confirm application acceptance? THIS WILL NOT NOTIFY APPLICANT.',
+            sendAcceptanceEmail: '**EMAIL WARNING** Confirm sending acceptance email?',
+            deny: '**SAFE** Confirm application denial? THIS WILL NOT NOTIFY APPLICANT.',
+            delete: '**DELETE WARNING** Confirm application deletion? WILL NOT NOTIFIY APPLICANT. This Will Delete ALL Photos/Data Associated With This Application.',
+            deleteAndSendEmail: '**EMAIL WARNING** Confirm application deletion and sending of email? This Will Remove All Data Associated With This Application.',
+            sendApplicationByEmail: '**SAFE** Confirm sending of application details email to FJZ?',
         };
 
         return (
