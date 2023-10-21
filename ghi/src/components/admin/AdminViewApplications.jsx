@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
-// import { getFunctions } from "firebase/functions";
-// import { httpsCallable } from "firebase/functions";
-
-
-// const functions = getFunctions(app);
 
 const AdminViewApplications = () => {
     const [applications, setApplications] = useState([]);
     const [selectedApplication, setSelectedApplication] = useState(null);
+
+    const [showModal, setShowModal] = useState(false);
+    const [actionType, setActionType] = useState(null);
 
     useEffect(() => {
         const fetchApplications = async () => {
@@ -74,9 +72,65 @@ const AdminViewApplications = () => {
         });
     };
 
+    const executeAction = () => {
+        if (selectedApplication) {
+            switch (actionType) {
+                case 'accept':
+                    handleStatusChange(selectedApplication.id, 'accepted');
+                    break;
+                case 'sendAcceptanceEmail':
+                    handleAcceptAndSendEmail(selectedApplication.email);
+                    break;
+                case 'deny':
+                    handleStatusChange(selectedApplication.id, 'denied');
+                    break;
+                case 'delete':
+                    handleDelete(selectedApplication.id);
+                    break;
+                case 'deleteAndSendEmail':
+                    handleDeleteAndSendEmail(selectedApplication.id, selectedApplication.email);
+                    break;
+                default:
+                    break;
+            }
+        }
+        setShowModal(false);
+        setActionType(null);
+    };
 
+    const openModal = (type) => {
+        setActionType(type);
+        setShowModal(true);
+    };
 
+    const closeModal = () => {
+        setShowModal(false);
+        setActionType(null);
+    };
 
+    const renderModal = () => {
+        if (!showModal || !actionType) return null;
+
+        const message = {
+            accept: 'Confirm application acceptance?',
+            sendAcceptanceEmail: 'Confirm sending acceptance email?',
+            deny: 'Confirm application denial?',
+            delete: '**WARNING** Confirm application deletion? WILL NOT NOTIFIY APPLICANT.',
+            deleteAndSendEmail: 'Confirm application deletion and sending of email?',
+        };
+
+        return (
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-4 rounded shadow-md">
+                    <p>{message[actionType]}</p>
+                    <div className="flex justify-end mt-4">
+                        <button className="bg-green-500 m-2 p-2 text-white" onClick={executeAction}>Confirm</button>
+                        <button className="bg-red-500 m-2 p-2 text-white" onClick={closeModal}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
 
 
 
@@ -93,11 +147,11 @@ const AdminViewApplications = () => {
                 }
                 return null;
             })}
-            <button className="bg-green-500 m-2 p-2 text-white" onClick={() => handleStatusChange(application.id, "accepted")}>Accept</button>
-            <button className="bg-green-600 m-2 p-2 text-white" onClick={() => handleAcceptAndSendEmail(application.email)}>Send Acceptance Email</button>
-            <button className="bg-red-500 m-2 p-2 text-white" onClick={() => handleStatusChange(application.id, "denied")}>Deny</button>
-            <button className="bg-red-500 m-2 p-2 text-white" onClick={() => handleDelete(application.id)}>Delete</button>
-            <button className="bg-red-600 m-2 p-2 text-white" onClick={() => handleDeleteAndSendEmail(application.id, application.email)}>Delete and Send Email</button>
+            <button className="bg-green-500 m-2 p-2 text-white" onClick={() => openModal('accept')}>Accept</button>
+            <button className="bg-green-600 m-2 p-2 text-white" onClick={() => openModal('sendAcceptanceEmail')}>Send Acceptance Email</button>
+            <button className="bg-red-500 m-2 p-2 text-white" onClick={() => openModal('deny')}>Deny</button>
+            <button className="bg-red-500 m-2 p-2 text-white" onClick={() => openModal('delete')}>Delete</button>
+            <button className="bg-red-600 m-2 p-2 text-white" onClick={() => openModal('deleteAndSendEmail')}>Delete and Send Email</button>
         </>
 
 
@@ -129,6 +183,7 @@ const AdminViewApplications = () => {
             <div className="w-2/3 p-6 bg-white rounded shadow-lg">
                 {selectedApplication ? renderDetails(selectedApplication) : <p>Select an application to view details.</p>}
             </div>
+            {renderModal()}
         </div>
     );
 };
