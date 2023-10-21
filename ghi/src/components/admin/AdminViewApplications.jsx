@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
 // import { getFunctions } from "firebase/functions";
-import { httpsCallable } from "firebase/functions";
+// import { httpsCallable } from "firebase/functions";
 
 
 // const functions = getFunctions(app);
@@ -60,6 +60,21 @@ const AdminViewApplications = () => {
         await handleDelete(appId);
     };
 
+    const handleAcceptAndSendEmail = async (email) => {
+        console.log("Trying to send acceptance email to:", email);
+        const db = getFirestore(app);
+        const notificationRef = doc(collection(db, 'mail'));
+        await setDoc(notificationRef, {
+            to: email,
+            message: {
+                subject: 'Application Update',
+                text: 'you have been accepted',
+                html: 'Thank you for your application, you have been accepted. You will receive an email/text message within the next 24 hours with steps to move forward. Thank you and congratulations!',
+            }
+        });
+    };
+
+
 
 
 
@@ -79,6 +94,7 @@ const AdminViewApplications = () => {
                 return null;
             })}
             <button className="bg-green-500 m-2 p-2 text-white" onClick={() => handleStatusChange(application.id, "accepted")}>Accept</button>
+            <button className="bg-green-600 m-2 p-2 text-white" onClick={() => handleAcceptAndSendEmail(application.email)}>Send Acceptance Email</button>
             <button className="bg-red-500 m-2 p-2 text-white" onClick={() => handleStatusChange(application.id, "denied")}>Deny</button>
             <button className="bg-red-500 m-2 p-2 text-white" onClick={() => handleDelete(application.id)}>Delete</button>
             <button className="bg-red-600 m-2 p-2 text-white" onClick={() => handleDeleteAndSendEmail(application.id, application.email)}>Delete and Send Email</button>
