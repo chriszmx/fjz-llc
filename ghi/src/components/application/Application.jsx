@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
 import Login from "../../components/login/Login";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 
 const Application = () => {
     const [user, setUser] = useState(null);
@@ -205,23 +206,31 @@ const FormTemplate = ({ user }) => {
         const db = getFirestore(app);
         const notificationRef = doc(collection(db, 'mail'));
 
+        const excludedFields = ["id"];
+
         // Convert application details into a string for the email content
         let emailContent = '';
         for (let [key, value] of Object.entries(application)) {
-            if (key !== "id") {
+            if (!excludedFields.includes(key)) {
                 emailContent += `<strong>${key}:</strong> ${value}<br>`;
             }
         }
 
-        await setDoc(notificationRef, {
-            to: ['c.r.zambito@gmail.com', 'fjzambito@gmail.com', 'bz814@aol.com'], // Array of recipients
-            message: {
-                subject: `Application Details for ${application.email}`,
-                text: 'See application details below:',
-                html: emailContent,
-            }
-        });
+        try {
+            await setDoc(notificationRef, {
+                to: ['c.r.zambito@gmail.com', 'fjzambito@gmail.com', 'bz814@aol.com'], // Array of recipients
+                message: {
+                    subject: `Application Details for ${application.email}`,
+                    text: 'See application details below:',
+                    html: emailContent,
+                }
+            });
+        } catch (error) {
+            console.error("Error sending application by email: ", error);
+            throw new Error('There was an issue sending the email.');
+        }
     };
+
 
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -230,67 +239,72 @@ const FormTemplate = ({ user }) => {
         event.preventDefault();
         setIsSubmitting(true);
 
+        try {
         // Validate form data before submitting
         const requiredFields = ["First Name", "Last Name", "Email", "Phone Number", "Date of Birth (DOB)", "Appartment Address", "Appartment Number", "Amount of Rent", "Number of occupants", "Do you have pets? How many & type.", "Employment Status", "Current Employer", "Occupation", "Hours per Week", "Current Income/Amount", "Is the total move-in amount available now?", "Have you ever been sued for bills?", "Have you ever filed for bankruptcy?", "Have you ever been found guilty of a felony?", "Have you ever been evicted?", "Have you ever broken a lease?", "Sign Here", "Today's Date"];
         for (let field of requiredFields) {
             if (!formData[field]) {
                 alert(`Please provide ${field}`);
+                setIsSubmitting(false);
                 return;
             }
         }
 
-        try {
-            const db = getFirestore(app);
-            const storage = getStorage(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
 
-            // Iterate over formData and upload if the value is a File
-            for (const [key, value] of Object.entries(formData)) {
-                if (value instanceof File) {
-                    console.log("Uploading file for key:", key);
-                    const storageRef = ref(storage, 'applications/' + value.name);
-                    const uploadTask = uploadBytesResumable(storageRef, value);
+        // Iterate over formData and upload if the value is a File
+        for (const [key, value] of Object.entries(formData)) {
+            if (value instanceof File) {
+                console.log("Uploading file for key:", key);
+                const storageRef = ref(storage, 'applications/' + value.name);
+                const uploadTask = uploadBytesResumable(storageRef, value);
 
-                    // Wait for the upload to complete
-                    await new Promise((resolve, reject) => {
-                        uploadTask.on('state_changed',
-                            (snapshot) => { },
-                            (error) => {
-                                reject(error);
-                            },
-                            async () => {
-                                const imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-                                formData[key] = imageUrl;
-                                resolve();
-                            }
-                        );
-                    });
-                }
+                // Wait for the upload to complete
+                await new Promise((resolve, reject) => {
+                    uploadTask.on('state_changed',
+                        (snapshot) => { },
+                        (error) => {
+                            reject(error);
+                        },
+                        async () => {
+                            const imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
+                            formData[key] = imageUrl;
+                            resolve();
+                        }
+                    );
+                });
             }
+        }
 
-            await addDoc(collection(db, "application"), {
-                uid: user.uid,
-                email: user.email,
-                status: "pending",
-                ...formData
-            });
+        await addDoc(collection(db, "application"), {
+            uid: user.uid,
+            email: user.email,
+            status: "pending",
+            ...formData
+        });
 
-            alert('Form submitted successfully! Please check your email for status updates on your rental application from noreply@fjzapartments.com, also check your spam folder.');
+        try {
             await sendApplicationByEmail({
                 ...formData,
                 uid: user.uid,
                 email: user.email,
                 status: "pending"
             });
+            alert('Form submitted successfully! Please check your email for status updates on your rental application from noreply@fjzapartments.com, also check your spam folder.');
             setFormData({});
-
-            setIsSubmitting(false);
-        } catch (error) {
-            console.error("Error submitting form: ", error);
-            alert('There was an issue submitting the form.');
-
-            setIsSubmitting(false);
+        } catch (emailError) {
+            console.error("Error sending application by email: ", emailError);
+            alert('Form was submitted, but there was an issue sending the confirmation email.');
         }
-    };
+
+    } catch (error) {
+        console.error("Error submitting form: ", error);
+        alert('There was an issue submitting the form.');
+    } finally {
+        setIsSubmitting(false);
+    }
+};
 
 
 
