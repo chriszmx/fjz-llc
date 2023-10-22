@@ -42,7 +42,17 @@ const FormTemplate = ({ user }) => {
                 { name: "Email", type: "email", required: true },
                 { name: "Phone Number", type: "tel", required: true },
                 { name: "Date of Birth (DOB)", type: "text", required: true },
-                { name: "Marital Status", type: "text", required: true }
+                { name: "Marital Status", type: "text", required: false }
+            ]
+        },
+
+        {
+            title: 'Appartment Information',
+            description: 'Verify the apartment you are applying for.',
+            isOpen: false,
+            fields: [
+                { name: "Appartment Address", type: "text", required: true },
+                { name: "Appartment Number", type: "text", required: true },
             ]
         },
 
@@ -58,19 +68,19 @@ const FormTemplate = ({ user }) => {
 
         {
             title: 'Current Residence Details',
-            description: '',
+            description: 'Current residence details.',
             isOpen: false,
             fields: [
-                { name: "Present Home Address", type: "text", required: true },
+                { name: "Present Home Address", type: "text", required: false },
                 { name: "Apartment/Location Apt#", type: "text", required: false },
-                { name: "Length of Time at Address", type: "text", required: true },
-                { name: "Landlord Phone", type: "tel", required: true },
+                { name: "Length of Time at Address", type: "text", required: false },
+                { name: "Landlord Phone", type: "tel", required: false },
                 { name: "Amount of Rent", type: "number", required: true },
-                { name: "Reason for Leaving", type: "text", required: false },
-                { name: "Is your present rent up to date?", type: "text", required: false },
-                { name: "Have you ever been locked out of your apartment by the sheriff?", type: "text", required: false },
-                { name: "Have you ever been brought to court by another landlord?", type: "text", required: false },
-                { name: "Have you ever moved owing rent or damaged an apartment?", type: "text", required: false }
+                { name: "Reason for Leaving", type: "text", required: true },
+                { name: "Is your present rent up to date?", type: "text", required: true },
+                { name: "Have you ever been locked out of your apartment by the sheriff?", type: "text", required: true },
+                { name: "Have you ever been brought to court by another landlord?", type: "text", required: true },
+                { name: "Have you ever moved owing rent or damaged an apartment?", type: "text", required: true }
             ]
         },
 
@@ -91,7 +101,7 @@ const FormTemplate = ({ user }) => {
             isOpen: false,
             fields: [
                 { name: "Number of vehicles", type: "number", required: true },
-                { name: "Details of each vehicle (Make, Model, Color, Plate, Year).", type: "text", required: true },
+                { name: "Details of each vehicle (Make, Model, Color, Plate, Year).", type: "text", required: false },
             ]
         },
 
@@ -104,7 +114,7 @@ const FormTemplate = ({ user }) => {
                 { name: "Current Employer", type: "text", required: true },
                 { name: "Occupation", type: "text", required: true },
                 { name: "Hours per Week", type: "number", required: true },
-                { name: "Supervisor Name", type: "text", required: true },
+                { name: "Supervisor Name", type: "text", required: false },
                 { name: "Current Income/Amount", type: "number", required: true },
             ]
         },
@@ -114,8 +124,8 @@ const FormTemplate = ({ user }) => {
             description: 'Tell us about your financial situation.',
             isOpen: false,
             fields: [
-                { name: "Current Car Debt", type: "number", required: true },
-                { name: "Current Credit Card Debt", type: "number", required: true },
+                { name: "Current Car Debt", type: "number", required: false },
+                { name: "Current Credit Card Debt", type: "number", required: false },
                 { name: "Is the total move-in amount available now?", type: "text", required: true },
             ]
         },
@@ -125,8 +135,8 @@ const FormTemplate = ({ user }) => {
             description: 'Tell us about your references and history.',
             isOpen: false,
             fields: [
-                { name: "Emergency Contact (Name, Phone, Relationship)", type: "text", required: true },
-                { name: "Personal Reference (Name, Phone, Relationship)", type: "text", required: true },
+                { name: "Emergency Contact (Name, Phone, Relationship)", type: "text", required: false },
+                { name: "Personal Reference (Name, Phone, Relationship)", type: "text", required: false },
                 { name: "Have you ever been sued for bills?", type: "text", required: true },
                 { name: "Have you ever filed for bankruptcy?", type: "text", required: true },
                 { name: "Have you ever been found guilty of a felony?", type: "text", required: true },
@@ -191,19 +201,20 @@ const FormTemplate = ({ user }) => {
         }
     };
 
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+        setIsSubmitting(true);
 
-    // Validate form data before submitting
-    const requiredFields = ["First Name"];
-    for (let field of requiredFields) {
-        if (!formData[field]) {
-            alert(`Please provide ${field}`);
-            return;
+        // Validate form data before submitting
+        const requiredFields = ["First Name", "Last Name", "Email", "Phone Number", "Date of Birth (DOB)", "Appartment Address", "Appartment Number", "Amount of Rent", "Number of occupants", "Do you have pets? How many & type.", "Employment Status", "Current Employer", "Occupation", "Hours per Week", "Current Income/Amount", "Is the total move-in amount available now?", "Have you ever been sued for bills?", "Have you ever filed for bankruptcy?", "Have you ever been found guilty of a felony?", "Have you ever been evicted?", "Have you ever broken a lease?", "Sign Here", "Today's Date"];
+        for (let field of requiredFields) {
+            if (!formData[field]) {
+                alert(`Please provide ${field}`);
+                return;
+            }
         }
-    }
 
         try {
             const db = getFirestore(app);
@@ -219,7 +230,7 @@ const FormTemplate = ({ user }) => {
                     // Wait for the upload to complete
                     await new Promise((resolve, reject) => {
                         uploadTask.on('state_changed',
-                            (snapshot) => {},
+                            (snapshot) => { },
                             (error) => {
                                 reject(error);
                             },
@@ -241,9 +252,14 @@ const FormTemplate = ({ user }) => {
             });
 
             alert('Form submitted successfully!');
+            setFormData({});
+
+            setIsSubmitting(false);
         } catch (error) {
             console.error("Error submitting form: ", error);
             alert('There was an issue submitting the form.');
+
+            setIsSubmitting(false);
         }
     };
 
@@ -260,49 +276,60 @@ const FormTemplate = ({ user }) => {
         setSections(updatedSections);
     };
 
+
     return (
-        <form onSubmit={handleFormSubmit}>
-            {sections.map((section, index) => (
-                <div key={index} className="mb-6 border dark:border-gray-700 p-4 rounded-md shadow-sm bg-white dark:bg-gray-800">
-                    <button
-                        onClick={() => toggleSection(index)}
-                        className="flex justify-between items-center w-full bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white px-4 py-2 rounded-md focus:outline-none"
-                    >
-                        <span>{section.title}</span>
-                        <span>{section.isOpen ? '−' : '+'}</span>
-                    </button>
-                    <p className="mt-2 text-gray-600 dark:text-gray-300">{section.description}</p>
-                    {section.isOpen && (
-                        <div className="mt-4 space-y-4">
-                            {section.fields.map(field => (
-                                <div key={field.name}>
-                                    {/* Main label */}
-                                    <label className="block text-gray-700 dark:text-gray-200">{field.name}</label>
-
-                                    {/* Sub-description or placeholder */}
-                                    {field.placeholder &&
-                                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{field.placeholder}</p>
-                                    }
-
-                                    {/* Input Field */}
-                                    <InputField
-                                        field={field}
-                                        value={formData[field.name] || ""}
-                                        onChange={e => handleInputChange(field.name, e.target.value, e)}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    )}
+        <div>
+            {/* Overlay message during form submission */}
+            {isSubmitting && (
+                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50 bg-black z-50">
+                    <div className="bg-white p-6 rounded shadow-md text-xl">
+                        Form updating... Please do not navigate away. This may take a few minutes. A confirmation will appear when submission has been successful. Thank you!
+                    </div>
                 </div>
-            ))}
-            <button
-                type="submit"
-                className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white px-4 py-2 rounded-md"
-            >
-                Submit
-            </button>
-        </form>
+            )}
+            <form onSubmit={handleFormSubmit}>
+                {sections.map((section, index) => (
+                    <div key={index} className="mb-6 border dark:border-gray-700 p-4 rounded-md shadow-sm bg-white dark:bg-gray-800">
+                        <button
+                            onClick={() => toggleSection(index)}
+                            className="flex justify-between items-center w-full bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white px-4 py-2 rounded-md focus:outline-none"
+                        >
+                            <span>{section.title}</span>
+                            <span>{section.isOpen ? '−' : '+'}</span>
+                        </button>
+                        <p className="mt-2 text-gray-600 dark:text-gray-300">{section.description}</p>
+                        {section.isOpen && (
+                            <div className="mt-4 space-y-4">
+                                {section.fields.map(field => (
+                                    <div key={field.name}>
+                                        {/* Main label */}
+                                        <label className="block text-gray-700 dark:text-gray-200">{field.name}</label>
+
+                                        {/* Sub-description or placeholder */}
+                                        {field.placeholder &&
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{field.placeholder}</p>
+                                        }
+
+                                        {/* Input Field */}
+                                        <InputField
+                                            field={field}
+                                            value={formData[field.name] || ""}
+                                            onChange={e => handleInputChange(field.name, e.target.value, e)}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ))}
+                <button
+                    type="submit"
+                    className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white px-4 py-2 rounded-md"
+                >
+                    Submit
+                </button>
+            </form>
+        </div>
     );
 };
 
