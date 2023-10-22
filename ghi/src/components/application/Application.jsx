@@ -204,7 +204,6 @@ const FormTemplate = ({ user }) => {
 
     const sendApplicationByEmail = async (application) => {
         const db = getFirestore(app);
-        const notificationRef = doc(collection(db, 'mail'));
 
         const excludedFields = ["id"];
 
@@ -217,7 +216,8 @@ const FormTemplate = ({ user }) => {
         }
 
         try {
-            await setDoc(notificationRef, {
+            // Email to the administrators
+            await setDoc(doc(collection(db, 'mail')), {
                 to: ['c.r.zambito@gmail.com', 'fjzambito@gmail.com', 'bz814@aol.com'], // Array of recipients
                 message: {
                     subject: `Application Details for ${application.email}`,
@@ -225,11 +225,22 @@ const FormTemplate = ({ user }) => {
                     html: emailContent,
                 }
             });
+
+            // Confirmation email to the applicant
+            await setDoc(doc(collection(db, 'mail')), {
+                to: [application.email],
+                message: {
+                    subject: 'Your Rental Application Submission',
+                    text: 'Thank you for submitting your rental application. Please keep an eye out for updates on the status of your application.',
+                    html: `<p>Thank you, <strong>${application["First Name"]} ${application["Last Name"]}</strong>, for submitting your rental application to FJZ Apartments.</p><p>Please keep an eye out for updates on the status of your application.</p><p>Best regards,<br>FJZ Apartments Team</p>`,
+                }
+            });
         } catch (error) {
             console.error("Error sending application by email: ", error);
             throw new Error('There was an issue sending the email.');
         }
     };
+
 
 
 
