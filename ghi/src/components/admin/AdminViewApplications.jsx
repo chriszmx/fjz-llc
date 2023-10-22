@@ -256,12 +256,12 @@ const AdminViewApplications = () => {
                 }
                 return null;
             })}
-            <button className="bg-green-400 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>Accept</button>
-            <button className="bg-green-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendAcceptanceEmail')}>Send Acceptance Email</button>
-            <button className="bg-red-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deny')}>Deny</button>
-            <button className="bg-red-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>Delete</button>
-            <button className="bg-red-900 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deleteAndSendEmail')}>Delete and Send Email</button>
-            <button className="bg-blue-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendApplicationByEmail')}>Email Application</button>
+            <button className="bg-green-400 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>Move to Accept</button>
+            <button className="bg-red-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deny')}>Move to Deny</button>
+            <button className="bg-red-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>*DELETE*</button>
+            <button className="bg-green-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendAcceptanceEmail')}>Send Acceptance Email to Applicant</button>
+            <button className="bg-red-900 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deleteAndSendEmail')}>*Delete* and Send Rejection Email</button>
+            <button className="bg-blue-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendApplicationByEmail')}>Email Application to Self</button>
 
         </>
     );
