@@ -6,6 +6,7 @@ import { app, firestore } from '../../Firebase';
 import AssignRole from './AssignRole';
 import AdminViewApplications from './AdminViewApplications';
 
+
 const AdminPanel = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const auth = getAuth(app);

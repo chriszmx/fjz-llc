@@ -108,6 +108,7 @@ function AssignRole() {
             Employee - Will be able to clockin/clockout in future update, schedule maintenance etc. <br />
             Renter - Switch user to renter after accepting. <br />
             Guest - Default role, used for application process. <br />
+            X - Remove user from database. <br />
           </p>
           <div className="space-y-4">
           {/* <input
@@ -131,6 +132,7 @@ function AssignRole() {
               <option value="employee">Employee</option>
               <option value="guest">Guest</option>
               <option value="renter">Renter</option>
+              <option value="X">Remove User</option>
             </select>
 
             <button onClick={handleRoleChange} className="w-full p-3 bg-indigo-600 text-white rounded hover:bg-indigo-700">

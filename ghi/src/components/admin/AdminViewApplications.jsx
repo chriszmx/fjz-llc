@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, setDoc, getDoc } from "firebase/firestore";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { app } from "../../Firebase";
+import { getAuth, deleteUser } from "firebase/auth";
 // import { getStorage } from "firebase/storage";
 
 const AdminViewApplications = () => {
@@ -114,6 +115,7 @@ const AdminViewApplications = () => {
         });
     };
 
+
     const executeAction = () => {
         if (selectedApplication) {
             switch (actionType) {
@@ -135,6 +137,8 @@ const AdminViewApplications = () => {
                 case 'sendApplicationByEmail':
                     sendApplicationByEmail(selectedApplication);
                     break;
+                case 'deleteUserAndSendEmail':
+                    handleDeleteUserAndSendEmail(selectedApplication.id, selectedApplication.email, selectedApplication.uid);
                 default:
                     break;
             }
@@ -178,13 +182,62 @@ const AdminViewApplications = () => {
         );
     };
 
-
+    const orderList = [
+        "First Name",
+        "Middle Initial",
+        "Last Name",
+        "Email",
+        "Phone Number",
+        "Date of Birth (DOB)",
+        "Marital Status",
+        "Apartment Address",
+        "Apartment Number",
+        "Last 4 of SSN",
+        "Driver License Number",
+        "Present Home Address",
+        "Apartment/Location Apt#",
+        "Length of Time at Address",
+        "Landlord Phone",
+        "Amount of Rent",
+        "Reason for Leaving",
+        "Is your present rent up to date?",
+        "Have you ever been locked out of your apartment by the sheriff?",
+        "Have you ever been brought to court by another landlord?",
+        "Have you ever moved owing rent or damaged an apartment?",
+        "Number of occupants",
+        "Details of each occupant (Name, Age, Occupation).",
+        "Do you have pets? How many & type.",
+        "Number of vehicles",
+        "Details of each vehicle (Make, Model, Color, Plate, Year).",
+        "Employment Status",
+        "Current Employer",
+        "Occupation",
+        "Hours per Week",
+        "Supervisor Name",
+        "Current Income/Amount",
+        "Current Car Debt",
+        "Current Credit Card Debt",
+        "Is the total move-in amount available now?",
+        "Emergency Contact (Name, Phone, Relationship)",
+        "Personal Reference (Name, Phone, Relationship)",
+        "Have you ever been sued for bills?",
+        "Have you ever filed for bankruptcy?",
+        "Have you ever been found guilty of a felony?",
+        "Have you ever been evicted?",
+        "Have you ever broken a lease?",
+        "ID Proof",
+        "Proof Income 1",
+        "Proof Income 2",
+        "Sign Here",
+        "Today's Date",
+    ];
 
 
     const renderDetails = application => (
         <>
-            {Object.entries(application).map(([key, value], index) => {
-                if (key !== "id" && value !== "") {
+            {orderList.map((key, index) => {
+                const value = application[key];
+                if (value && value !== "") {
                     if (["ID Proof", "Proof Income 1", "Proof Income 2"].includes(key) && value.startsWith("https://firebasestorage.googleapis.com/")) {
                         return (
                             <div key={index} className="mb-2">

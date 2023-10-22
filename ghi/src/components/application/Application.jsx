@@ -48,12 +48,12 @@ const FormTemplate = ({ user }) => {
         },
 
         {
-            title: 'Appartment Information',
+            title: 'Apartment Information',
             description: 'Verify the apartment you are applying for.',
             isOpen: false,
             fields: [
-                { name: "Appartment Address", type: "text", required: true },
-                { name: "Appartment Number", type: "text", required: true },
+                { name: "Apartment Address", type: "text", required: true },
+                { name: "Apartment Number", type: "text", required: true },
             ]
         },
 
