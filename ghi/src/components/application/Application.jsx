@@ -201,6 +201,29 @@ const FormTemplate = ({ user }) => {
         }
     };
 
+    const sendApplicationByEmail = async (application) => {
+        const db = getFirestore(app);
+        const notificationRef = doc(collection(db, 'mail'));
+
+        // Convert application details into a string for the email content
+        let emailContent = '';
+        for (let [key, value] of Object.entries(application)) {
+            if (key !== "id") {
+                emailContent += `<strong>${key}:</strong> ${value}<br>`;
+            }
+        }
+
+        await setDoc(notificationRef, {
+            to: ['c.r.zambito@gmail.com', 'fjzambito@gmail.com', 'bz814@aol.com'], // Array of recipients
+            message: {
+                subject: `Application Details for ${application.email}`,
+                text: 'See application details below:',
+                html: emailContent,
+            }
+        });
+    };
+
+
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleFormSubmit = async (event) => {
@@ -252,6 +275,12 @@ const FormTemplate = ({ user }) => {
             });
 
             alert('Form submitted successfully!');
+            await sendApplicationByEmail({
+                ...formData,
+                uid: user.uid,
+                email: user.email,
+                status: "pending"
+            });
             setFormData({});
 
             setIsSubmitting(false);
