@@ -274,7 +274,7 @@ const FormTemplate = ({ user }) => {
                 ...formData
             });
 
-            alert('Form submitted successfully!');
+            alert('Form submitted successfully! Please check your email for status updates on your rental application from noreply@fjzapartments.com, also check your spam folder.');
             await sendApplicationByEmail({
                 ...formData,
                 uid: user.uid,
