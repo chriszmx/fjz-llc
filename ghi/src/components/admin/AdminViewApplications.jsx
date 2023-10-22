@@ -190,7 +190,7 @@ const AdminViewApplications = () => {
                             <div key={index} className="mb-2">
                                 <strong>{key}:</strong>
                                 <div>
-                                    <img src={value} alt="Application related" className="max-w-xs"/>
+                                    <img src={value} alt="Application related" className="max-w-xs" />
                                 </div>
                             </div>
                         );
@@ -241,19 +241,28 @@ const AdminViewApplications = () => {
                 <h2 className="text-xl font-bold mb-4">Pending Applications</h2>
                 {applications.filter(app => app.status === 'pending').map(application => (
                     <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded">
-                        {application.email}
+                        {application["First Name"] && application["Last Name"] ?
+                            `${application["First Name"]} ${application["Last Name"]}` :
+                            application.email
+                        }
                     </div>
                 ))}
                 <h2 className="text-xl font-bold mb-4 mt-8">Approved Applications</h2>
                 {applications.filter(app => app.status === 'accepted').map(application => (
                     <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded">
-                        {application.email}
+                        {application["First Name"] && application["Last Name"] ?
+                            `${application["First Name"]} ${application["Last Name"]}` :
+                            application.email
+                        }
                     </div>
                 ))}
                 <h2 className="text-xl font-bold mb-4 mt-8">Denied Applications</h2>
                 {applications.filter(app => app.status === 'denied').map(application => (
                     <div key={application.id} onClick={() => setSelectedApplication(application)} className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded">
-                        {application.email}
+                        {application["First Name"] && application["Last Name"] ?
+                            `${application["First Name"]} ${application["Last Name"]}` :
+                            application.email
+                        }
                     </div>
                 ))}
             </div>

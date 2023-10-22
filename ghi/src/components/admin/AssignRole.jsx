@@ -6,7 +6,9 @@ function AssignRole() {
   const [users, setUsers] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedEmail, setSelectedEmail] = useState("");
-  const [currentUserRole, setCurrentUserRole] = useState('what da heck');
+  const [currentUserRole, setCurrentUserRole] = useState('No Role');
+  const [tableVisible, setTableVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // useEffect hook to listen for authentication state
   useEffect(() => {
@@ -65,11 +67,21 @@ function AssignRole() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-6 dark:bg-gray-800">
-      <h1 className="text-3xl font-bold mb-6 text-indigo-600 dark:text-indogo-800">All Users</h1>
-      <h2 className="text-xl mb-6">Logged in User Role: <span className="text-indigo-500">{currentUserRole}</span></h2>
+  //sort users by role
+  const sortedUsers = [...users].sort((a, b) => a.role.localeCompare(b.role));
+  //filter users by search query
+  const filteredUsers = sortedUsers.filter(user => user.email.toLowerCase().includes(searchQuery.toLowerCase()));
 
+  return (
+    <div className="min-h-screen bg-gray-100 p-6 dark:bg-gray-900">
+      <h1 className="text-3xl font-bold mb-6 text-indigo-600 dark:text-indogo-800">Display All Users & Roles</h1>
+      {/* <h2 className="text-xl mb-6">Logged in User Role: <span className="text-indigo-500">{currentUserRole}</span></h2> */}
+
+      <button onClick={() => setTableVisible(!tableVisible)} className="my-4 p-3 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+        Toggle User Table
+      </button>
+
+      {tableVisible && (
       <table className="min-w-full bg-white rounded-md overflow-hidden shadow-md">
         <thead className="bg-indigo-600 text-white">
           <tr>
@@ -78,7 +90,7 @@ function AssignRole() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-          {users.map(user => (
+          {sortedUsers.map(user => (
             <tr key={user.uid} className="hover:bg-gray-50 dark:hover:bg-gray-700">
               <td className="py-2 px-4">{user.email}</td>
               <td className="py-2 px-4">{user.role}</td>
@@ -86,15 +98,30 @@ function AssignRole() {
           ))}
         </tbody>
       </table>
+      )}
 
       {currentUserRole === 'admin' && (
         <div className="mt-10">
           <h2 className="text-2xl font-semibold mb-6 text-indigo-600">Update Role</h2>
+          <p className='mb-6'>
+            Admin - All Access <br />
+            Employee - Will be able to clockin/clockout in future update, schedule maintenance etc. <br />
+            Renter - Switch user to renter after accepting. <br />
+            Guest - Default role, used for application process. <br />
+          </p>
           <div className="space-y-4">
+          {/* <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search user by email..."
+              className="w-full p-3 border rounded-md dark:bg-gray-700"
+            /> */}
+
             <select value={selectedEmail} onChange={e => setSelectedEmail(e.target.value)} className="w-full p-3 border rounded-md dark:bg-gray-700">
-              <option value="" disabled>Select User by Email</option>
-              {users.map(user => (
-                <option key={user.uid} value={user.email}>{user.email}</option>
+              <option value="" disabled>Select User To Update Role</option>
+              {filteredUsers.map(user => (
+                <option key={user.uid} value={user.email}>{user.role} --- {user.email} / {user.name}</option>
               ))}
             </select>
 

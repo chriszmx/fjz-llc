@@ -40,12 +40,12 @@ const AdminPanel = () => {
             <main className="p-4">
 
                 <section className='mt-5 mb-10'>
-                    <h2 className="text-xl font-bold mb-4">View Applications</h2>
+                    {/* <h2 className="text-xl font-bold mb-4">View Applications</h2> */}
                     <AdminViewApplications />
                 </section>
 
                 <section className='mt-10 mb-10'>
-                    <h2 className="text-xl font-bold mb-4">Assign Role</h2>
+                    {/* <h2 className="text-xl font-bold mb-4">Assign Role</h2> */}
                     <AssignRole />
                 </section>
 
