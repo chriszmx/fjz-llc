@@ -256,12 +256,43 @@ const AdminViewApplications = () => {
                 }
                 return null;
             })}
-            <button className="bg-green-400 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>Move to Accept</button>
+            {/* <button className="bg-green-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>Move to Accept</button>
             <button className="bg-red-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deny')}>Move to Deny</button>
             <button className="bg-red-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>*DELETE*</button>
-            <button className="bg-green-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendAcceptanceEmail')}>Send Acceptance Email to Applicant</button>
+            <br />
+            <button className="bg-green-700 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendAcceptanceEmail')}>Send Acceptance Email to Applicant</button>
+            <br />
             <button className="bg-red-900 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deleteAndSendEmail')}>*Delete* and Send Rejection Email</button>
-            <button className="bg-blue-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendApplicationByEmail')}>Email Application to Self</button>
+            <br />
+            <button className="bg-blue-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendApplicationByEmail')}>Email Application to Self</button> */}
+
+
+            <button className="bg-gradient-to-r from-green-400 to-green-600 dark:from-green-700 dark:to-green-900 hover:from-blue-400 hover:to-purple-500 hover:animate-spin dark:hover:from-pink-500 dark:hover:to-yellow-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>
+                MOVE TO <strong className="text-gray-200">ACCEPT</strong>
+            </button>
+
+            <button className="bg-red-500 hover:shadow-xl transition-shadow duration-300 m-2 p-2 text-white rounded-lg hover:animate-bounce" onClick={() => openModal('deny')}>
+                MOVE TO <strong>DENY</strong>
+            </button>
+
+            <button className="bg-red-600 hover:rotate-3 transform transition-transform duration-300 m-2 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>
+                <strong>*DELETE*</strong>
+            </button>
+
+            <button className="bg-green-700 m-2 p-2 text-white rounded-lg group hover:animate-pulse hover:animate-spin" onClick={() => openModal('sendAcceptanceEmail')}>
+                SEND <strong>ACCEPTANCE EMAIL</strong> TO APPLICANT
+            </button>
+
+            <button className="bg-gradient-to-r from-red-800 to-red-900 dark:from-red-600 dark:to-red-700 hover:from-blue-400 hover:to-purple-500 hover:rotate-3 transform transition-transform duration-300 m-2 p-2 text-white rounded-lg hover:animate-ping" onClick={() => openModal('deleteAndSendEmail')}>
+                <strong>*DELETE*</strong> & SEND <strong>REJECTION</strong> EMAIL
+            </button>
+
+            <button className="bg-blue-500 hover:shadow-xl transition-shadow duration-300 m-2 p-2 text-white rounded-lg group hover:animate-bounce" onClick={() => openModal('sendApplicationByEmail')}>
+                EMAIL APPLICATION TO SELF
+            </button>
+
+
+
 
         </>
     );
