@@ -72,7 +72,7 @@ const FormTemplate = ({ user }) => {
             description: 'Current residence details.',
             isOpen: false,
             fields: [
-                { name: "Present Home Address", type: "text", required: false },
+                { name: "Present Home Address", type: "text", required: true },
                 { name: "Apartment/Location Apt#", type: "text", required: false },
                 { name: "Length of Time at Address", type: "text", required: false },
                 { name: "Landlord Phone", type: "tel", required: false },
@@ -125,7 +125,7 @@ const FormTemplate = ({ user }) => {
             description: 'Tell us about your financial situation.',
             isOpen: false,
             fields: [
-                { name: "Current Car Debt", type: "number", required: false },
+                { name: "Current Car Debt", type: "number", required: true },
                 { name: "Current Credit Card Debt", type: "number", required: false },
                 { name: "Is the total move-in amount available now?", type: "text", required: true },
             ]
@@ -136,7 +136,7 @@ const FormTemplate = ({ user }) => {
             description: 'Tell us about your references and history.',
             isOpen: false,
             fields: [
-                { name: "Emergency Contact (Name, Phone, Relationship)", type: "text", required: false },
+                { name: "Emergency Contact (Name, Phone, Relationship)", type: "text", required: true },
                 { name: "Personal Reference (Name, Phone, Relationship)", type: "text", required: false },
                 { name: "Have you ever been sued for bills?", type: "text", required: true },
                 { name: "Have you ever filed for bankruptcy?", type: "text", required: true },
@@ -176,7 +176,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Authorization',
             description: "Applicant authorizes the landlord to contact past and present landlords, employers, creditors, credit bureaus, neighbors and any other sources deemed necessary to investigate applicant. All information is true, accurate and complete to the best of applicant's knowledge. Landlord reserves the right to disqualify tenant if information is not as represented. ANY PERSON OR FIRM IS AUTHORIZED TO RELEASE INFORMATION ABOUT THE UNDERSIGNED UPON PRESENTATION OF THIS FORM OR A PHOTOCOPY OF THIS FORM AT ANY TIME.",
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Sign Here", type: "text", required: true },
                 { name: "Today's Date", type: "date", required: true, defaultValue: new Date().toISOString().split('T')[0] } // Auto-populates today's date
