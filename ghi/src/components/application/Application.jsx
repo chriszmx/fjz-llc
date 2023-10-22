@@ -275,12 +275,22 @@ const FormTemplate = ({ user }) => {
                     {section.isOpen && (
                         <div className="mt-4 space-y-4">
                             {section.fields.map(field => (
-                                <InputField
-                                    key={field.name}
-                                    field={field}
-                                    value={formData[field.name] || ""}
-                                    onChange={e => handleInputChange(field.name, e.target.value, e)}
-                                />
+                                <div key={field.name}>
+                                    {/* Main label */}
+                                    <label className="block text-gray-700 dark:text-gray-200">{field.name}</label>
+
+                                    {/* Sub-description or placeholder */}
+                                    {field.placeholder &&
+                                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{field.placeholder}</p>
+                                    }
+
+                                    {/* Input Field */}
+                                    <InputField
+                                        field={field}
+                                        value={formData[field.name] || ""}
+                                        onChange={e => handleInputChange(field.name, e.target.value, e)}
+                                    />
+                                </div>
                             ))}
                         </div>
                     )}
