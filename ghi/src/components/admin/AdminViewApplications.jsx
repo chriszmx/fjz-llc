@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, setDoc, getDoc } from "firebase/firestore";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { app } from "../../Firebase";
-import { getAuth, deleteUser } from "firebase/auth";
+// import { getAuth, deleteUser } from "firebase/auth";
 // import { getStorage } from "firebase/storage";
 
 const AdminViewApplications = () => {
@@ -137,8 +137,6 @@ const AdminViewApplications = () => {
                 case 'sendApplicationByEmail':
                     sendApplicationByEmail(selectedApplication);
                     break;
-                case 'deleteUserAndSendEmail':
-                    handleDeleteUserAndSendEmail(selectedApplication.id, selectedApplication.email, selectedApplication.uid);
                 default:
                     break;
             }
@@ -164,7 +162,7 @@ const AdminViewApplications = () => {
             accept: '**SAFE** Confirm application acceptance? THIS WILL NOT NOTIFY APPLICANT.',
             sendAcceptanceEmail: '**EMAIL WARNING** Confirm sending acceptance email?',
             deny: '**SAFE** Confirm application denial? THIS WILL NOT NOTIFY APPLICANT.',
-            delete: '**DELETE WARNING** Confirm application deletion? WILL NOT NOTIFIY APPLICANT. This Will Delete ALL Photos/Data Associated With This Application.',
+            delete: '**DELETE WARNING** Confirm application deletion? WILL NOT NOTIFY APPLICANT. This Will Delete ALL Photos/Data Associated With This Application.',
             deleteAndSendEmail: '**EMAIL WARNING** Confirm application deletion and sending of email? This Will Remove All Data Associated With This Application.',
             sendApplicationByEmail: '**SAFE** Confirm sending of application details email to FJZ?',
         };
@@ -174,8 +172,8 @@ const AdminViewApplications = () => {
                 <div className="bg-white p-4 rounded shadow-md">
                     <p>{message[actionType]}</p>
                     <div className="flex justify-end mt-4">
-                        <button className="bg-green-500 m-2 p-2 text-white" onClick={executeAction}>Confirm</button>
-                        <button className="bg-red-500 m-2 p-2 text-white" onClick={closeModal}>Cancel</button>
+                        <button className="bg-green-500 m-2 p-2 text-white rounded-lg hover:bg-green-900" onClick={executeAction}>Confirm</button>
+                        <button className="bg-red-500 m-2 p-2 text-white rounded-lg hover:bg-red-900" onClick={closeModal}>Cancel</button>
                     </div>
                 </div>
             </div>
@@ -256,6 +254,8 @@ const AdminViewApplications = () => {
                 }
                 return null;
             })}
+
+
             {/* <button className="bg-green-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>Move to Accept</button>
             <button className="bg-red-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('deny')}>Move to Deny</button>
             <button className="bg-red-600 m-2 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>*DELETE*</button>
@@ -279,7 +279,7 @@ const AdminViewApplications = () => {
                 <strong>*DELETE*</strong>
             </button>
 
-            <button className="bg-green-700 m-2 p-2 text-white rounded-lg group hover:animate-pulse hover:animate-spin" onClick={() => openModal('sendAcceptanceEmail')}>
+            <button className="bg-green-700 m-2 p-2 text-white rounded-lg group hover:animate-spin" onClick={() => openModal('sendAcceptanceEmail')}>
                 SEND <strong>ACCEPTANCE EMAIL</strong> TO APPLICANT
             </button>
 

@@ -117,7 +117,7 @@ const Login = () => {
                             className="cursor-pointer text-indigo-500 hover:text-indigo-700 dark:text-indigo-400"
                             onClick={() => setIsLogin(!isLogin)}
                         >
-                            {isLogin ? "Register now or login with Google!" : "Login!"}
+                            {isLogin ? "Register now!" : "Login!"}
                         </span>
                     </p>
                 </div>
@@ -149,7 +149,7 @@ const Login = () => {
                             type="button"
                             onClick={signInWithGoogle}
                         >
-                            Login with Google
+                            Login / Register with Google
                         </button>
                         <p className="mt-3 text-sm text-right text-gray-600 hover:text-indigo-700 cursor-pointer dark:text-gray-200" onClick={handleForgotPassword}>
                             Forgot Password?

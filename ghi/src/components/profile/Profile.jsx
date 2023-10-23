@@ -15,11 +15,14 @@ const Profile = () => {
     const auth = getAuth();
     const userID = auth.currentUser.uid;
 
+
     useEffect(() => {
+        if (!userID) return;
         const fetchUserProfile = async () => {
             try {
                 const userDoc = await getDoc(doc(db, 'users', userID));
                 if (userDoc.exists()) {
+                    console.log("Fetched user data: ", userDoc.data()); // <-- Add this
                     setUserProfile(userDoc.data());
                 } else {
                     console.log('No such user!');
@@ -28,6 +31,7 @@ const Profile = () => {
                 console.error("Error fetching user:", error);
             }
         };
+
 
         fetchUserProfile();
     }, [db, userID]);
@@ -95,7 +99,7 @@ const Profile = () => {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 gap-4">
-                        <p className="dark:text-gray-300"><span className="font-semibold">Name:</span> {userProfile.name}</p>
+                        <p className="dark:text-gray-300"><span className="font-semibold">Name:</span> {userProfile.firstName} {userProfile.lastName}</p>
                         <p className="dark:text-gray-300"><span className="font-semibold">Email:</span> {userProfile.email}</p>
                         <p className="dark:text-gray-300"><span className="font-semibold">Role:</span> {userProfile.role}</p>
                         <p className="dark:text-gray-300"><span className="font-semibold">Phone Number:</span> {userProfile.phoneNumber}</p>

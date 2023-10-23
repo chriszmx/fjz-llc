@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import { app } from "../../Firebase";
 import Login from "../../components/login/Login";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -9,6 +9,8 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 const Application = () => {
     const [user, setUser] = useState(null);
     const auth = getAuth(app);
+
+
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -243,7 +245,6 @@ const FormTemplate = ({ user }) => {
 
 
 
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleFormSubmit = async (event) => {
@@ -252,7 +253,7 @@ const FormTemplate = ({ user }) => {
 
         try {
         // Validate form data before submitting
-        const requiredFields = ["First Name", "Last Name", "Email", "Phone Number", "Date of Birth (DOB)", "Appartment Address", "Appartment Number", "Amount of Rent", "Number of occupants", "Do you have pets? How many & type.", "Employment Status", "Current Employer", "Occupation", "Hours per Week", "Current Income/Amount", "Is the total move-in amount available now?", "Have you ever been sued for bills?", "Have you ever filed for bankruptcy?", "Have you ever been found guilty of a felony?", "Have you ever been evicted?", "Have you ever broken a lease?", "Sign Here", "Today's Date"];
+        const requiredFields = ["First Name", "Last Name", "Email", "Phone Number", "Date of Birth (DOB)", "Apartment Address", "Apartment Number", "Amount of Rent", "Number of occupants", "Do you have pets? How many & type.", "Employment Status", "Current Employer", "Occupation", "Hours per Week", "Current Income/Amount", "Is the total move-in amount available now?", "Have you ever been sued for bills?", "Have you ever filed for bankruptcy?", "Have you ever been found guilty of a felony?", "Have you ever been evicted?", "Have you ever broken a lease?", "Sign Here", "Today's Date"];
         for (let field of requiredFields) {
             if (!formData[field]) {
                 alert(`Please provide ${field}`);
@@ -294,6 +295,15 @@ const FormTemplate = ({ user }) => {
             status: "pending",
             ...formData
         });
+
+                // Update user profile data in the 'users' collection
+                const userRef = doc(db, 'users', user.uid);
+                const updateData = {
+                    firstName: formData["First Name"],
+                    lastName: formData["Last Name"],
+                    phoneNumber: formData["Phone Number"],
+                };
+                await updateDoc(userRef, updateData);
 
         try {
             await sendApplicationByEmail({
