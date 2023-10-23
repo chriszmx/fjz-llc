@@ -52,7 +52,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Apartment Information',
             description: 'Verify the apartment you are applying for.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Apartment Address", type: "text", required: true },
                 { name: "Apartment Number", type: "text", required: true },
@@ -62,7 +62,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Identification',
             description: 'Verify your identity.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Last 4 of SSN", type: "text", required: true },
                 { name: "Driver License Number", type: "text", required: true },
@@ -72,7 +72,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Current Residence Details',
             description: 'Current residence details.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Present Home Address", type: "text", required: true },
                 { name: "Apartment/Location Apt#", type: "text", required: false },
@@ -90,7 +90,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Household Information',
             description: 'Tell us about your household.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Number of occupants", type: "text", required: true },
                 { name: "Details of each occupant (Name, Age, Occupation).", type: "text", required: true },
@@ -101,7 +101,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Vehicle Information',
             description: 'Tell us about your vehicle(s).',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Number of vehicles", type: "number", required: true },
                 { name: "Details of each vehicle (Make, Model, Color, Plate, Year).", type: "text", required: false },
@@ -111,7 +111,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Employment & Income',
             description: 'Tell us about your employment and income.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Employment Status", type: "text", required: true },
                 { name: "Current Employer", type: "text", required: true },
@@ -125,7 +125,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Financial Information',
             description: 'Tell us about your financial situation.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Current Car Debt", type: "number", required: true },
                 { name: "Current Credit Card Debt", type: "number", required: false },
@@ -136,7 +136,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'References & History',
             description: 'Tell us about your references and history.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Emergency Contact (Name, Phone, Relationship)", type: "text", required: true },
                 { name: "Personal Reference (Name, Phone, Relationship)", type: "text", required: false },
@@ -151,7 +151,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Identity Verification',
             description: 'Please upload your identification for verification purposes.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "ID Proof", type: "file", required: true }
             ]
@@ -160,7 +160,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Proof of Income 1',
             description: 'Please upload your Proof of Income (1) for verification purposes.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Proof Income 1", type: "file", required: true }
             ]
@@ -169,7 +169,7 @@ const FormTemplate = ({ user }) => {
         {
             title: 'Proof of Income 2',
             description: 'Please upload your Proof of Income (2) for verification purposes.',
-            isOpen: false,
+            isOpen: true,
             fields: [
                 { name: "Proof Income 2", type: "file", required: true }
             ]
