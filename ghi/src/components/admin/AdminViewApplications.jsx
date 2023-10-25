@@ -233,24 +233,24 @@ const AdminViewApplications = () => {
 
     const renderDetails = application => (
         <>
-<div className="container mx-auto mt-8 p-4 md:p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-  {orderList.map((key, index) => {
-    const value = application[key];
-    if (value && value !== "") {
-      return (
-        <div key={index} className="mb-4 last:mb-0 p-4 bg-gray-100 dark:bg-gray-900 rounded-md">
-          <h4 className="mb-2 font-semibold text-lg dark:text-gray-300">{key}:</h4>
-          {["ID Proof", "Proof Income 1", "Proof Income 2"].includes(key) && value.startsWith("https://firebasestorage.googleapis.com/") ? (
-            <img src={value} alt="Application related" className="max-w-xs mx-auto shadow-md rounded" />
-          ) : (
-            <p className="text-gray-700 dark:text-gray-400">{value}</p>
-          )}
-        </div>
-      );
-    }
-    return null;
-  })}
-</div>
+            <div className="container mx-auto mt-8 p-4 md:p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                {orderList.map((key, index) => {
+                    const value = application[key];
+                    if (value && value !== "") {
+                        return (
+                            <div key={index} className="mb-4 last:mb-0 p-4 bg-gray-100 dark:bg-gray-900 rounded-md">
+                                <h4 className="mb-2 font-semibold text-lg dark:text-gray-300">{key}:</h4>
+                                {["ID Proof", "Proof Income 1", "Proof Income 2"].includes(key) && value.startsWith("https://firebasestorage.googleapis.com/") ? (
+                                    <img src={value} alt="Application related" className="max-w-xs mx-auto shadow-md rounded" />
+                                ) : (
+                                    <p className="text-gray-700 dark:text-gray-400">{value}</p>
+                                )}
+                            </div>
+                        );
+                    }
+                    return null;
+                })}
+            </div>
 
 
             {/* <button className="bg-green-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>Move to Accept</button>
@@ -263,37 +263,37 @@ const AdminViewApplications = () => {
             <br />
             <button className="bg-blue-500 m-2 p-2 text-white rounded-lg" onClick={() => openModal('sendApplicationByEmail')}>Email Application to Self</button> */}
 
-<div className="space-y-4 pt-10">
-    {/* Status change buttons */}
-    <div className="flex items-center space-x-4">
-        <button className="bg-gradient-to-r from-green-400 to-green-600 dark:from-green-700 dark:to-green-900 hover:from-blue-400 hover:to-purple-500 hover:animate-spin dark:hover:from-pink-500 dark:hover:to-yellow-500 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>
-            MOVE TO <strong className="text-gray-200">ACCEPT</strong>
-        </button>
+            <div className="space-y-4 pt-10">
+                {/* Status change buttons */}
+                <div className="flex items-center space-x-4">
+                    <button className="bg-gradient-to-r from-green-400 to-green-600 dark:from-green-700 dark:to-green-900 hover:from-blue-400 hover:to-purple-500 hover:animate-spin dark:hover:from-pink-500 dark:hover:to-yellow-500 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>
+                        MOVE TO <strong className="text-gray-200">ACCEPT</strong>
+                    </button>
 
-        <button className="bg-red-500 hover:shadow-xl transition-shadow duration-300 p-2 text-white rounded-lg hover:animate-bounce" onClick={() => openModal('deny')}>
-            MOVE TO <strong>DENY</strong>
-        </button>
+                    <button className="bg-red-500 hover:shadow-xl transition-shadow duration-300 p-2 text-white rounded-lg hover:animate-bounce" onClick={() => openModal('deny')}>
+                        MOVE TO <strong>DENY</strong>
+                    </button>
 
-        <button className="bg-red-600 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>
-            <strong>*DELETE*</strong>
-        </button>
-    </div>
+                    <button className="bg-red-600 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>
+                        <strong>*DELETE*</strong>
+                    </button>
+                </div>
 
-    {/* Communication related buttons */}
-    <div className="flex items-center space-x-4">
-        <button className="bg-green-700 p-2 text-white rounded-lg group hover:animate-spin" onClick={() => openModal('sendAcceptanceEmail')}>
-            SEND <strong>ACCEPTANCE EMAIL</strong> TO APPLICANT
-        </button>
+                {/* Communication related buttons */}
+                <div className="flex items-center space-x-4">
+                    <button className="bg-green-700 p-2 text-white rounded-lg group hover:animate-spin" onClick={() => openModal('sendAcceptanceEmail')}>
+                        SEND <strong>ACCEPTANCE EMAIL</strong> TO APPLICANT
+                    </button>
 
-        <button className="bg-gradient-to-r from-red-800 to-red-900 dark:from-red-600 dark:to-red-700 hover:from-blue-400 hover:to-purple-500 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg hover:animate-ping" onClick={() => openModal('deleteAndSendEmail')}>
-            <strong>*DELETE*</strong> & SEND <strong>REJECTION</strong> EMAIL
-        </button>
+                    <button className="bg-gradient-to-r from-red-800 to-red-900 dark:from-red-600 dark:to-red-700 hover:from-blue-400 hover:to-purple-500 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg hover:animate-ping" onClick={() => openModal('deleteAndSendEmail')}>
+                        <strong>*DELETE*</strong> & SEND <strong>REJECTION</strong> EMAIL
+                    </button>
 
-        <button className="bg-blue-500 hover:shadow-xl transition-shadow duration-300 p-2 text-white rounded-lg group hover:animate-bounce" onClick={() => openModal('sendApplicationByEmail')}>
-            EMAIL APPLICATION TO SELF
-        </button>
-    </div>
-</div>
+                    <button className="bg-blue-500 hover:shadow-xl transition-shadow duration-300 p-2 text-white rounded-lg group hover:animate-bounce" onClick={() => openModal('sendApplicationByEmail')}>
+                        EMAIL APPLICATION TO SELF
+                    </button>
+                </div>
+            </div>
 
 
 
@@ -303,17 +303,51 @@ const AdminViewApplications = () => {
         </>
     );
 
+    // const sendApplicationByEmail = async (application) => {
+    //     const db = getFirestore(app);
+    //     const notificationRef = doc(collection(db, 'mail'));
+
+    //     // Convert application details into a string for the email content
+    //     let emailContent = '';
+    //     for (let [key, value] of Object.entries(application)) {
+    //         if (key !== "id") {
+    //             emailContent += `<strong>${key}:</strong> ${value}<br>`;
+    //         }
+    //     }
+
+    //     await setDoc(notificationRef, {
+    //         to: 'c.r.zambito@gmail.com', // Use the email of the logged-in user here
+    //         message: {
+    //             subject: `Application Details for ${application.email}`,
+    //             text: 'See application details below:',
+    //             html: emailContent,
+    //         }
+    //     });
+    // };
+
     const sendApplicationByEmail = async (application) => {
         const db = getFirestore(app);
         const notificationRef = doc(collection(db, 'mail'));
 
-        // Convert application details into a string for the email content
-        let emailContent = '';
-        for (let [key, value] of Object.entries(application)) {
-            if (key !== "id") {
-                emailContent += `<strong>${key}:</strong> ${value}<br>`;
+        // Convert application details into a string for the email content using the orderList
+        let emailContent = '<table style="width: 100%; border-collapse: collapse;">';
+
+        orderList.forEach(key => {
+            const value = application[key];
+            if (value && value !== "") {
+                emailContent += `
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 8px; text-align: left; font-weight: bold;">${key}:</td>
+                    <td style="padding: 8px; text-align: left;">
+                        ${["ID Proof", "Proof Income 1", "Proof Income 2"].includes(key) && value.startsWith("https://firebasestorage.googleapis.com/") ?
+                        `<img src="${value}" alt="Application related" style="max-width: 200px;">` :
+                        `${value}`}
+                    </td>
+                </tr>`;
             }
-        }
+        });
+
+        emailContent += '</table>';
 
         await setDoc(notificationRef, {
             to: 'c.r.zambito@gmail.com', // Use the email of the logged-in user here
@@ -324,6 +358,7 @@ const AdminViewApplications = () => {
             }
         });
     };
+
 
     return (
         <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
