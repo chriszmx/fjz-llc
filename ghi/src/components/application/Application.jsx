@@ -265,11 +265,20 @@ const FormTemplate = ({ user }) => {
         const db = getFirestore(app);
         const storage = getStorage(app);
 
+        // Generate a unique filename using current timestamp and a random string
+        const generateUniqueFilename = (originalName) => {
+            const extension = originalName.split('.').pop();
+            const timestamp = Date.now();
+            const randomString = Math.random().toString(36).substring(2, 15);
+            return `${timestamp}_${randomString}.${extension}`;
+        };
+
         // Iterate over formData and upload if the value is a File
         for (const [key, value] of Object.entries(formData)) {
             if (value instanceof File) {
                 console.log("Uploading file for key:", key);
-                const storageRef = ref(storage, 'applications/' + value.name);
+                const uniqueName = generateUniqueFilename(value.name);
+                const storageRef = ref(storage, 'applications/' + uniqueName);
                 const uploadTask = uploadBytesResumable(storageRef, value);
 
                 // Wait for the upload to complete
@@ -288,6 +297,7 @@ const FormTemplate = ({ user }) => {
                 });
             }
         }
+
 
         await addDoc(collection(db, "application"), {
             uid: user.uid,
