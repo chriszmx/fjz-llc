@@ -82,6 +82,28 @@ const AdminViewApplications = () => {
         setSelectedApplication(null);
     };
 
+    const acceptanceEmailHTML = `
+<div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <p>Thank you for submitting your rental application to FJZ Apartments. We are excited to inform you that your application has been accepted!</p>
+    <p>Please expect an email or text message within the next 24 hours detailing the next steps in the leasing process.</p>
+    <p>Congratulations, and welcome to the FJZ Apartments community!</p>
+    <br>
+    <p>Best regards,</p>
+    <p>FJZ Apartments Team</p>
+</div>
+`;
+
+const rejectionEmailHTML = `
+<div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <p>Thank you for your interest in FJZ Apartments and for submitting your rental application.</p>
+    <p>After careful review, we regret to inform you that the apartment is currently no longer available. We appreciate your understanding and encourage you to keep an eye out for future availabilities.</p>
+    <p>Thank you for considering FJZ Apartments. We wish you all the best in your housing search.</p>
+    <br>
+    <p>Best regards,</p>
+    <p>FJZ Apartments Team</p>
+</div>
+`;
+
 
     const handleDeleteAndSendEmail = async (appId, email) => {
         const db = getFirestore(app);
@@ -91,9 +113,9 @@ const AdminViewApplications = () => {
         await setDoc(notificationRef, {
             to: email,
             message: {
-                subject: 'Application Update',
-                text: 'you have been denied',
-                html: 'Thank you for application, unfortunately, you have not been selected at this time. Please keep an eye out for other opportunities that peak your interest.',
+                subject: 'Update on Your Apartment Application',
+                text: 'We appreciate your interest in FJZ Apartments.',
+                html: `${rejectionEmailHTML}<br><br><p>**This is an automated email. Please do not reply.**</p>`
             }
         });
 
@@ -108,9 +130,9 @@ const AdminViewApplications = () => {
         await setDoc(notificationRef, {
             to: email,
             message: {
-                subject: 'Application Update',
-                text: 'you have been accepted',
-                html: 'Thank you for your application, you have been accepted. You will receive an email/text message within the next 24 hours with steps to move forward. Thank you and congratulations!',
+                subject: 'Congratulations on Your Apartment Application!',
+                text: 'Your rental application has been accepted!',
+                html: `${acceptanceEmailHTML}<br><br><p>**This is an automated email. Please do not reply.**</p>`,
             }
         });
     };
@@ -294,36 +316,8 @@ const AdminViewApplications = () => {
                     </button>
                 </div>
             </div>
-
-
-
-
-
-
         </>
     );
-
-    // const sendApplicationByEmail = async (application) => {
-    //     const db = getFirestore(app);
-    //     const notificationRef = doc(collection(db, 'mail'));
-
-    //     // Convert application details into a string for the email content
-    //     let emailContent = '';
-    //     for (let [key, value] of Object.entries(application)) {
-    //         if (key !== "id") {
-    //             emailContent += `<strong>${key}:</strong> ${value}<br>`;
-    //         }
-    //     }
-
-    //     await setDoc(notificationRef, {
-    //         to: 'c.r.zambito@gmail.com', // Use the email of the logged-in user here
-    //         message: {
-    //             subject: `Application Details for ${application.email}`,
-    //             text: 'See application details below:',
-    //             html: emailContent,
-    //         }
-    //     });
-    // };
 
     const sendApplicationByEmail = async (application) => {
         const db = getFirestore(app);
@@ -350,7 +344,7 @@ const AdminViewApplications = () => {
         emailContent += '</table>';
 
         await setDoc(notificationRef, {
-            to: 'c.r.zambito@gmail.com', // Use the email of the logged-in user here
+            to: ['c.r.zambito@gmail.com', 'fjzllc@gmail.com', 'bz814@aol.com'],
             message: {
                 subject: `Application Details for ${application.email}`,
                 text: 'See application details below:',

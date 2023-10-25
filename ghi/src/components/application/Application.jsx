@@ -209,18 +209,36 @@ const FormTemplate = ({ user }) => {
 
         const excludedFields = ["id"];
 
-        // Convert application details into a string for the email content
-        let emailContent = '';
-        for (let [key, value] of Object.entries(application)) {
-            if (!excludedFields.includes(key)) {
-                emailContent += `<strong>${key}:</strong> ${value}<br>`;
-            }
+// Convert application details into a table string for the email content
+let emailContent = '<table style="width: 100%; border-collapse: collapse;">';
+
+Object.entries(application).forEach(([key, value]) => {
+    if (!excludedFields.includes(key) && value && value !== "") {
+        if (["ID Proof", "Proof Income 1", "Proof Income 2"].includes(key) && value.startsWith("https://firebasestorage.googleapis.com/")) {
+            emailContent += `
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px; text-align: left; font-weight: bold;">${key}:</td>
+                <td style="padding: 8px; text-align: left;">
+                    <img src="${value}" alt="${key}" style="max-width: 200px;">
+                </td>
+            </tr>`;
+        } else {
+            emailContent += `
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px; text-align: left; font-weight: bold;">${key}:</td>
+                <td style="padding: 8px; text-align: left;">${value}</td>
+            </tr>`;
         }
+    }
+});
+
+emailContent += '</table>';
+
 
         try {
             // Email to the administrators
             await setDoc(doc(collection(db, 'mail')), {
-                to: ['c.r.zambito@gmail.com', 'fjzambito@gmail.com', 'bz814@aol.com'], // Array of recipients
+                to: ['c.r.zambito@gmail.com', 'fjzllc@gmail.com', 'bz814@aol.com'],
                 message: {
                     subject: `Application Details for ${application.email}`,
                     text: 'See application details below:',
@@ -228,13 +246,13 @@ const FormTemplate = ({ user }) => {
                 }
             });
 
-            // Confirmation email to the applicant
+            // Confirmation email to the applicant with their application details
             await setDoc(doc(collection(db, 'mail')), {
                 to: [application.email],
                 message: {
                     subject: 'Your Rental Application Submission',
-                    text: 'Thank you for submitting your rental application. Please keep an eye out for updates on the status of your application.',
-                    html: `<p>Thank you, <strong>${application["First Name"]} ${application["Last Name"]}</strong>, for submitting your rental application to FJZ Apartments.</p><p>Please keep an eye out for updates on the status of your application.</p><p>Best regards,<br>FJZ Apartments Team</p>`,
+                    text: 'Thank you for submitting your rental application. Below are the details you provided:',
+                    html: `<p>Thank you, <strong>${application["First Name"]} ${application["Last Name"]}</strong>, for submitting your rental application to FJZ Apartments.</p><p>Below are the details you provided:</p>${emailContent}<p>Please keep an eye out for updates on the status of your application.</p><p>Best regards,<br>FJZ Apartments Team</p>`,
                 }
             });
         } catch (error) {
@@ -242,6 +260,7 @@ const FormTemplate = ({ user }) => {
             throw new Error('There was an issue sending the email.');
         }
     };
+
 
 
 
