@@ -1,6 +1,6 @@
 import Logo from '../assets/logo-color.png'
 import { signInWithGoogle, db } from './utils/authUtils'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { doc, getDoc } from "firebase/firestore";
 import React, { useState } from 'react';
 import { PacmanLoader } from 'react-spinners';
@@ -9,11 +9,11 @@ import { PacmanLoader } from 'react-spinners';
 export default function Home() {
 
     const navigate = useNavigate();
-    const location = useLocation();
     const [loading, setLoading] = useState(false);
 
     const handleSignInWithGoogle = async () => {
         setLoading(true);
+        console.log("Started loading...");
         try {
             const user = await signInWithGoogle();
             if (user) {
@@ -39,17 +39,20 @@ export default function Home() {
                             break;
                     }
                 }
+
+                // ITS PACMAN!
+                console.log("Starting Pacman timer...");
+                setTimeout(() => {
+                    console.log("Stopping loading after 5 seconds...");
+                    setLoading(false);
+                }, 7000);
             }
-
-            // ITS PACMAN!
-            setTimeout(() => {
-                setLoading(false);
-            }, 10000);
-
         } catch (error) {
             console.error("Redirection error:", error);
-        } 
+            setLoading(false);
+        }
     };
+
 
 
 
