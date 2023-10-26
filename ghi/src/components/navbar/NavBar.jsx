@@ -45,11 +45,21 @@ const NavBar = () => {
         }
     };
 
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+
+        return () => unsubscribe();
+    }, [auth]);
+
     const userMenuLinks = [
         // { name: 'Your Profile', href: '/profile' },
         // { name: 'Settings', href: '#settings' },
         // { name: 'Logout', onClick: handleLogout }
-        ...loggedIn ? [{ name: 'Profile', href: '/profile' }, { name: 'Logout', onClick: handleLogout }] : [{ name: 'Login/Register', href: '/login', current: location.pathname === '/login' }],
+        ...loggedIn ? [{name: `${user.email}` }, { name: 'Profile', href: '/profile' }, { name: 'Logout', onClick: handleLogout }] : [{ name: 'Login/Register', href: '/login', current: location.pathname === '/login' }],
     ];
 
     const navigationLinks = [
