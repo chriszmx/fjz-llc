@@ -9,7 +9,7 @@ import AdminPanel from "./components/admin/AdminPanel";
 import Profile from "./components/profile/Profile";
 import Application from "./components/application/Application";
 import TimeClock from "./components/employee/TimeClock";
-import Status from "./components/Status";
+import Footer from "./components/footer/Footer";
 import { ClipLoader } from 'react-spinners';  // Import the spinner
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
                         <Route path="/application" element={<Application />} />
                         <Route path="/employee" element={<TimeClock />} />
                     </Routes>
-                    <Status />
+                    <Footer />
                 </>
             </DarkModeProvider>
         </BrowserRouter>

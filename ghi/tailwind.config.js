@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   darkMode: 'class',
     content: [
@@ -5,7 +7,11 @@ module.exports = {
       "./src/**/*.{js,ts,jsx,tsx}",
     ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
   plugins: [
     require('postcss-nesting'),
