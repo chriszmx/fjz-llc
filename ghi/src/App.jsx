@@ -10,7 +10,7 @@ import Profile from "./components/profile/Profile";
 import Application from "./components/application/Application";
 import TimeClock from "./components/employee/TimeClock";
 import Footer from "./components/footer/Footer";
-import { ClipLoader } from 'react-spinners';  // Import the spinner
+import { RingLoader } from 'react-spinners';  // Import the spinner
 
 function App() {
     const [initializing, setInitializing] = useState(true);
@@ -31,7 +31,7 @@ function App() {
     }, []);
 
     if (initializing) {
-        return <ClipLoader color="#123abc" size={50} />;
+        return <div className="flex justify-center items-center h-screen"><RingLoader color="#123abc" size={500} /></div>;
     }
 
     return (

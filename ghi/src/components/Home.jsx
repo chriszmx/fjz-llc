@@ -1,47 +1,150 @@
-import React from 'react';
-import logo from "../assets/logo-color.png";
-import { Link } from 'react-router-dom';
+import Logo from '../assets/logo-color.png'
+import { signInWithGoogle, db } from './utils/authUtils'
+import { useNavigate, useLocation } from 'react-router-dom';
+import { doc, getDoc } from "firebase/firestore";
+import React, { useState } from 'react';
+import { BeatLoader } from 'react-spinners';
 
-const Home = () => {
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen text-center">
-            {/* Hero section */}
-            <div className="pt-10 px-5">
-                <img src={logo} alt="Logo" className="mx-auto h-60 w-auto shadow-lg bg-white hover:opacity-75 rounded-lg" />
-                <h1 className="mt-6">Welcome to FJZ LLC</h1>
-                <p className="mt-2">
-                    Your one-stop platform for seamless apartment applications.
-                </p>
+
+export default function Home() {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [loading, setLoading] = useState(false);
+
+    const handleSignInWithGoogle = async () => {
+        setLoading(true);
+        try {
+            const user = await signInWithGoogle();
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+
+                if (userSnap.exists()) {
+                    const userData = userSnap.data();
+                    switch (userData.role) {
+                        case "admin":
+                            navigate("/admin");
+                            break;
+                        case "guest":
+                            navigate("/application");
+                            break;
+                        case "employee":
+                            navigate("/employee");
+                            break;
+                        case "renter":
+                            navigate("/profile");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Redirection error:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+
+  return (
+    <div className="bg-white">
+        {loading ? (
+            <div className="flex justify-center items-center h-screen">
+                <BeatLoader color="#123abc" size={50} />
             </div>
-
-            {/* Services section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 px-5">
-                <div className="py-5 px-6 bg-white rounded-md shadow-md text-left">
-                    <h3>Easy Applications</h3>
-                    <p className="mt-2">Apply for your future apartment with a few simple steps.</p>
-                </div>
-                <div className="py-5 px-6 bg-white rounded-md shadow-md text-left">
-                    <h3>Transparent Process</h3>
-                    <p className="mt-2">Track the progress of your application in real-time.</p>
-                </div>
+        ) : (
+      <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20 pt-14">
+        <div
+          className="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:-mr-80 lg:-mr-96"
+          aria-hidden="true"
+        />
+        <div className="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">
+            <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto dark:text-indigo-500">
+              Welcome to FJZ LLC
+            </h1>
+            <div className="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
+              <p className="text-lg leading-8 text-gray-600 dark:text-gray-300">
+                Simple, easy, and transparent apartment applications. Apply for your future apartment with a few simple steps. Track the progress of your application in real-time. <br /><br />$0 Application Fee. <br /><br />Sign in with Google to get started.
+              </p>
+              <div className="mt-10 flex items-center gap-x-6">
+                <a
+                onClick={e => {
+                    e.preventDefault();
+                    handleSignInWithGoogle();
+                }}
+                  href="#"
+                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Get started
+                </a>
+              </div>
             </div>
-
-            {/* Call to action */}
-            <div className="mt-10 px-5">
-                <Link to="/login" className="cta-btn btn-primary">
-                    Log In
-                </Link>
-                <Link to="/application" className="ml-3 cta-btn btn-secondary">
-                    Apply Now
-                </Link>
-            </div>
-
-            {/* Footer */}
-            <footer className="mt-auto text-sm">
-                <p className='pt-10 pb-10'>© 2023 FJZ LLC. All rights reserved.</p>
-            </footer>
+            <img
+              src={Logo}
+              alt=""
+              className="mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-cover sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36"
+            />
+          </div>
         </div>
-    );
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32" />
+      </div>
+        )}
+    </div>
+  )
 }
 
-export default Home;
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import logo from "../assets/logo-color.png";
+// import { Link } from 'react-router-dom';
+
+// const Home = () => {
+//     return (
+//         <div className="flex flex-col items-center justify-center min-h-screen text-center">
+//             {/* Hero section */}
+//             <div className="pt-10 px-5">
+//                 <img src={logo} alt="Logo" className="mx-auto h-60 w-auto shadow-lg bg-white hover:opacity-75 rounded-lg" />
+//                 <h1 className="mt-6">Welcome to FJZ LLC</h1>
+//                 <p className="mt-2">
+//                     Your one-stop platform for seamless apartment applications.
+//                 </p>
+//             </div>
+
+//             {/* Services section */}
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 px-5">
+//                 <div className="py-5 px-6 bg-white rounded-md shadow-md text-left">
+//                     <h3>Easy Applications</h3>
+//                     <p className="mt-2">Apply for your future apartment with a few simple steps.</p>
+//                 </div>
+//                 <div className="py-5 px-6 bg-white rounded-md shadow-md text-left">
+//                     <h3>Transparent Process</h3>
+//                     <p className="mt-2">Track the progress of your application in real-time.</p>
+//                 </div>
+//             </div>
+
+//             {/* Call to action */}
+//             <div className="mt-10 px-5">
+//                 <Link to="/login" className="cta-btn btn-primary">
+//                     Log In
+//                 </Link>
+//                 <Link to="/application" className="ml-3 cta-btn btn-secondary">
+//                     Apply Now
+//                 </Link>
+//             </div>
+//         </div>
+//     );
+// }
+
+// export default Home;
