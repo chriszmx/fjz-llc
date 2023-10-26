@@ -44,7 +44,7 @@ export default function Home() {
             // ITS PACMAN!
             setTimeout(() => {
                 setLoading(false);
-            }, 5000);
+            }, 10000);
 
         } catch (error) {
             console.error("Redirection error:", error);
