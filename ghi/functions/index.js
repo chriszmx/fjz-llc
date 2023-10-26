@@ -47,6 +47,8 @@ exports.setAdmin = functions.https.onRequest(async (req, res) => {
   }
 });
 
+
+
 const axios = require('axios');
 const cors = require('cors')({ origin: true });
 
@@ -91,4 +93,3 @@ exports.askOpenAI = functions.https.onRequest(async (req, res) => {
     }
   });
 });
-
