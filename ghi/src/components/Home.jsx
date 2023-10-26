@@ -40,6 +40,12 @@ export default function Home() {
                     }
                 }
             }
+
+            // ITS PACMAN!
+            setTimeout(() => {
+                setLoading(false);
+            }, 5000);
+
         } catch (error) {
             console.error("Redirection error:", error);
         } finally {
