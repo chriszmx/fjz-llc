@@ -7,7 +7,7 @@ const DarkModeToggle = () => {
 
     return (
         <button onClick={() => setDarkMode(!darkMode)} className="focus:outline-none">
-            <FontAwesomeIcon icon={faCloudMoon} className={darkMode ? 'text-gray-200' : 'text-gray-800'} />
+            <FontAwesomeIcon icon={faCloudMoon} className={darkMode ? 'text-gray-400 hover:text-indigo-400' : 'text-gray-200 hover:text-indigo-400'} />
         </button>
     );
 }
