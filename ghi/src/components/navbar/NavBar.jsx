@@ -59,14 +59,14 @@ const NavBar = () => {
         // { name: 'Your Profile', href: '/profile' },
         // { name: 'Settings', href: '#settings' },
         // { name: 'Logout', onClick: handleLogout }
-        ...loggedIn ? [{name: `${user.email}` }, { name: 'Profile', href: '/profile' }, { name: 'Logout', onClick: handleLogout }] : [{ name: 'Login/Register', href: '/login', current: location.pathname === '/login' }],
+        ...loggedIn ? [{name: `${user.email}` }, { name: 'Profile', href: '/profile' }, { name: 'Logout', onClick: handleLogout }] : [],
     ];
 
     const navigationLinks = [
         { name: 'Home', href: '/', current: location.pathname === '/' },
-        ...loggedIn ? [] : [{ name: 'Login/Register', href: '/login', current: location.pathname === '/login' }],
+        ...loggedIn ? [] : [],
         ...role === 'admin' ? [{ name: 'Admin', href: '/admin', current: location.pathname === '/admin' }] : [],
-        ...role === 'employee' || role === 'admin' ? [{ name: 'Employee', href: '/employee', current: location.pathname === '/employee' }] : [],
+        ...role === 'employee' || role === 'admin' ? [{ name: 'Employee', href: '/employee', current: location.pathname === '/employee' }, { name: 'AI Assistant', href: '/AI-Employee-Assistant'}] : [],
         ...role === 'guest' || role === 'admin' ? [{ name: 'Fill Out Application', href: '/application', current: location.pathname === '/application' }] : []
     ];
 

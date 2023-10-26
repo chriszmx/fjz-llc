@@ -10,7 +10,8 @@ import Profile from "./components/profile/Profile";
 import Application from "./components/application/Application";
 import TimeClock from "./components/employee/TimeClock";
 import Footer from "./components/footer/Footer";
-import { RingLoader } from 'react-spinners';  // Import the spinner
+import EmployeeAI from "./components/ai-chat/EmployeeAI";
+import { RingLoader } from 'react-spinners';
 
 function App() {
     const [initializing, setInitializing] = useState(true);
@@ -46,6 +47,7 @@ function App() {
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/application" element={<Application />} />
                         <Route path="/employee" element={<TimeClock />} />
+                        <Route path="/AI-Employee-Assistant" element={<EmployeeAI />} />
                     </Routes>
                     <Footer />
                 </>
