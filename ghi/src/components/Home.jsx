@@ -48,9 +48,7 @@ export default function Home() {
 
         } catch (error) {
             console.error("Redirection error:", error);
-        } finally {
-            setLoading(false);
-        }
+        } 
     };
 
 
@@ -58,7 +56,7 @@ export default function Home() {
   return (
     <div className="bg-white">
         {loading ? (
-            <div className="flex justify-center items-center h-screen">
+            <div className="flex justify-center items-center h-screen animate-pulsate">
                 <PacmanLoader color="#123abc" size={50} />
             </div>
         ) : (
