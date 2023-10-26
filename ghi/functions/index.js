@@ -1,67 +1,26 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const nodemailer = require('nodemailer');
 admin.initializeApp();
 
-const gmailEmail = functions.config().gmail.email;
-const gmailPassword = functions.config().gmail.password;
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: gmailEmail,
-        pass: gmailPassword
-    }
-});
-
-const cors = require('cors')({origin: true});
-
-exports.sendEmail = functions.https.onRequest((request, response) => {
-  cors(request, response, async () => {
-      // Ensure it's a POST request
-      if (request.method !== 'POST') {
-          response.status(405).send('Method Not Allowed');
-          return;
-      }
-
-      const data = request.body;
-
-      // Function body remains the same
-      const mailOptions = {
-          from: gmailEmail,
-          to: data.email,
-          subject: 'Application Status',
-          text: 'Your application has been deleted.'
-      };
-
-      try {
-          const info = await transporter.sendMail(mailOptions);
-          response.send(info); // send the success info to the client
-      } catch (error) {
-          console.error('Error sending email:', error);
-          response.status(500).send('Failed to send email.');
-      }
-  });
-});
 
 
 exports.assignAdminRole = functions.https.onCall((data, context) => {
-   // Check if the request is made by an authenticated user
-   if (context.auth) {
-      const email = data.email;
-      return admin.auth().getUserByEmail(email)
-         .then(user => {
-            return admin.auth().setCustomUserClaims(user.uid, {admin: true});
-         })
-         .then(() => {
-            return {message: `Success! ${email} has been made an admin.`};
-         })
-         .catch(err => {
-            return err;
-         });
-   } else {
-      throw new functions.https.HttpsError('unauthenticated', 'You must be authenticated to make this request.');
-   }
+  // Check if the request is made by an authenticated user
+  if (context.auth) {
+    const email = data.email;
+    return admin.auth().getUserByEmail(email)
+      .then(user => {
+        return admin.auth().setCustomUserClaims(user.uid, { admin: true });
+      })
+      .then(() => {
+        return { message: `Success! ${email} has been made an admin.` };
+      })
+      .catch(err => {
+        return err;
+      });
+  } else {
+    throw new functions.https.HttpsError('unauthenticated', 'You must be authenticated to make this request.');
+  }
 });
 
 
@@ -87,3 +46,49 @@ exports.setAdmin = functions.https.onRequest(async (req, res) => {
     res.status(500).send('Failed to set user as admin.');
   }
 });
+
+const axios = require('axios');
+const cors = require('cors')({ origin: true });
+
+exports.askOpenAI = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async () => {
+    console.log('Function triggered, starting execution');
+
+    if (req.method !== 'POST') {
+      console.log('Method not POST, returning 405');
+      return res.status(405).send('Method Not Allowed');
+    }
+
+    const prompt = req.body.prompt;
+    console.log('Received prompt:', prompt);
+
+    try {
+      console.log('Attempting to make request to OpenAI with prompt:', prompt);
+      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+        model: "gpt-3.5-turbo",
+        messages: [{
+          role: "user",
+          content: prompt
+        }]
+      }, {
+        headers: {
+          'Authorization': `Bearer ${functions.config().openai.key}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log('Response from OpenAI:', response.data);
+
+      const answer = response.data.choices && response.data.choices[0] && response.data.choices[0].message.content.trim();
+      console.log('Extracted answer:', answer);
+      res.json({ answer: answer });
+    } catch (error) {
+      console.error('Detailed error:', error);
+      if (error.response) {
+        console.error('OpenAI Response Error:', error.response.data, error.response.status);
+      }
+      res.status(500).send('Error in OpenAI request: ' + error.message);
+    }
+  });
+});
+
