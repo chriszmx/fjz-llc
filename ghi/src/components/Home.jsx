@@ -3,7 +3,7 @@ import { signInWithGoogle, db } from './utils/authUtils'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { doc, getDoc } from "firebase/firestore";
 import React, { useState } from 'react';
-import { BeatLoader } from 'react-spinners';
+import { PacmanLoader } from 'react-spinners';
 
 
 export default function Home() {
@@ -53,7 +53,7 @@ export default function Home() {
     <div className="bg-white">
         {loading ? (
             <div className="flex justify-center items-center h-screen">
-                <BeatLoader color="#123abc" size={50} />
+                <PacmanLoader color="#123abc" size={50} />
             </div>
         ) : (
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20 pt-14">
