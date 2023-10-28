@@ -5,6 +5,7 @@ import { app, firestore } from '../../Firebase';
 
 import AssignRole from './AssignRole';
 import AdminViewApplications from './AdminViewApplications';
+import TimeClockAdmin from './TimeClockAdmin';
 
 
 const AdminPanel = () => {
@@ -46,9 +47,15 @@ const AdminPanel = () => {
                 </section>
 
                 <section className='mt-10 mb-10'>
+                    {/* <h2 className="text-xl font-bold mb-4">Time Clock</h2> */}
+                    <TimeClockAdmin />
+                </section>
+                
+                <section className='mt-10 mb-10'>
                     {/* <h2 className="text-xl font-bold mb-4">Assign Role</h2> */}
                     <AssignRole />
                 </section>
+
 
             </main>
         </div>
