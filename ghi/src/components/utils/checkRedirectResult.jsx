@@ -7,7 +7,8 @@ const checkRedirectResult = async () => {
     try {
         const result = await getRedirectResult(auth);
 
-        if (result.user) {
+        // Check if result exists and then check for the user property
+        if (result && result.user) {
             toast.success("Successfully logged in with Google!");
             return result.user;
         }
@@ -17,5 +18,6 @@ const checkRedirectResult = async () => {
         return null;
     }
 };
+
 
 export default checkRedirectResult;

@@ -11,8 +11,8 @@ export const signInWithGoogle = async () => {
     try {
         await setPersistence(auth, browserLocalPersistence);
         const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
-        // await signInWithRedirect(auth, provider);
+        // await signInWithPopup(auth, provider);
+        await signInWithRedirect(auth, provider);
         toast.success("Successfully logged in with Google!");
         return auth.currentUser;
     } catch (error) {
