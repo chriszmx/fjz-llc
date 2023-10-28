@@ -127,7 +127,7 @@ export default function Home() {
             <p className="mb-2 text-gray-700 dark:text-gray-300">Having trouble loading?</p>
             <p className="mb-2 text-gray-700 dark:text-gray-300">Preferred browser support: Google Chrome.</p>
             <a href="/login" className="text-indigo-600 dark:text-indigo-400 font-semibold underline hover:text-indigo-500 dark:hover:text-indigo-300">
-                If using iPhone & Safari Browser, click HERE.
+                If using iPhone & Safari Browser, click HERE & click 'Login In With Google' Twice.
             </a>
         </div>
     </div>
