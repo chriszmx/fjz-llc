@@ -12,12 +12,14 @@ import TimeClock from "./components/employee/TimeClock";
 import Footer from "./components/footer/Footer";
 import EmployeeAI from "./components/ai-chat/EmployeeAI";
 import { RingLoader } from 'react-spinners';
+import checkRedirectResult from "./components/utils/checkRedirectResult";
 
 function App() {
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
+        checkRedirectResult();
         const auth = getAuth();
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
