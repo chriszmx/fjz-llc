@@ -5,3 +5,5 @@ firebase functions:config:set gmail.email="YOUR_EMAIL" gmail.password="YOUR_PASS
 
 
 
+        <html class="h-full bg-white">
+        <body class="h-full">

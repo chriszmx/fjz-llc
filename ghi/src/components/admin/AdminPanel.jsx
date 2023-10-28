@@ -35,7 +35,7 @@ const AdminPanel = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 h-full">
             <header className="bg-indigo-600 text-white p-4 dark:bg-indigo-900 dark:text-gray-200">
                 <h1 className="text-2xl">Admin Panel</h1>
             </header>
@@ -50,7 +50,7 @@ const AdminPanel = () => {
                     {/* <h2 className="text-xl font-bold mb-4">Time Clock</h2> */}
                     <TimeClockAdmin />
                 </section>
-                
+
                 <section className='mt-10 mb-10'>
                     {/* <h2 className="text-xl font-bold mb-4">Assign Role</h2> */}
                     <AssignRole />

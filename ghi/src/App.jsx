@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { DarkModeProvider } from "./components/darkMode/darkModeContext";
 import NavBar from "./components/navbar/NavBar";
+import SideNav from "./components/navbar/SideNav";
+
 import Home from "./components/Home";
 import Login from "./components/login/Login";
 import AdminPanel from "./components/admin/AdminPanel";
@@ -40,19 +42,26 @@ function App() {
     return (
         <BrowserRouter>
             <DarkModeProvider>
-                <NavBar />
-                <>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/admin" element={<AdminPanel />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/application" element={<Application />} />
-                        <Route path="/employee" element={<TimeClock />} />
-                        <Route path="/AI-Employee-Assistant" element={<EmployeeAI />} />
-                    </Routes>
-                    <Footer />
-                </>
+                {/* Display SideNav on mobile and hide on medium screens and up */}
+                <div className="sm:hidden">
+                    <SideNav />
+                </div>
+
+                {/* Hide NavBar on mobile and display on medium screens and up */}
+                <div className="hidden sm:block">
+                    <NavBar />
+                </div>
+
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/admin" element={<AdminPanel />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/application" element={<Application />} />
+                    <Route path="/employee" element={<TimeClock />} />
+                    <Route path="/AI-Employee-Assistant" element={<EmployeeAI />} />
+                </Routes>
+                <Footer />
             </DarkModeProvider>
         </BrowserRouter>
     );
