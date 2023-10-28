@@ -37,6 +37,7 @@ const TimeClock = () => {
             endDate.setDate(endOfWeek);
             endDate.setHours(23, 59, 59, 999);
 
+
             const q = query(
                 collection(db, 'attendance'),
                 where('userID', '==', userID),
@@ -156,51 +157,75 @@ const TimeClock = () => {
         }, 0).toFixed(2);
     };
 
+    const getWeekRange = (weekOffset) => {
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + (7 * weekOffset));
+        const startOfWeek = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1);
+        const endOfWeek = startOfWeek + 6;
+
+        const startDate = new Date(currentDate);
+        startDate.setDate(startOfWeek);
+
+        const endDate = new Date(currentDate);
+        endDate.setDate(endOfWeek);
+
+        return { startDate, endDate };
+    };
+
+    const { startDate, endDate } = getWeekRange(weekOffset);
+
+
+
 
 
     return (
-        <div>
-            {isClockedIn ? (
-                <button onClick={handleClockOut}>Clock Out</button>
-            ) : (
-                <button onClick={handleClockIn}>Clock In</button>
-            )}
+        <div className="p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white h-screen cursor-default">
+            <div className="flex items-center justify-between mb-6">
+                {isClockedIn ? (
+                    <button className="px-4 py-2 bg-red-600 hover:bg-red-500 rounded transition" onClick={handleClockOut}>Clock Out</button>
+                ) : (
+                    <button className="px-4 py-2 bg-green-600 hover:bg-green-500 rounded transition" onClick={handleClockIn}>Clock In</button>
+                )}
+                <span className="text-lg font-semibold">
+                    {startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}
+                </span>
+            </div>
 
-            <table>
-                <thead>
+            <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
+                <thead className="bg-gray-300 dark:bg-gray-700">
                     <tr>
-                        <th>Clock In</th>
-                        <th>Clock Out</th>
-                        <th>Date</th>
-                        <th>Duration (hrs)</th>
-                        <th>Location</th>
+                        <th className="px-4 py-2">Clock In</th>
+                        <th className="px-4 py-2">Clock Out</th>
+                        <th className="px-4 py-2">Date</th>
+                        <th className="px-4 py-2">Duration (hrs)</th>
                     </tr>
                 </thead>
                 <tbody>
                     {attendances.map(a => (
-                        <tr key={a.id}>
-                            <td>{new Date(a.clockInTime).toLocaleTimeString()}</td>
-                            <td>{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
-                            <td>{new Date(a.date.seconds * 1000).toDateString()}</td>
-                            <td>{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
-                            <td>{a.location}</td>
+                        <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
+                            <td className="px-4 py-2 border-t">{new Date(a.clockInTime).toLocaleTimeString()}</td>
+                            <td className="px-4 py-2 border-t">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
+                            <td className="px-4 py-2 border-t">{new Date(a.date.seconds * 1000).toDateString()}</td>
+                            <td className="px-4 py-2 border-t">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
                         </tr>
                     ))}
                 </tbody>
-                <tfoot>
+                <tfoot className="bg-gray-300 dark:bg-gray-700">
                     <tr>
-                        <td colSpan="2">Total Hours Today</td>
-                        <td>{getTotalHours(attendances)}</td>
+                        <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
+                        <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
                     </tr>
                     <tr>
-                        <td colSpan="2">Total Hours This Week</td>
-                        <td>{calculateDurationWeek(attendances)}</td>
+                        <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
+                        <td className="px-4 py-2 text-green-500" colSpan="2">{calculateDurationWeek(attendances)}</td>
                     </tr>
                 </tfoot>
             </table>
-            <button onClick={() => setWeekOffset(weekOffset - 1)}>Previous Week</button>
-            {weekOffset < 0 && <button onClick={() => setWeekOffset(weekOffset + 1)}>Next Week</button>}
 
+            <div className="mt-6 flex">
+                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-l transition mr-0.5" onClick={() => setWeekOffset(weekOffset - 1)}>Previous Week</button>
+                {weekOffset < 0 && <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-r transition ml-0.5" onClick={() => setWeekOffset(weekOffset + 1)}>Next Week</button>}
+            </div>
         </div>
     );
 };
