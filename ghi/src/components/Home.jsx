@@ -1,15 +1,28 @@
 import Logo from '../assets/logo-color.png'
-import { signInWithGoogle, db } from './utils/authUtils'
+// import { signInWithGoogle, db } from './utils/authUtils'
 import { useNavigate } from 'react-router-dom';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import React, { useState, useEffect } from 'react';
 import { PacmanLoader } from 'react-spinners';
 import checkRedirectResult from './utils/checkRedirectResult';
+import { setPersistence, browserLocalPersistence } from "firebase/auth";
+import { app } from "../Firebase";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
 
 
 export default function Home() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
   useEffect(() => {
       const checkUserAuth = async () => {
@@ -22,6 +35,7 @@ export default function Home() {
   }, []);
 
   const handleUser = async (user) => {
+    try {
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
@@ -43,27 +57,63 @@ export default function Home() {
                   break;
           }
       }
-  };
+    } catch (error) {
+      console.error("Error in handleUser:", error);
+      setLoading(false);
+      toast.error("Error processing user data!");
+  }
+};
 
-  const handleSignInWithGoogle = async () => {
-      setLoading(true);
-      console.log("Started loading...");
-      try {
-          const user = await signInWithGoogle();
-          if (user) {
-              await handleUser(user);
-              // ITS PACMAN!
-              console.log("Starting Pacman timer...");
-              setTimeout(() => {
-                  console.log("Stopping loading after 5 seconds...");
-                  setLoading(false);
-              }, 7000);
-          }
-      } catch (error) {
-          console.error("Redirection error:", error);
+const signInWithGoogle = async () => {
+  try {
+      await setPersistence(auth, browserLocalPersistence);
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      toast.success("Successfully logged in with Google!");
+      return result.user; // This will return the signed-in user
+  } catch (error) {
+      console.error(error);
+      toast.error("Error logging in with Google!");
+  }
+};
+
+
+const handleSignInWithGoogle = async () => {
+  setLoading(true);
+  console.log("Started loading...");
+  try {
+      const user = await signInWithGoogle();
+      if (user) {
+          await handleUser(user);
+          // No need for a timeout here. Stop loading immediately after handling the user.
           setLoading(false);
       }
-  };
+  } catch (error) {
+      console.error("Redirection error:", error);
+      setLoading(false);
+  }
+};
+
+
+  // const handleSignInWithGoogle = async () => {
+  //     setLoading(true);
+  //     console.log("Started loading...");
+  //     try {
+  //         const user = await signInWithGoogle();
+  //         if (user) {
+  //             await handleUser(user);
+  //             // ITS PACMAN!
+  //             console.log("Starting Pacman timer...");
+  //             setTimeout(() => {
+  //                 console.log("Stopping loading after 5 seconds...");
+  //                 setLoading(false);
+  //             }, 7000);
+  //         }
+  //     } catch (error) {
+  //         console.error("Redirection error:", error);
+  //         setLoading(false);
+  //     }
+  // };
 
 
 
