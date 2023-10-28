@@ -2,56 +2,68 @@ import Logo from '../assets/logo-color.png'
 import { signInWithGoogle, db } from './utils/authUtils'
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc } from "firebase/firestore";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PacmanLoader } from 'react-spinners';
+import checkRedirectResult from './utils/checkRedirectResult';
 
 
 export default function Home() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+  useEffect(() => {
+      const checkUserAuth = async () => {
+          const user = await checkRedirectResult();
+          if (user) {
+              handleUser(user);
+          }
+      };
+      checkUserAuth();
+  }, []);
 
-    const handleSignInWithGoogle = async () => {
-        setLoading(true);
-        console.log("Started loading...");
-        try {
-            const user = await signInWithGoogle();
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
+  const handleUser = async (user) => {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+          const userData = userSnap.data();
+          switch (userData.role) {
+              case "admin":
+                  navigate("/admin");
+                  break;
+              case "guest":
+                  navigate("/application");
+                  break;
+              case "employee":
+                  navigate("/employee");
+                  break;
+              case "renter":
+                  navigate("/profile");
+                  break;
+              default:
+                  break;
+          }
+      }
+  };
 
-                if (userSnap.exists()) {
-                    const userData = userSnap.data();
-                    switch (userData.role) {
-                        case "admin":
-                            navigate("/admin");
-                            break;
-                        case "guest":
-                            navigate("/application");
-                            break;
-                        case "employee":
-                            navigate("/employee");
-                            break;
-                        case "renter":
-                            navigate("/profile");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                // ITS PACMAN!
-                console.log("Starting Pacman timer...");
-                setTimeout(() => {
-                    console.log("Stopping loading after 5 seconds...");
-                    setLoading(false);
-                }, 7000);
-            }
-        } catch (error) {
-            console.error("Redirection error:", error);
-            setLoading(false);
-        }
-    };
+  const handleSignInWithGoogle = async () => {
+      setLoading(true);
+      console.log("Started loading...");
+      try {
+          const user = await signInWithGoogle();
+          if (user) {
+              await handleUser(user);
+              // ITS PACMAN!
+              console.log("Starting Pacman timer...");
+              setTimeout(() => {
+                  console.log("Stopping loading after 5 seconds...");
+                  setLoading(false);
+              }, 7000);
+          }
+      } catch (error) {
+          console.error("Redirection error:", error);
+          setLoading(false);
+      }
+  };
 
 
 

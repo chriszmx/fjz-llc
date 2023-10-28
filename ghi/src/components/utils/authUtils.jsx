@@ -7,6 +7,7 @@ import { app } from "../../Firebase";
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
+
 export const signInWithGoogle = async () => {
     try {
         await setPersistence(auth, browserLocalPersistence);
