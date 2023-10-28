@@ -59,7 +59,7 @@ const NavBar = () => {
         // { name: 'Your Profile', href: '/profile' },
         // { name: 'Settings', href: '#settings' },
         // { name: 'Logout', onClick: handleLogout }
-        ...loggedIn ? [{name: `${user.email}` }, { name: 'Profile', href: '/profile' }, { name: 'Logout', onClick: handleLogout }] : [],
+        ...loggedIn ? [{name: `${user.email}` }, { name: 'Profile', href: '/profile' }, { name: 'Logout', onClick: handleLogout }] : [{ name: 'Login/Register iPhone / Safari Users', href: '/login'}],
     ];
 
     const navigationLinks = [
