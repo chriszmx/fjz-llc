@@ -34,7 +34,7 @@ function App() {
     }, []);
 
     if (initializing) {
-        return <div className="flex justify-center items-center h-screen"><RingLoader color="#123abc" size={50} /></div>;
+        return <div className="flex justify-center items-center h-screen bg-gray-900"><RingLoader color="#123abc" size={200} /></div>;
     }
 
     return (
