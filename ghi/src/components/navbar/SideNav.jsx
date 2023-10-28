@@ -7,11 +7,11 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { app } from '../../Firebase';
 import DarkModeToggle from '../darkMode/DarkModeToggle';
 
-const teams = [
-    { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-    { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-    { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
-]
+// const teams = [
+//     { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
+//     { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
+//     { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+// ]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -156,7 +156,7 @@ const SideNav = () => {
                                                         ))}
                                                     </ul>
                                                 </li>
-                                                <li>
+                                                {/* <li>
                                                     <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
                                                     <ul role="list" className="-mx-2 mt-2 space-y-1">
                                                         {teams.map((team) => (
@@ -178,7 +178,7 @@ const SideNav = () => {
                                                             </li>
                                                         ))}
                                                     </ul>
-                                                </li>
+                                                </li> */}
                                             </ul>
                                         </nav>
                                     </div>
@@ -193,7 +193,9 @@ const SideNav = () => {
                         <span className="sr-only">Open sidebar</span>
                         <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                     </button>
-                    <div className="flex-1 text-sm font-semibold leading-6 text-white">FJZ LLC</div>
+                    <div className="flex-1 text-sm font-semibold leading-6 text-white">
+                        <a href="/">FJZ LLC</a>
+                    </div>
 
                     {/* Dark Mode Toggle */}
                     <DarkModeToggle />

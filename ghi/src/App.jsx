@@ -16,6 +16,8 @@ import EmployeeAI from "./components/ai-chat/EmployeeAI";
 import { RingLoader } from 'react-spinners';
 import checkRedirectResult from "./components/utils/checkRedirectResult";
 
+
+
 function App() {
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState(null);

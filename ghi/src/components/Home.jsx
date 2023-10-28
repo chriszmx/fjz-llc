@@ -156,10 +156,23 @@ export default function Home() {
                     href="#"
                     className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Get started
+                    Fill Out Application
                   </a>
                 </div>
               </div>
+
+              <div className="mt-10 flex items-center gap-x-6">
+                <h2>Current Listings:</h2>
+                <ul>
+                  <li>1108 Kenmore Ave, Buffalo 14216</li>
+                  <li>APT 5</li>
+                  <li>1 Bedroom 1 Bath</li>
+                  <li>900 sqft</li>
+                  <li>Available November 1st</li>
+                  <li>$900/month</li>
+                </ul>
+              </div>
+
               <img
                 src={Logo}
                 alt=""
