@@ -123,6 +123,7 @@ const handleSignInWithGoogle = async () => {
         {loading ? (
             <div className="flex justify-center items-center h-screen animate-pulsate">
                 <PacmanLoader color="#123abc" size={50} />
+                <a href="/login">If using iPhone & Safari Browser please click HERE.</a>
             </div>
         ) : (
       <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20 pt-14">
