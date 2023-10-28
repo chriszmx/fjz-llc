@@ -25,28 +25,26 @@ const TimeClock = () => {
             if (!userID) return;
 
             const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() + (7 * weekOffset));  // Adjust for weekOffset
-            const startOfWeek = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1); // Adjusting for Sunday being 0
+            currentDate.setDate(currentDate.getDate() + (7 * weekOffset));
+            const startOfWeek = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1);
             const endOfWeek = startOfWeek + 6;
 
             const startDate = new Date(currentDate);
             startDate.setDate(startOfWeek);
-            startDate.setHours(0, 0, 0, 0); // Start of day
+            startDate.setHours(0, 0, 0, 0);
 
             const endDate = new Date(currentDate);
             endDate.setDate(endOfWeek);
-            endDate.setHours(23, 59, 59, 999); // End of day
+            endDate.setHours(23, 59, 59, 999);
 
             const q = query(
                 collection(db, 'attendance'),
                 where('userID', '==', userID),
                 where('date', '>=', startDate),
                 where('date', '<=', endDate)
-
             );
 
             const querySnapshot = await getDocs(q);
-
 
             console.log("Start Date:", startDate.toDateString());
             console.log("End Date:", endDate.toDateString());
@@ -60,13 +58,25 @@ const TimeClock = () => {
                 });
             });
 
+            const currentlyClockedIn = !!weekAttendances.find(a =>
+                !a.clockOutTime &&
+                new Date(a.date?.seconds * 1000).toDateString() === currentDate.toDateString()
+            );
+            console.log("Is currently clocked in:", currentlyClockedIn);
+
+            weekAttendances.forEach(a => {
+                console.log("Has clockOutTime:", !!a.clockOutTime);
+                console.log("Date matches today:", new Date(a.date?.seconds * 1000).toDateString() === currentDate.toDateString());
+            });
+
             console.log("Fetching attendance...", weekAttendances);
             setAttendances(weekAttendances);
-            setIsClockedIn(!!weekAttendances.find(a => !a.clockOutTime && new Date(a.date).toDateString() === currentDate.toDateString())); // If there's any record without clockOutTime for today, user is clocked in.
+            setIsClockedIn(currentlyClockedIn);
         };
 
         fetchAttendance();
     }, [db, userID, weekOffset]);
+
 
 
 
@@ -145,6 +155,7 @@ const TimeClock = () => {
             return total + parseFloat(calculateDuration(attendance.clockInTime, attendance.clockOutTime));
         }, 0).toFixed(2);
     };
+
 
 
     return (
