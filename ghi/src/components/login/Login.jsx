@@ -112,7 +112,7 @@ const Login = () => {
                         {isLogin ? "Sign In to your account" : "Register a new account"}
                     </h2>
                     <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
-                        {isLogin ? "New to us? " : "Already have an account? "}
+                        {isLogin ? "Don't have a Gmail? Create an account with any email. " : "Already have an account? "}
                         <span
                             className="cursor-pointer text-indigo-500 hover:text-indigo-700 dark:text-indigo-400"
                             onClick={() => setIsLogin(!isLogin)}
@@ -144,6 +144,7 @@ const Login = () => {
                         >
                             Login
                         </button>
+                        <p className="text-red-500 text-center pt-5 pb-3"><strong>If using an iPhone with Safari <br /> Please Click <br /> -- Login with Google Twice --</strong></p>
                         <button
                             className="w-full mt-2 bg-red-500 text-white py-2 px-4 rounded focus:outline-none hover:bg-red-600"
                             type="button"
