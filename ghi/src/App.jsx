@@ -5,7 +5,8 @@ import { DarkModeProvider } from "./components/darkMode/darkModeContext";
 import NavBar from "./components/navbar/NavBar";
 import SideNav from "./components/navbar/SideNav";
 
-import Home from "./components/Home";
+import Home from "./components/homePage/Home";
+import Home1 from "./components/Home1";
 import Login from "./components/login/Login";
 import AdminPanel from "./components/admin/AdminPanel";
 import Profile from "./components/profile/Profile";
@@ -55,6 +56,7 @@ function App() {
                 </div>
 
                 <Routes>
+                    <Route path="/test" element={<Home1 />} />
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<AdminPanel />} />

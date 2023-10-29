@@ -16,7 +16,6 @@ const AdminPanel = () => {
         { title: 'View Applications', component: <AdminViewApplications /> },
         { title: 'Time Clock', component: <TimeClockAdmin /> },
         { title: 'Assign Role', component: <AssignRole /> },
-        // You can add more components here...
     ];
 
     useEffect(() => {
@@ -45,15 +44,15 @@ const AdminPanel = () => {
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900 h-full">
             <header className="bg-indigo-600 text-white p-4 dark:bg-indigo-900 dark:text-gray-200">
                 <h1 className="text-2xl">Admin Panel</h1>
-            </header>
+                </header>
             <main className="p-4">
 
                 <div className="mb-6">
                     {componentsList.map((item, index) => (
                         <button
-                            key={index}
-                            className="mr-4 p-2 bg-indigo-600 text-white rounded dark:bg-indigo-900"
-                            onClick={() => setActiveComponent(item.component)}
+                        key={index}
+                        className="mr-4 p-2 mt-4 mb-4 bg-indigo-600 hover:bg-indigo-900 text-white rounded dark:bg-indigo-900 dark:hover:bg-indigo-600 focus:outline-none transition duration-200"
+                        onClick={() => setActiveComponent(item.component)}
                         >
                             {item.title}
                         </button>

@@ -143,10 +143,13 @@ export default function Home() {
               <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto dark:text-indigo-500">
                 Welcome to FJZ LLC
               </h1>
+
               <div className="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
                 <p className="text-lg leading-8 text-gray-600 dark:text-gray-300">
                   Simple, easy, and transparent apartment applications. Apply for your future apartment with a few simple steps. Track the progress of your application in real-time. <br /><br />$0 Application Fee. <br /><br />Sign in with Google to get started.
                 </p>
+
+
                 <div className="mt-10 flex items-center gap-x-6">
                   <a
                     onClick={e => {
@@ -173,6 +176,15 @@ export default function Home() {
                   <li>Available November 1st</li>
                   <li>$900/month</li>
                 </ul>
+<br />
+                <ul>
+                  <li>171 Mead St, Tonawanda 14150</li>
+                  <li>APT 5</li>
+                  <li>1 Bedroom 1 Bath</li>
+                  <li>900 sqft</li>
+                  <li>Available December 1st</li>
+                  <li>$1,000/month</li>
+                </ul>
               </div>
 
               <img
@@ -188,55 +200,3 @@ export default function Home() {
     </div>
   )
 }
-
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import logo from "../assets/logo-color.png";
-// import { Link } from 'react-router-dom';
-
-// const Home = () => {
-//     return (
-//         <div className="flex flex-col items-center justify-center min-h-screen text-center">
-//             {/* Hero section */}
-//             <div className="pt-10 px-5">
-//                 <img src={logo} alt="Logo" className="mx-auto h-60 w-auto shadow-lg bg-white hover:opacity-75 rounded-lg" />
-//                 <h1 className="mt-6">Welcome to FJZ LLC</h1>
-//                 <p className="mt-2">
-//                     Your one-stop platform for seamless apartment applications.
-//                 </p>
-//             </div>
-
-//             {/* Services section */}
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 px-5">
-//                 <div className="py-5 px-6 bg-white rounded-md shadow-md text-left">
-//                     <h3>Easy Applications</h3>
-//                     <p className="mt-2">Apply for your future apartment with a few simple steps.</p>
-//                 </div>
-//                 <div className="py-5 px-6 bg-white rounded-md shadow-md text-left">
-//                     <h3>Transparent Process</h3>
-//                     <p className="mt-2">Track the progress of your application in real-time.</p>
-//                 </div>
-//             </div>
-
-//             {/* Call to action */}
-//             <div className="mt-10 px-5">
-//                 <Link to="/login" className="cta-btn btn-primary">
-//                     Log In
-//                 </Link>
-//                 <Link to="/application" className="ml-3 cta-btn btn-secondary">
-//                     Apply Now
-//                 </Link>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default Home;
