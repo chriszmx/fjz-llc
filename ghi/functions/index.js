@@ -93,3 +93,50 @@ exports.askOpenAI = functions.https.onRequest(async (req, res) => {
     }
   });
 });
+
+
+
+exports.autoClockOutUsers = functions.pubsub.schedule('0 0 * * *') // Runs daily at midnight
+    .timeZone('America/New_York')
+    .onRun(async (context) => {
+        const db = admin.firestore();
+
+        // Today's date
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        // 11:59 PM of yesterday
+        const autoClockOutTime = new Date(currentDate);
+        autoClockOutTime.setMinutes(-1);  // 1 minute before midnight
+
+        const attendanceQuery = db.collection('attendance')
+            .where('clockOutTime', '==', null)
+            .where('date', '<', currentDate);
+
+        const forgotToClockOutUsers = [];
+        const snapshot = await attendanceQuery.get();
+        if (!snapshot.empty) {
+            for (let doc of snapshot.docs) {
+                const attendance = doc.data();
+                forgotToClockOutUsers.push(attendance.userID); // Assuming you have a userID field in the attendance doc
+                await doc.ref.update({
+                    clockOutTime: admin.firestore.Timestamp.fromDate(autoClockOutTime)
+                });
+            }
+        }
+
+        if (forgotToClockOutUsers.length > 0) {
+            // Send email notification
+            const notificationRef = db.collection('mail').doc();
+            await notificationRef.set({
+                to: ['c.r.zambito@gmail.com', 'fjzllc@gmail.com', 'bz814@aol.com'],
+                message: {
+                    subject: 'Users Forgot to Clock Out!',
+                    text: `The following users forgot to clock out on ${currentDate.toLocaleDateString()}: ${forgotToClockOutUsers.join(', ')}. Their records have been auto-adjusted.`,
+                    html: `<strong>The following users forgot to clock out:</strong><br>${forgotToClockOutUsers.join('<br>')}.<br><br><p>**This is an automated email. Please do not reply.**</p>`
+                }
+            });
+        }
+
+        return null; // Fulfill the function promise
+    });
