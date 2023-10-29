@@ -5,6 +5,8 @@ import { app } from "../../Firebase";
 // import { getAuth, deleteUser } from "firebase/auth";
 // import { getStorage } from "firebase/storage";
 
+
+
 const AdminViewApplications = () => {
     const [applications, setApplications] = useState([]);
     const [selectedApplication, setSelectedApplication] = useState(null);

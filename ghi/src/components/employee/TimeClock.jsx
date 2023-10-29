@@ -157,6 +157,16 @@ const TimeClock = () => {
         }, 0).toFixed(2);
     };
 
+    const getTotalHoursToday = (attendances) => {
+        const currentDate = new Date().toDateString();
+        const todaysAttendances = attendances.filter(a => new Date(a.date.seconds * 1000).toDateString() === currentDate);
+
+        return todaysAttendances.reduce((total, attendance) => {
+            return total + parseFloat(calculateDuration(attendance.clockInTime, attendance.clockOutTime));
+        }, 0).toFixed(2);
+    };
+
+
     const getWeekRange = (weekOffset) => {
         const currentDate = new Date();
         currentDate.setDate(currentDate.getDate() + (7 * weekOffset));
@@ -213,13 +223,14 @@ const TimeClock = () => {
                 <tfoot className="bg-gray-300 dark:bg-gray-700">
                     <tr>
                         <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
-                        <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
+                        <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHoursToday(attendances)}</td>
                     </tr>
                     <tr>
                         <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
-                        <td className="px-4 py-2 text-green-500" colSpan="2">{calculateDurationWeek(attendances)}</td>
+                        <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
                     </tr>
                 </tfoot>
+
             </table>
 
             <div className="mt-6 flex">
