@@ -244,15 +244,11 @@ const TimeClockAdmin = () => {
                                 <td>
                                     {calculateDuration(a.clockInTime, a.clockOutTime)}
                                 </td>
-                                <td>{a.location}</td>
+                                <td className='text-sm md:text-base'>{a.location} <br />----------</td>
                             </tr>
                         ))}
                     </tbody>
                     <tfoot className="bg-gray-300 dark:bg-gray-700">
-                        {/* <tr>
-                        <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
-                        <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
-                    </tr> */}
                         <tr>
                             <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
                             <td className="px-4 py-2 text-green-500" colSpan="2">{calculateDurationWeek(attendances)}</td>

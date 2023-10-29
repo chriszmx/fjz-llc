@@ -7,10 +7,17 @@ import AssignRole from './AssignRole';
 import AdminViewApplications from './AdminViewApplications';
 import TimeClockAdmin from './TimeClockAdmin';
 
-
 const AdminPanel = () => {
     const [isAdmin, setIsAdmin] = useState(false);
+    const [activeComponent, setActiveComponent] = useState(null);
     const auth = getAuth(app);
+
+    const componentsList = [
+        { title: 'View Applications', component: <AdminViewApplications /> },
+        { title: 'Time Clock', component: <TimeClockAdmin /> },
+        { title: 'Assign Role', component: <AssignRole /> },
+        // You can add more components here...
+    ];
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
@@ -41,21 +48,21 @@ const AdminPanel = () => {
             </header>
             <main className="p-4">
 
+                <div className="mb-6">
+                    {componentsList.map((item, index) => (
+                        <button
+                            key={index}
+                            className="mr-4 p-2 bg-indigo-600 text-white rounded dark:bg-indigo-900"
+                            onClick={() => setActiveComponent(item.component)}
+                        >
+                            {item.title}
+                        </button>
+                    ))}
+                </div>
+
                 <section className='mt-5 mb-10'>
-                    {/* <h2 className="text-xl font-bold mb-4">View Applications</h2> */}
-                    <AdminViewApplications />
+                    {activeComponent}
                 </section>
-
-                <section className='mt-10 mb-10'>
-                    {/* <h2 className="text-xl font-bold mb-4">Time Clock</h2> */}
-                    <TimeClockAdmin />
-                </section>
-
-                <section className='mt-10 mb-10'>
-                    {/* <h2 className="text-xl font-bold mb-4">Assign Role</h2> */}
-                    <AssignRole />
-                </section>
-
 
             </main>
         </div>

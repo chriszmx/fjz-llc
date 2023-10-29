@@ -189,56 +189,58 @@ const TimeClock = () => {
 
 
     return (
-        <div className="p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white h-screen cursor-default">
-            <div className="flex items-center justify-between mb-6">
+        <div className="p-4 sm:p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white h-screen cursor-default flex flex-col">
+            <div className="flex flex-col-reverse sm:flex-row items-center justify-between mb-4">
                 {isClockedIn ? (
-                    <button className="px-4 py-2 bg-red-600 hover:bg-red-500 rounded transition" onClick={handleClockOut}>Clock Out</button>
+                    <button className="mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 bg-red-600 hover:bg-red-500 rounded transition" onClick={handleClockOut}>Clock Out</button>
                 ) : (
-                    <button className="px-4 py-2 bg-green-600 hover:bg-green-500 rounded transition" onClick={handleClockIn}>Clock In</button>
+                    <button className="mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 bg-green-600 hover:bg-green-500 rounded transition" onClick={handleClockIn}>Clock In</button>
                 )}
                 <span className="text-lg font-semibold">
                     {startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}
                 </span>
             </div>
 
-            <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
-                <thead className="bg-gray-300 dark:bg-gray-700">
-                    <tr>
-                        <th className="px-4 py-2">Clock In</th>
-                        <th className="px-4 py-2">Clock Out</th>
-                        <th className="px-4 py-2">Date</th>
-                        <th className="px-4 py-2">Duration (hrs)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {attendances.map(a => (
-                        <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
-                            <td className="px-4 py-2 border-t">{new Date(a.clockInTime).toLocaleTimeString()}</td>
-                            <td className="px-4 py-2 border-t">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
-                            <td className="px-4 py-2 border-t">{new Date(a.date.seconds * 1000).toDateString()}</td>
-                            <td className="px-4 py-2 border-t">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+            <div className="flex-grow overflow-x-auto">
+                <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
+                    <thead className="bg-gray-300 dark:bg-gray-700">
+                        <tr>
+                            <th className="px-4 py-2">Clock In</th>
+                            <th className="px-4 py-2">Clock Out</th>
+                            <th className="px-4 py-2">Date</th>
+                            <th className="px-4 py-2">Duration (hrs)</th>
                         </tr>
-                    ))}
-                </tbody>
-                <tfoot className="bg-gray-300 dark:bg-gray-700">
-                    <tr>
-                        <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
-                        <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHoursToday(attendances)}</td>
-                    </tr>
-                    <tr>
-                        <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
-                        <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
-                    </tr>
-                </tfoot>
+                    </thead>
+                    <tbody>
+                        {attendances.map(a => (
+                            <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
+                                <td className="px-4 py-2 border-t">{new Date(a.clockInTime).toLocaleTimeString()}</td>
+                                <td className="px-4 py-2 border-t">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
+                                <td className="px-4 py-2 border-t">{new Date(a.date.seconds * 1000).toDateString()}</td>
+                                <td className="px-4 py-2 border-t">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <tfoot className="bg-gray-300 dark:bg-gray-700">
+                        <tr>
+                            <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
+                            <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHoursToday(attendances)}</td>
+                        </tr>
+                        <tr>
+                            <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
+                            <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
 
-            </table>
-
-            <div className="mt-6 flex">
-                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-l transition mr-0.5" onClick={() => setWeekOffset(weekOffset - 1)}>Previous Week</button>
-                {weekOffset < 0 && <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-r transition ml-0.5" onClick={() => setWeekOffset(weekOffset + 1)}>Next Week</button>}
+            <div className="mt-4 flex justify-between">
+                <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-l transition" onClick={() => setWeekOffset(weekOffset - 1)}>Previous Week</button>
+                {weekOffset < 0 && <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-r transition ml-2" onClick={() => setWeekOffset(weekOffset + 1)}>Next Week</button>}
             </div>
         </div>
     );
+
 };
 
 export default TimeClock;

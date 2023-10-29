@@ -99,7 +99,7 @@ const Profile = () => {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 gap-4">
-                        <p className="dark:text-gray-300"><span className="font-semibold">Name:</span> {userProfile.firstName} {userProfile.lastName}</p>
+                        <p className="dark:text-gray-300"><span className="font-semibold">Name:</span> {userProfile.name}</p>
                         <p className="dark:text-gray-300"><span className="font-semibold">Email:</span> {userProfile.email}</p>
                         <p className="dark:text-gray-300"><span className="font-semibold">Role:</span> {userProfile.role}</p>
                         <p className="dark:text-gray-300"><span className="font-semibold">Phone Number:</span> {userProfile.phoneNumber}</p>
