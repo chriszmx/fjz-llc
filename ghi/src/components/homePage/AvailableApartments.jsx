@@ -2,7 +2,7 @@ import React from 'react';
 
 const apartments = [
     {
-        name: '1108 Kenmore Ave, Buffalo 14216',
+        name: '1108 Kenmore Ave #5, Buffalo 14216',
         description: '1 Bedroom, 1 Bathroom, 900 sqft',
         includes: 'Includes: Water, Trash, Snow Removal, Parking',
         available: 'Available Now',
@@ -11,7 +11,7 @@ const apartments = [
         component: ''
     },
     {
-        name: '171 Mead St North Tonawanda 14120',
+        name: '171 Mead St #5, North Tonawanda 14120',
         description: '1 Bedroom, 1 Bathroom, 900 sqft',
         includes: 'Includes: Heat, Water, Electric, Trash, Snow Removal, Lawn Care, Parking, Coin Laundry',
         available: 'TBD Under Renovation - December 1st',
