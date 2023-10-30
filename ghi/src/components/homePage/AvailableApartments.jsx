@@ -34,7 +34,7 @@ function AvailableApartments() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {apartments.map((apt, index) => (
                         <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col">
-                            <iframe src={apt.image} alt={apt.name} className="w-full h-60 object-cover mb-4 rounded" />
+                            <iframe src={apt.image} alt={apt.name} className="w-full h-80 object-cover mb-4 rounded" />
 
                             <div className='flex-1 flex flex-col'>
                                 <h2 className="text-2xl font-semibold mb-2">{apt.name}</h2>
