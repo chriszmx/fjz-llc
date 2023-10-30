@@ -23,7 +23,7 @@ const apartments = [
 
 function AvailableApartments() {
     return (
-        <div className="bg-gray-900 p-6 align-center mb-40">
+        <div className="bg-gray-900 p-6 align-center">
             <h1 className="text-4xl font-bold tracking-tight text-white dark:text-gray-200 sm:text-5xl mb-10 text-center">
                 Available Apartments
             </h1>
@@ -51,6 +51,7 @@ function AvailableApartments() {
                     ))}
                 </div>
             )}
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </div>
     );
 }
