@@ -120,7 +120,8 @@ exports.autoClockOutUsers = functions.pubsub.schedule('0 0 * * *') // Runs daily
                 const attendance = doc.data();
                 forgotToClockOutUsers.push(attendance.userID); // Assuming you have a userID field in the attendance doc
                 await doc.ref.update({
-                    clockOutTime: admin.firestore.Timestamp.fromDate(autoClockOutTime)
+                    // clockOutTime: admin.firestore.Timestamp.fromDate(autoClockOutTime)
+                    clockOutTime: autoClockOutTime.toISOString()
                 });
             }
         }

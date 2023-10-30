@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs, query, where, updateDoc, doc } from 'firebase/firestore';
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 
 const TimeClockAdmin = () => {
     const db = getFirestore();
@@ -9,6 +11,8 @@ const TimeClockAdmin = () => {
     const [attendances, setAttendances] = useState([]);
     const [weekOffset, setWeekOffset] = useState(0);
     const [refreshKey, setRefreshKey] = useState(0);
+    const [editingId , setEditingId] = useState(null);
+    const [editingType, setEditingType] = useState(null);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -82,11 +86,41 @@ const TimeClockAdmin = () => {
 
 
 
-    const handleTimeEdit = (attendanceID, type, newTime) => {
-        const dateFromAttendance = new Date(attendances.find(a => a.id === attendanceID).date.seconds * 1000);
-        const timeParts = newTime.split(':');
-        dateFromAttendance.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10));
-        const newIsoTime = dateFromAttendance.toISOString();
+    // const handleTimeEdit = (attendanceID, type, newTime) => {
+    //     // Get the existing date from either the clockInTime or clockOutTime
+    //     const existingDate = new Date(attendances.find(a => a.id === attendanceID)[type]);
+
+    //     // Split the entered time to get hours and minutes
+    //     const timeParts = newTime.split(':');
+
+    //     // Set only the hours and minutes to the existingDate object
+    //     existingDate.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10));
+
+    //     const newIsoTime = existingDate.toISOString();
+
+    //     const updatedAttendances = attendances.map(a =>
+    //         a.id === attendanceID ? { ...a, [type]: newIsoTime } : a
+    //     );
+    //     setAttendances(updatedAttendances);
+    // };
+
+
+
+
+    // const handleTimeSave = async (attendanceID, type) => {
+    //     const attendanceToUpdate = attendances.find(a => a.id === attendanceID);
+    //     await updateDoc(doc(db, 'attendance', attendanceID), {
+    //         [type]: attendanceToUpdate[type]
+    //     });
+
+    //     setRefreshKey(prevKey => prevKey + 1);  // Force a re-render
+    // };
+
+    const handleTimeEdit = (attendanceID, type, momentObj) => {
+        // Convert moment object to JavaScript Date
+        const newDate = momentObj.toDate();
+
+        const newIsoTime = newDate.toISOString();
 
         const updatedAttendances = attendances.map(a =>
             a.id === attendanceID ? { ...a, [type]: newIsoTime } : a
@@ -101,8 +135,10 @@ const TimeClockAdmin = () => {
             [type]: attendanceToUpdate[type]
         });
 
+        setEditingId(null); // Exit edit mode
         setRefreshKey(prevKey => prevKey + 1);  // Force a re-render
     };
+
 
 
 
@@ -131,12 +167,14 @@ const TimeClockAdmin = () => {
 
     const getWeekRange = (weekOffset) => {
         const currentDate = new Date();
-        currentDate.setDate(currentDate.getDate() + (7 * weekOffset));
-        const startOfWeek = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1);
+        currentDate.setUTCHours(0, 0, 0, 0);  // Set to start of the day in UTC
+        currentDate.setDate(currentDate.getUTCDate() + (7 * weekOffset));
+
+        const startOfWeek = currentDate.getUTCDate() - currentDate.getUTCDay() + (currentDate.getUTCDay() === 0 ? -6 : 1);
         const endOfWeek = startOfWeek + 6;
 
         const startDate = new Date(currentDate);
-        startDate.setDate(startOfWeek);
+        startDate.setUTCDate(startOfWeek);
 
         const endDate = new Date(currentDate);
         endDate.setDate(endOfWeek);
@@ -208,46 +246,63 @@ const TimeClockAdmin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {attendances.map(a => (
-                            <tr key={a.id}>
-                                {/* Display the date */}
-                                <td>{new Date(a.date.seconds * 1000).toDateString()}</td>
+            {attendances.map(a => (
+                <tr key={a.id}>
+                    {/* Display the date */}
+                    <td>{new Date(a.date.seconds * 1000).toDateString()}</td>
 
-                                {/* Editable cell for clock in time */}
-                                <td>
-                                    <input
-                                        className='dark:text-red-500 dark:bg-gray-900 text-xl text-center w-32 sm:w-40'
-                                        type="text"
-                                        defaultValue={new Date(a.clockInTime).toLocaleTimeString()}
-                                        onBlur={(e) => handleTimeEdit(a.id, 'clockInTime', e.target.value)}
-                                    />
-                                    <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockInTime')}>Save</button>
-                                </td>
+{/* Editable cell for clock in time */}
+<td className="relative">
+    {editingId === a.id && editingType === 'clockInTime' ? (
+        <div className="min-h-[200px]">
+            <Datetime
+                defaultValue={new Date(a.clockInTime)}
+                inputProps={{ readOnly: true }}
+                style={{ background: 'red'}}
+                className="dark:bg-red-800 dark:text-black"
+                onChange={date => handleTimeEdit(a.id, 'clockInTime', date)}
+            />
+            <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockInTime')}>Save</button>
+        </div>
+    ) : (
+        <>
+            {new Date(a.clockInTime).toLocaleTimeString()}
+            <button className="ml-2 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white text-sm rounded px-2 py-1" onClick={() => { setEditingId(a.id); setEditingType('clockInTime'); }}>Edit</button>
+        </>
+    )}
+</td>
 
-                                {/* Editable cell for clock out time */}
-                                <td>
-                                    {a.clockOutTime ? (
-                                        <>
-                                            <input
-                                                className='dark:text-red-500 dark:bg-gray-900 text-xl text-center w-32 sm:w-40'
-                                                type="text"
-                                                defaultValue={new Date(a.clockOutTime).toLocaleTimeString()}
-                                                onBlur={(e) => handleTimeEdit(a.id, 'clockOutTime', e.target.value)}
-                                            />
-                                            <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockOutTime')}>Save</button>
-                                        </>
-                                    ) : "-"}
-                                </td>
+{/* Editable cell for clock out time */}
+<td className="relative">
+    {editingId === a.id && editingType === 'clockOutTime' ? (
+        <div className="min-h-[200px]">
+            <Datetime
+                defaultValue={new Date(a.clockOutTime)}
+                inputProps={{ readOnly: true }}
+                className="dark:bg-gray-800 dark:text-black"
+                onChange={date => handleTimeEdit(a.id, 'clockOutTime', date)}
+            />
+            <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockOutTime')}>Save</button>
+        </div>
+    ) : (
+        a.clockOutTime ? (
+            <>
+                {new Date(a.clockOutTime).toLocaleTimeString()}
+                <button className="ml-2 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white text-sm rounded px-2 py-1" onClick={() => { setEditingId(a.id); setEditingType('clockOutTime'); }}>Edit</button>
+            </>
+        ) : "-"
+    )}
+</td>
 
 
-                                {/* Total hours worked */}
-                                <td>
-                                    {calculateDuration(a.clockInTime, a.clockOutTime)}
-                                </td>
-                                <td className='text-sm md:text-base'>{a.location} <br />----------</td>
-                            </tr>
-                        ))}
-                    </tbody>
+                    {/* Total hours worked */}
+                    <td>
+                        {calculateDuration(a.clockInTime, a.clockOutTime)}
+                    </td>
+                    <td className='text-sm md:text-base'>{a.location} <br /></td>
+                </tr>
+            ))}
+        </tbody>
                     <tfoot className="bg-gray-300 dark:bg-gray-700">
                         <tr>
                             <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
