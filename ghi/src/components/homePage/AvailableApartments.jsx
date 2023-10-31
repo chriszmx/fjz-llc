@@ -33,15 +33,15 @@ function AvailableApartments() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {apartments.map((apt, index) => (
-                        <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col">
+                        <div key={index} className="bg-gray-800 dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col">
                             <iframe src={apt.image} alt={apt.name} className="w-full h-80 object-cover mb-4 rounded" />
 
                             <div className='flex-1 flex flex-col'>
                                 <h2 className="text-2xl font-semibold mb-2">{apt.name}</h2>
-                                <p className="text-gray-700 dark:text-gray-300 mb-4">{apt.description}</p>
-                                <p className="text-gray-700 dark:text-gray-300 mb-4">{apt.available}</p>
-                                <p className="text-gray-700 dark:text-gray-300 mb-4">{apt.includes}</p>
-                                <div className="text-lg font-bold mb-4">{apt.price}</div>
+                                <p className="text-gray-300 dark:text-gray-300 mb-4">{apt.description}</p>
+                                <p className="text-gray-300 dark:text-gray-300 mb-4">{apt.available}</p>
+                                <p className="text-gray-300 dark:text-gray-300 mb-4">{apt.includes}</p>
+                                <div className="text-lg font-bold mb-4 text-gray-300">{apt.price}</div>
                             </div>
 
                             <div className="text-gray-400 mt-auto">
@@ -51,7 +51,7 @@ function AvailableApartments() {
                     ))}
                 </div>
             )}
-            {/* <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> */}
+            <br /><br />
         </div>
     );
 }
