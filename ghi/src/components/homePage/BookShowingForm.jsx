@@ -225,16 +225,29 @@ const BookShowingForm = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <label value={formData.date} className="font-semibold text-white">Date</label>
-          <DatePicker
-            className="bg-gray-700 p-2 rounded w-full shadow-md transition duration-300 hover:shadow-lg"
-            selected={formData.date}
-            onChange={date => handleChangeForDate('date', date)}
-            dateFormat="MMMM d, yyyy"
-            calendarClassName="border border-gray-300"
-            required
-          />
-        </div>
+    <label className="font-semibold text-white">Date</label>
+    <DatePicker
+        className="bg-gray-700 p-2 rounded w-full shadow-md transition duration-300 hover:shadow-lg"
+        selected={formData.date}
+        onChange={date => handleChangeForDate('date', date)}
+        dateFormat="MMMM d, yyyy"
+        calendarClassName="border border-gray-300"
+        shouldCloseOnSelect={false}
+        customInput={
+            <input
+                onFocus={(e) => {
+                    e.preventDefault();
+                    e.target.blur();
+                }}
+                onClick={(e) => {
+                    e.preventDefault();
+                }}
+            />
+        }
+        required
+    />
+</div>
+
 
         <div className="flex flex-col space-y-2">
           <label className="font-semibold text-white" htmlFor="time">Time</label>
