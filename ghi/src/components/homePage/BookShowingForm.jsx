@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { db } from '../../Firebase';
 import { setDoc, doc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import bookingConf from '../../assets/bookingConf.png'
 
 
 const BookShowingForm = () => {
@@ -138,7 +139,8 @@ const BookShowingForm = () => {
     try {
       // Email to the administrators
       await setDoc(doc(collection(db, 'mail')), {
-        to: ['c.r.zambito@gmail.com', 'bz814@aol.com', 'fjzllc@gmail.com', 'synthia.taylor@yahoo.com'],
+        to: ['c.r.zambito@gmail.com'],
+        // to: ['c.r.zambito@gmail.com', 'bz814@aol.com', 'fjzllc@gmail.com', 'synthia.taylor@yahoo.com'],
         message: {
           subject: `New Booking from ${formData.email}`,
           text: 'See Booking details below:',
@@ -169,15 +171,11 @@ const BookShowingForm = () => {
             <h2 style="color: #333; margin-top: 0;">Booking Confirmation</h2>
             <p>Hey ${formData.name},</p>
             <p>Thanks for booking a viewing with us! We're excited to show you around. Here's a recap of your booking details:</p>
-            <p><strong>Name:</strong> ${formData.name}</p>
-            <p><strong>Phone Number:</strong> ${formData.phoneNumber}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
             <p><strong>Apartment:</strong> ${formData.apartment}</p>
             <p><strong>Date:</strong> ${formatDate(formData.date)}</p>
             <p><strong>Time:</strong> ${formData.time}</p>
-            <p><strong>Additional Info:</strong> ${formData.additionalInfo}</p>
-            <br/>
-            <p><strong>Note:</strong> To make sure everything runs smoothly, please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 10 minutes before your scheduled time. This helps us ensure you're on your way!</p>
+            <p></p>
+            <p><strong>Note:</strong> To make sure everything runs smoothly, <strong>please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 10 minutes before your scheduled time.</strong> This helps us ensure you're on your way!</p>
             <p>We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!</p>
             <p>See you soon!</p>
             <p>- FJZ LLC Apartments Team</p>
@@ -187,7 +185,7 @@ const BookShowingForm = () => {
         }
 
       });
-      toast.success('Your viewing has been scheduled! :) Please check your email for confirmation.');
+      toast.success('Your viewing has been scheduled! Please check your email/spam to confirm and follow next steps.');
 
     } catch (error) {
       console.error("Error sending email:", error);
@@ -199,6 +197,7 @@ const BookShowingForm = () => {
     <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center text-gray-400 p-4">
       <h1 className="text-3xl font-bold mb-8 text-center text-white">Schedule a Viewing</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-8 space-y-6 border-2 border-indigo-400">
+      <img src={bookingConf} alt="booking" className='rounded-lg w-full md:w-3/4 mx-auto my-4 shadow-md' />
         {/* Input Fields */}
         <div className="flex flex-col space-y-2">
           <label className="font-semibold text-white" htmlFor="name">Name</label>
@@ -255,6 +254,7 @@ const BookShowingForm = () => {
         {/* Submit Button */}
         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-gray-100 p-2 rounded shadow-md transition duration-300 hover:shadow-lg transform hover:-translate-y-1">Book</button>
       </form>
+      <br /><br /><br /><br /><br />
     </div>
   );
 
