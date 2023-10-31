@@ -232,7 +232,7 @@ const BookShowingForm = () => {
             selected={formData.date}
             onChange={date => handleChangeForDate('date', date)}
             dateFormat="MMMM d, yyyy"
-            calendarClassName="bg-white text-gray-900 border border-gray-300"
+            calendarClassName="border border-gray-300"
             required
           />
         </div>
