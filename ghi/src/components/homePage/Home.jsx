@@ -2,6 +2,7 @@ import React from 'react'
 
 import Welcome from './Welcome'
 import AvailableApartments from './AvailableApartments'
+import BookShowingForm from './BookShowingForm'
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
     <div>
         <Welcome />
         <AvailableApartments />
+        <BookShowingForm />
     </div>
     </>
   )

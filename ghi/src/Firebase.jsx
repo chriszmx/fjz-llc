@@ -28,6 +28,7 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 const functions = getFunctions(app);
+const db = getFirestore(app);
 const assignUserRole = httpsCallable(functions, 'assignUserRole');
 
-export { app, analytics, auth, firestore, assignUserRole, functions };
+export { app, analytics, auth, firestore, assignUserRole, functions, db };
