@@ -138,7 +138,7 @@ const BookShowingForm = () => {
     try {
       // Email to the administrators
       await setDoc(doc(collection(db, 'mail')), {
-        to: ['c.r.zambito@gmail.com'],
+        to: ['c.r.zambito@gmail.com', 'bz814@aol.com', 'fjzllc@gmail.com', 'synthia.taylor@yahoo.com'],
         message: {
           subject: `New Booking from ${formData.email}`,
           text: 'See Booking details below:',
