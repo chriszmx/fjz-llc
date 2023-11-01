@@ -6,6 +6,7 @@ import { app, firestore } from '../../Firebase';
 import AssignRole from './AssignRole';
 import AdminViewApplications from './AdminViewApplications';
 import TimeClockAdmin from './TimeClockAdmin';
+import ViewBookings from './ViewBookings';
 
 const AdminPanel = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -16,6 +17,7 @@ const AdminPanel = () => {
         { title: 'View Applications', component: <AdminViewApplications /> },
         { title: 'Time Clock', component: <TimeClockAdmin /> },
         { title: 'Assign Role', component: <AssignRole /> },
+        { title: 'View Bookings', component: <ViewBookings /> }
     ];
 
     useEffect(() => {
