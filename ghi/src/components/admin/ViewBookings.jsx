@@ -6,7 +6,7 @@ const ViewBookings = () => {
 
     useEffect(() => {
         const fetchBookings = async () => {
-            const bookingsCollection = collection(db, 'ookings');
+            const bookingsCollection = collection(db, 'bookings');
             const bookingsQuery = query(bookingsCollection, orderBy('date'), orderBy('time'));
             const bookingSnapshots = await getDocs(bookingsQuery);
 
