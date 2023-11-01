@@ -167,20 +167,21 @@ const TimeClockAdmin = () => {
 
     const getWeekRange = (weekOffset) => {
         const currentDate = new Date();
-        currentDate.setUTCHours(0, 0, 0, 0);  // Set to start of the day in UTC
-        currentDate.setDate(currentDate.getUTCDate() + (7 * weekOffset));
+        currentDate.setHours(0, 0, 0, 0);  // Set to start of the day
 
-        const startOfWeek = currentDate.getUTCDate() - currentDate.getUTCDay() + (currentDate.getUTCDay() === 0 ? -6 : 1);
-        const endOfWeek = startOfWeek + 6;
+        // Calculate the number of days to subtract to get to the start of the week (Monday)
+        const daysToSubtract = currentDate.getDay() === 0 ? 6 : currentDate.getDay() - 1;
+        currentDate.setDate(currentDate.getDate() - daysToSubtract);
 
-        const startDate = new Date(currentDate);
-        startDate.setUTCDate(startOfWeek);
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(startOfWeek.getDate() + (7 * weekOffset));
 
-        const endDate = new Date(currentDate);
-        endDate.setDate(endOfWeek);
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(endOfWeek.getDate() + 6);
 
-        return { startDate, endDate };
+        return { startDate: startOfWeek, endDate: endOfWeek };
     };
+
 
     const { startDate, endDate } = getWeekRange(weekOffset);
 
