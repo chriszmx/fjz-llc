@@ -2,6 +2,8 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+const db = admin.firestore();
+
 
 
 exports.assignAdminRole = functions.https.onCall((data, context) => {
@@ -141,3 +143,24 @@ exports.autoClockOutUsers = functions.pubsub.schedule('0 0 * * *') // Runs daily
 
         return null; // Fulfill the function promise
     });
+
+    // delete old bookings every day at midnight
+    exports.deleteOldBookings = functions.pubsub.schedule('every 24 hours').timeZone('America/New_York').onRun(async (context) => {
+      const currentDate = new Date();
+
+      // Get all bookings before today
+      const bookings = db.collection('bookings').where('date', '<', currentDate);
+
+      const snapshot = await bookings.get();
+
+      // Delete old bookings
+      const batch = db.batch();
+      snapshot.docs.forEach(doc => {
+          batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+
+      console.log(`Deleted ${snapshot.size} old bookings.`);
+      return null; // Indicates function execution is complete
+  });

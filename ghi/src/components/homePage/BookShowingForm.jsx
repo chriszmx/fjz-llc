@@ -185,6 +185,18 @@ const BookShowingForm = () => {
         }
 
       });
+
+      // store reference in db for admin to view
+      await setDoc(doc(collection(db, 'bookings')), {
+        name: formData.name,
+        phoneNumber: formData.phoneNumber,
+        email: formData.email,
+        apartment: formData.apartment,
+        date: formData.date,
+        time: formData.time,
+        additionalInfo: formData.additionalInfo
+      });
+
       toast.success('Your viewing has been scheduled! Please check your email/spam to confirm and follow next steps.');
 
     } catch (error) {
@@ -197,7 +209,7 @@ const BookShowingForm = () => {
     <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center text-gray-400 p-4">
       <h1 className="text-3xl font-bold mb-8 text-center text-white">Schedule a Viewing</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-8 space-y-6 border-2 border-indigo-400">
-      <img src={bookingConf} alt="booking" className='rounded-lg w-full md:w-3/4 mx-auto my-4 shadow-md' />
+        <img src={bookingConf} alt="booking" className='rounded-lg w-full md:w-3/4 mx-auto my-4 shadow-md' />
         {/* Input Fields */}
         <div className="flex flex-col space-y-2">
           <label className="font-semibold text-white" htmlFor="name">Name</label>
@@ -225,28 +237,28 @@ const BookShowingForm = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-    <label className="font-semibold text-white">Date</label>
-    <DatePicker
-        className="bg-gray-700 p-2 rounded w-full shadow-md transition duration-300 hover:shadow-lg"
-        selected={formData.date}
-        onChange={date => handleChangeForDate('date', date)}
-        dateFormat="MMMM d, yyyy"
-        calendarClassName="border border-gray-300"
-        shouldCloseOnSelect={false}
-        customInput={
-            <input
+          <label className="font-semibold text-white">Date</label>
+          <DatePicker
+            className="bg-gray-700 p-2 rounded w-full shadow-md transition duration-300 hover:shadow-lg"
+            selected={formData.date}
+            onChange={date => handleChangeForDate('date', date)}
+            dateFormat="MMMM d, yyyy"
+            calendarClassName="border border-gray-300"
+            shouldCloseOnSelect={false}
+            customInput={
+              <input
                 onFocus={(e) => {
-                    e.preventDefault();
-                    e.target.blur();
+                  e.preventDefault();
+                  e.target.blur();
                 }}
                 onClick={(e) => {
-                    e.preventDefault();
+                  e.preventDefault();
                 }}
-            />
-        }
-        required
-    />
-</div>
+              />
+            }
+            required
+          />
+        </div>
 
 
         <div className="flex flex-col space-y-2">
