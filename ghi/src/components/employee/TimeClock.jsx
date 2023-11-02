@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getFirestore, collection, addDoc, doc, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, query, where, getDocs, updateDoc, getDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 const TimeClock = () => {
@@ -7,76 +7,109 @@ const TimeClock = () => {
     const auth = getAuth();
 
     const [isClockedIn, setIsClockedIn] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [attendances, setAttendances] = useState([]);
+    const [userProfile, setUserProfile] = useState({});
 
     const [weekOffset, setWeekOffset] = useState(0);
+
+    const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
 
     const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXN6bXgiLCJhIjoiY2xvOWNrbHJwMDh1eTJtbjFjN2RuM2ZqaiJ9.9eOlY2BnsF46Te7JgyeSuA';
 
     const userID = auth.currentUser?.uid;
+    const user = auth.currentUser;
 
     if (!auth.currentUser) {
         return <div>You must be logged in to clock in/out.</div>;
     }
 
+
+    const fetchAttendance = async () => {
+        if (!userID) return;
+
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + (7 * weekOffset));
+        const startOfWeek = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1);
+        const endOfWeek = startOfWeek + 6;
+
+        const startDate = new Date(currentDate);
+        startDate.setDate(startOfWeek);
+        startDate.setHours(0, 0, 0, 0);
+
+        const endDate = new Date(currentDate);
+        endDate.setDate(endOfWeek);
+        endDate.setHours(23, 59, 59, 999);
+
+
+        const q = query(
+            collection(db, 'attendance'),
+            where('userID', '==', userID),
+            where('date', '>=', startDate),
+            where('date', '<=', endDate)
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        console.log("Start Date:", startDate.toDateString());
+        console.log("End Date:", endDate.toDateString());
+
+        const weekAttendances = [];
+        querySnapshot.forEach(doc => {
+            const data = doc.data();
+            weekAttendances.push({
+                id: doc.id,
+                ...data
+            });
+        });
+
+        const currentlyClockedIn = !!weekAttendances.find(a =>
+            !a.clockOutTime &&
+            new Date(a.date?.seconds * 1000).toDateString() === currentDate.toDateString()
+        );
+        console.log("Is currently clocked in:", currentlyClockedIn);
+
+        weekAttendances.forEach(a => {
+            console.log("Has clockOutTime:", !!a.clockOutTime);
+            console.log("Date matches today:", new Date(a.date?.seconds * 1000).toDateString() === currentDate.toDateString());
+        });
+
+        console.log("Fetching attendance...", weekAttendances);
+        setAttendances(weekAttendances);
+        setIsClockedIn(currentlyClockedIn);
+    };
+
     useEffect(() => {
-        const fetchAttendance = async () => {
-            if (!userID) return;
-
-            const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() + (7 * weekOffset));
-            const startOfWeek = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1);
-            const endOfWeek = startOfWeek + 6;
-
-            const startDate = new Date(currentDate);
-            startDate.setDate(startOfWeek);
-            startDate.setHours(0, 0, 0, 0);
-
-            const endDate = new Date(currentDate);
-            endDate.setDate(endOfWeek);
-            endDate.setHours(23, 59, 59, 999);
-
-
-            const q = query(
-                collection(db, 'attendance'),
-                where('userID', '==', userID),
-                where('date', '>=', startDate),
-                where('date', '<=', endDate)
-            );
-
-            const querySnapshot = await getDocs(q);
-
-            console.log("Start Date:", startDate.toDateString());
-            console.log("End Date:", endDate.toDateString());
-
-            const weekAttendances = [];
-            querySnapshot.forEach(doc => {
-                const data = doc.data();
-                weekAttendances.push({
-                    id: doc.id,
-                    ...data
-                });
-            });
-
-            const currentlyClockedIn = !!weekAttendances.find(a =>
-                !a.clockOutTime &&
-                new Date(a.date?.seconds * 1000).toDateString() === currentDate.toDateString()
-            );
-            console.log("Is currently clocked in:", currentlyClockedIn);
-
-            weekAttendances.forEach(a => {
-                console.log("Has clockOutTime:", !!a.clockOutTime);
-                console.log("Date matches today:", new Date(a.date?.seconds * 1000).toDateString() === currentDate.toDateString());
-            });
-
-            console.log("Fetching attendance...", weekAttendances);
-            setAttendances(weekAttendances);
-            setIsClockedIn(currentlyClockedIn);
-        };
-
         fetchAttendance();
     }, [db, userID, weekOffset]);
+
+    const fetchUserProfile = async () => {
+        try {
+            const userDoc = await getDoc(doc(db, 'users', userID));
+            if (userDoc.exists()) {
+                console.log("Fetched user data: ", userDoc.data()); // <-- Add this
+                setUserProfile(userDoc.data());
+            } else {
+                console.log('No such user!');
+            }
+        } catch (error) {
+            console.error("Error fetching user:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (!userID) return;
+        fetchUserProfile();
+    }, [db, userID]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentDateTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
 
 
@@ -100,6 +133,7 @@ const TimeClock = () => {
 
 
     const handleClockIn = async () => {
+        setLoading(true);
         try {
             const position = await getUserLocation();
             const { latitude, longitude } = position.coords;
@@ -119,10 +153,12 @@ const TimeClock = () => {
         } catch (error) {
             console.error("Error clocking in:", error);
         }
+        setLoading(false);
     };
 
 
     const handleClockOut = async () => {
+        setLoading(true);
         try {
             const lastAttendance = attendances.find(a => !a.clockOutTime);
             if (lastAttendance) {
@@ -135,6 +171,7 @@ const TimeClock = () => {
         } catch (error) {
             console.error("Error clocking out:", error);
         }
+        setLoading(false);
     };
 
     const calculateDuration = (start, end) => {
@@ -191,18 +228,31 @@ const TimeClock = () => {
     return (
         <div className="p-4 sm:p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white h-screen cursor-default flex flex-col">
             <div className="flex flex-col-reverse sm:flex-row items-center justify-between mb-4">
-                {isClockedIn ? (
-                    <button className="mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 bg-red-600 hover:bg-red-500 rounded transition" onClick={handleClockOut}>Clock Out</button>
-                ) : (
-                    <button className="mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 bg-green-600 hover:bg-green-500 rounded transition" onClick={handleClockIn}>Clock In</button>
-                )}
+                <button
+                    className={`mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 ${isClockedIn ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600 hover:bg-green-500'} rounded transition`}
+                    onClick={isClockedIn ? handleClockOut : handleClockIn}
+                    disabled={loading}
+                >
+                    {loading ? (
+                        <div className="w-5 h-5 border-t-2 border-white border-solid rounded-full animate-spin"></div>
+                    ) : (
+                        isClockedIn ? "Clock Out" : "Clock In"
+                    )}
+                </button>
+
                 <span className="text-lg font-semibold">
                     {startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}
                 </span>
             </div>
 
+            <div>
+                {userProfile ? <h3>Welcome, {userProfile.name}!</h3> : <h1>Loading...</h1>}
+                <p>{currentDateTime.toLocaleString()}</p>
+            </div>
+
             <div className="flex-grow overflow-x-auto">
                 <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
+
                     <thead className="bg-gray-300 dark:bg-gray-700">
                         <tr>
                             <th className="px-4 py-2">Clock In</th>

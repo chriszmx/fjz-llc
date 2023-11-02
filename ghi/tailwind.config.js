@@ -17,6 +17,7 @@ module.exports = {
     require('postcss-nesting'),
     require('tailwindcss'),
     require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
   ],
 }
 
