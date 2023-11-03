@@ -244,7 +244,8 @@ const TimeClock = () => {
 
     if (isAdminOrEmployee) {
         return (
-            <div className="p-4 sm:p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white h-screen cursor-default flex flex-col">
+            <div className="p-4 sm:p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white cursor-default flex flex-col justify-between min-h-screen">
+                <div className='flex-grow'>
                 <div className="flex flex-col-reverse sm:flex-row items-center justify-between mb-4">
                     <button
                         className={`mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 ${isClockedIn ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600 hover:bg-green-500'} rounded transition`}
@@ -268,8 +269,8 @@ const TimeClock = () => {
                     <p className='dark:text-gray-400'>{currentDateTime.toLocaleString()}</p>
                 </div>
 
-                <div className="flex-grow overflow-x-auto">
-                    <table className="w-full h-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
+                <div className="flex-grow">
+                <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
 
                         <thead className="bg-gray-300 dark:bg-gray-700">
                             <tr>
@@ -300,6 +301,7 @@ const TimeClock = () => {
                             </tr>
                         </tfoot>
                     </table>
+                </div>
                 </div>
 
                 <div className="mt-4 flex justify-between">
