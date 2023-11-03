@@ -11,7 +11,7 @@ const TimeClockAdmin = () => {
     const [attendances, setAttendances] = useState([]);
     const [weekOffset, setWeekOffset] = useState(0);
     const [refreshKey, setRefreshKey] = useState(0);
-    const [editingId , setEditingId] = useState(null);
+    const [editingId, setEditingId] = useState(null);
     const [editingType, setEditingType] = useState(null);
 
     useEffect(() => {
@@ -203,7 +203,7 @@ const TimeClockAdmin = () => {
             {/* Dropdown to select a user */}
             <div className="mb-4 relative">
                 <span className="block text-gray-700 dark:text-gray-300 mb-2">
-                    Select Employee:
+                    Employee:
                 </span>
                 <select
                     value={selectedUserID}
@@ -239,75 +239,75 @@ const TimeClockAdmin = () => {
                 <table className="min-w-full border-collapse border-gray-300 dark:border-gray-600">
                     <thead>
                         <tr>
-                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-left px-2">Date</th>
-                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-left px-2">Clock In</th>
-                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-left px-2">Clock Out</th>
-                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-left px-2">Total Hours</th>
-                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-left px-2">Geo Tag</th>
+                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-center px-2">Date</th>
+                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-center px-2">In</th>
+                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-center px-2">Out</th>
+                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-center px-2">Total</th>
+                            <th className="border-b-2 py-2 bg-gray-200 dark:bg-gray-700 text-center px-2">Geo</th>
                         </tr>
                     </thead>
                     <tbody>
-            {attendances.map(a => (
-                <tr key={a.id}>
-                    {/* Display the date */}
-                    <td>{new Date(a.date.seconds * 1000).toDateString()}</td>
+                        {attendances.map(a => (
+                            <tr className='' key={a.id}>
+                                {/* Display the date */}
+                                <td className='text-sm md:text-base text-left'>{new Date(a.date.seconds * 1000).toDateString()}</td>
 
-{/* Editable cell for clock in time */}
-<td className="relative">
-    {editingId === a.id && editingType === 'clockInTime' ? (
-        <div className="min-h-[200px]">
-            <Datetime
-                defaultValue={new Date(a.clockInTime)}
-                inputProps={{ readOnly: true }}
-                style={{ background: 'red'}}
-                className="dark:bg-red-800 dark:text-black"
-                onChange={date => handleTimeEdit(a.id, 'clockInTime', date)}
-            />
-            <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockInTime')}>Save</button>
-        </div>
-    ) : (
-        <>
-            {new Date(a.clockInTime).toLocaleTimeString()}
-            <button className="ml-2 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white text-sm rounded px-2 py-1" onClick={() => { setEditingId(a.id); setEditingType('clockInTime'); }}>Edit</button>
-        </>
-    )}
-</td>
+                                {/* Editable cell for clock in time */}
+                                <td className="relative text-sm md:text-base dark:text-cyan-300 text-center">
+                                    {editingId === a.id && editingType === 'clockInTime' ? (
+                                        <div className="min-h-[200px]">
+                                            <Datetime
+                                                defaultValue={new Date(a.clockInTime)}
+                                                inputProps={{ readOnly: true }}
+                                                style={{ background: 'red' }}
+                                                className="dark:bg-red-800 dark:text-black"
+                                                onChange={date => handleTimeEdit(a.id, 'clockInTime', date)}
+                                            />
+                                            <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockInTime')}>Save</button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {new Date(a.clockInTime).toLocaleTimeString()} <br />
+                                            <button className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white text-sm rounded px-2 py-1" onClick={() => { setEditingId(a.id); setEditingType('clockInTime'); }}>Edit</button>
+                                        </>
+                                    )}
+                                </td>
 
-{/* Editable cell for clock out time */}
-<td className="relative">
-    {editingId === a.id && editingType === 'clockOutTime' ? (
-        <div className="min-h-[200px]">
-            <Datetime
-                defaultValue={new Date(a.clockOutTime)}
-                inputProps={{ readOnly: true }}
-                className="dark:bg-gray-800 dark:text-black"
-                onChange={date => handleTimeEdit(a.id, 'clockOutTime', date)}
-            />
-            <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockOutTime')}>Save</button>
-        </div>
-    ) : (
-        a.clockOutTime ? (
-            <>
-                {new Date(a.clockOutTime).toLocaleTimeString()}
-                <button className="ml-2 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white text-sm rounded px-2 py-1" onClick={() => { setEditingId(a.id); setEditingType('clockOutTime'); }}>Edit</button>
-            </>
-        ) : "-"
-    )}
-</td>
+                                {/* Editable cell for clock out time */}
+                                <td className="relative text-sm md:text-base text-red-500 text-center">
+                                    {editingId === a.id && editingType === 'clockOutTime' ? (
+                                        <div className="min-h-[200px]">
+                                            <Datetime
+                                                defaultValue={new Date(a.clockOutTime)}
+                                                inputProps={{ readOnly: true }}
+                                                className="dark:bg-gray-800 dark:text-black"
+                                                onChange={date => handleTimeEdit(a.id, 'clockOutTime', date)}
+                                            />
+                                            <button className="ml-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-sm rounded px-2 py-1" onClick={() => handleTimeSave(a.id, 'clockOutTime')}>Save</button>
+                                        </div>
+                                    ) : (
+                                        a.clockOutTime ? (
+                                            <>
+                                                {new Date(a.clockOutTime).toLocaleTimeString()} <br />
+                                                <button className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white text-sm rounded px-2 py-1" onClick={() => { setEditingId(a.id); setEditingType('clockOutTime'); }}>Edit</button>
+                                            </>
+                                        ) : "-"
+                                    )}
+                                </td>
 
 
-                    {/* Total hours worked */}
-                    <td>
-                        {calculateDuration(a.clockInTime, a.clockOutTime)}
-                    </td>
-                    <td className='text-sm md:text-base'>{a.location} <br /></td>
-                </tr>
-            ))}
-        </tbody>
+                                {/* Total hours worked */}
+                                <td className='text-sm md:text-base text-green-500 text-center'>
+                                    {calculateDuration(a.clockInTime, a.clockOutTime)}
+                                </td>
+                                <td className='text-xs md:text-base text-right md:text-left'>{a.location} <br /></td>
+                            </tr>
+                        ))}
+                    </tbody>
                     <tfoot className="bg-gray-300 dark:bg-gray-700">
                         <tr>
-                            <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
-                            <td className="px-4 py-2 text-green-500" colSpan="2">{calculateDurationWeek(attendances)}</td>
+                            <td className="px-4 py-2" colSpan="3">Total Hours for: <br /> <span>{startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}</span></td>
+                            <td className="px-4 py-2 text-green-500 text-left text-xl" colSpan="2">{calculateDurationWeek(attendances)}</td>
                         </tr>
                     </tfoot>
                 </table>
