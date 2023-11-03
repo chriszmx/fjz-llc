@@ -285,23 +285,23 @@ const TimeClock = () => {
                             <tbody>
                                 {attendances.map(a => (
                                     <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
-                                        <td className="px-4 py-2 border-t dark:text-indigo-200 text-justify">{new Date(a.clockInTime).toLocaleTimeString()}</td>
-                                        <td className="px-4 py-2 border-t dark:text-red-300 text-justify">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
-                                        <td className="px-4 py-2 border-t dark:text-blue-300 text-justify">
+                                        <td className="px-4 py-2 border-t dark:text-indigo-200 text-center">{new Date(a.clockInTime).toLocaleTimeString()}</td>
+                                        <td className="px-4 py-2 border-t dark:text-red-300 text-center">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
+                                        <td className="px-4 py-2 border-t dark:text-blue-300 text-center">
                                             {new Date(a.date.seconds * 1000).toDateString().split(' ').slice(0, 3).join(' ')}
                                         </td>
-                                        <td className="px-4 py-2 border-t dark:text-green-500 text-justify">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+                                        <td className="px-4 py-2 border-t dark:text-green-500 text-center">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
                                     </tr>
                                 ))}
                             </tbody>
                             <tfoot className="bg-gray-300 dark:bg-gray-700">
                                 <tr>
-                                    <td className="px-4 py-2 text-justify" colSpan="3">Total Hours Today</td>
-                                    <td className="px-4 py-2 text-green-500 text-justify" colSpan="1">{getTotalHoursToday(attendances)}</td>
+                                    <td className="px-4 py-2 text-left" colSpan="3">Total Hours Today</td>
+                                    <td className="px-4 py-2 text-green-500 text-center" colSpan="1">{getTotalHoursToday(attendances)}</td>
                                 </tr>
                                 <tr>
-                                    <td className="px-4 py-2 text-justify" colSpan="2">Total Hours This Week</td>
-                                    <td className="px-4 py-2 text-green-500 text-center text-6xl" colSpan="2">{getTotalHours(attendances)}</td>
+                                    <td className="px-4 py-2 text-left" colSpan="2">Total Hours This Week</td>
+                                    <td className="px-4 py-2 text-green-600 text-center text-6xl animate-pulse" colSpan="2">{getTotalHours(attendances)}</td>
                                 </tr>
                             </tfoot>
                         </table>
