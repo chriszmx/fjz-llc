@@ -38,11 +38,6 @@ const TimeClock = () => {
         }
     })
 
-    // if (!auth.currentUser) {
-    //     return <div>Hey, you probably ended up on the wrong page. This page is for employees.</div>;
-    // }
-
-
 
     const fetchAttendance = async () => {
         if (!userID) return;
@@ -239,6 +234,9 @@ const TimeClock = () => {
 
     const { startDate, endDate } = getWeekRange(weekOffset);
 
+    const isCurrentWeek = (date, startDate, endDate) => {
+        return date >= startDate && date <= endDate;
+    };
 
 
 
@@ -246,67 +244,76 @@ const TimeClock = () => {
         return (
             <div className="p-4 sm:p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white cursor-default flex flex-col justify-between min-h-screen">
                 <div className='flex-grow'>
-                <div className="flex flex-col-reverse sm:flex-row items-center justify-between mb-4">
-                    <button
-                        className={`mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 ${isClockedIn ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600 hover:bg-green-500'} rounded transition`}
-                        onClick={isClockedIn ? handleClockOut : handleClockIn}
-                        disabled={loading}
-                    >
-                        {loading ? (
-                            <div className="w-5 h-5 border-t-2 border-white border-solid rounded-full animate-spin"></div>
-                        ) : (
-                            isClockedIn ? "Clock Out" : "Clock In"
-                        )}
-                    </button>
+                    <div className="flex flex-col-reverse sm:flex-row items-center justify-between mb-4">
+                        {
+                            isCurrentWeek(new Date(), startDate, endDate) && (
+                                <button
+                                    className={`mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 ${isClockedIn ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600 hover:bg-green-500'} rounded transition`}
+                                    onClick={isClockedIn ? handleClockOut : handleClockIn}
+                                    disabled={loading}
+                                >
+                                    {loading ? (
+                                        <div className="w-5 h-5 border-t-2 border-white border-solid rounded-full animate-spin"></div>
+                                    ) : (
+                                        isClockedIn ? "Clock Out" : "Clock In"
+                                    )}
+                                </button>
+                            )
+                        }
+                        <h1 className="text-2xl font-semibold">Time Clock</h1>
+                        <span className="text-lg font-semibold dark:text-yellow-500">
+                            Week Range: {startDate.toDateString().split(' ')[1]} {startDate.getDate()}, {startDate.getFullYear()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}, {endDate.getFullYear()}
+                        </span>
+                    </div>
 
-                    <span className="text-lg font-semibold">
-                        {startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}
-                    </span>
-                </div>
+                    <div>
+                        {userProfile ? <h3>Welcome, {userProfile.name}!</h3> : <h1 className='dark:text-gray-400'>Loading...</h1>}
+                        <p className='dark:text-gray-400'>{currentDateTime.toLocaleString()}</p>
+                    </div>
 
-                <div>
-                    {userProfile ? <h3>Welcome, {userProfile.name}!</h3> : <h1 className='dark:text-gray-400'>Loading...</h1>}
-                    <p className='dark:text-gray-400'>{currentDateTime.toLocaleString()}</p>
-                </div>
+                    <div className="flex-grow">
+                        <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
 
-                <div className="flex-grow">
-                <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
-
-                        <thead className="bg-gray-300 dark:bg-gray-700">
-                            <tr>
-                                <th className="px-4 py-2">Clock In</th>
-                                <th className="px-4 py-2">Clock Out</th>
-                                <th className="px-4 py-2">Date</th>
-                                <th className="px-4 py-2">Duration (hrs)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {attendances.map(a => (
-                                <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
-                                    <td className="px-4 py-2 border-t dark:text-indigo-200">{new Date(a.clockInTime).toLocaleTimeString()}</td>
-                                    <td className="px-4 py-2 border-t dark:text-red-300">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
-                                    <td className="px-4 py-2 border-t dark:text-blue-300">{new Date(a.date.seconds * 1000).toDateString()}</td>
-                                    <td className="px-4 py-2 border-t dark:text-green-500">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+                            <thead className="bg-gray-300 dark:bg-gray-700">
+                                <tr>
+                                    <th className="px-4 py-2">Clock In</th>
+                                    <th className="px-4 py-2">Clock Out</th>
+                                    <th className="px-4 py-2">Date</th>
+                                    <th className="px-4 py-2">Duration (hrs)</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                        <tfoot className="bg-gray-300 dark:bg-gray-700">
-                            <tr>
-                                <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
-                                <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHoursToday(attendances)}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
-                                <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                {attendances.map(a => (
+                                    <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
+                                        <td className="px-4 py-2 border-t dark:text-indigo-200 text-justify">{new Date(a.clockInTime).toLocaleTimeString()}</td>
+                                        <td className="px-4 py-2 border-t dark:text-red-300 text-justify">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
+                                        <td className="px-4 py-2 border-t dark:text-blue-300 text-justify">
+                                            {new Date(a.date.seconds * 1000).toDateString().split(' ').slice(0, 3).join(' ')}
+                                        </td>
+                                        <td className="px-4 py-2 border-t dark:text-green-500 text-justify">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                            <tfoot className="bg-gray-300 dark:bg-gray-700">
+                                <tr>
+                                    <td className="px-4 py-2 text-justify" colSpan="3">Total Hours Today</td>
+                                    <td className="px-4 py-2 text-green-500 text-justify" colSpan="1">{getTotalHoursToday(attendances)}</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-4 py-2 text-justify" colSpan="2">Total Hours This Week</td>
+                                    <td className="px-4 py-2 text-green-500 text-center text-6xl" colSpan="2">{getTotalHours(attendances)}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
 
                 <div className="mt-4 flex justify-between">
                     <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-l transition" onClick={() => setWeekOffset(weekOffset - 1)}>Previous Week</button>
                     {weekOffset < 0 && <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-r transition ml-2" onClick={() => setWeekOffset(weekOffset + 1)}>Next Week</button>}
+                </div>
+                <div className='text-center'>
+                    <p>Period: {startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}</p>
                 </div>
             </div>
         );
