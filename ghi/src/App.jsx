@@ -22,6 +22,7 @@ import checkRedirectResult from "./components/utils/checkRedirectResult";
 function App() {
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState(null);
+    const [showSlowLoadingMessage , setShowSlowLoadingMessage] = useState(false);
 
     useEffect(() => {
         checkRedirectResult();
@@ -35,17 +36,35 @@ function App() {
             setInitializing(false);
         });
 
-        return () => unsubscribe();  // Cleanup on component unmount
+        const timeoutId = setTimeout(() => {
+            setShowSlowLoadingMessage(true);
+        }, 5000); // Show after 5 seconds
+
+        return () => {
+            unsubscribe();  // Cleanup on component unmount
+            clearTimeout(timeoutId); // Clear the timeout if component is unmounted
+        };
     }, []);
 
+    const handleForceLoad = () => {
+        setInitializing(false);
+    };
+
     if (initializing) {
-        return <div className="flex justify-center items-center h-screen bg-gray-900">
-            <RingLoader color="#123abc" size={200} />
-            <div>
-                <h1 className="text-2xl text-white">Loading...</h1>
-                <a className="text-white" href="https://fjz-llc.web.app/">Loading slow? Please click HERE.</a>
+        return (
+            <div className="flex justify-center items-center h-screen bg-gray-900">
+                <RingLoader color="#123abc" size={200} />
+                <div>
+                    <h1 className="text-2xl text-white">Loading Your Future Apartment...</h1>
+                    {showSlowLoadingMessage && (
+                        <div>
+                            {/* <a className="text-white" href="https://fjz-llc.web.app/">Loading slow? Please click HERE.</a> */}
+                            <button onClick={handleForceLoad} className="mt-2 p-2 bg-blue-500 text-white rounded">Force Load</button>
+                        </div>
+                    )}
+                </div>
             </div>
-            </div>;
+        );
     }
 
     return (
