@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
-import { db } from '../../Firebase';;
+import { db } from '../../Firebase';
+
+
 const ViewBookings = () => {
     const [bookings, setBookings] = useState([]);
 
@@ -21,9 +23,27 @@ const ViewBookings = () => {
         fetchBookings();
     }, []);
 
+    // Organize bookings by date
+    const bookingsByDate = bookings.reduce((acc, booking) => {
+        if (!acc[booking.date]) {
+            acc[booking.date] = [];
+        }
+        acc[booking.date].push(booking);
+        return acc;
+    }, {});
+
+
     return (
         <div className="bg-dark:bg-black text-dark:text-white p-8 min-h-screen flex flex-col justify-center">
             <h1 className='pb-20 text-center dark:text-gray-300'>Upcoming Bookings</h1>
+
+            {/* Summary of bookings by date */}
+            {Object.entries(bookingsByDate).map(([date, bookingsForDate]) => (
+                <div key={date} className="mb-4">
+                    <p className='text-xl dark:text-yellow-300'>You have {bookingsForDate.length} showings on {date}</p>
+                </div>
+            ))}
+
             {bookings.length === 0 ? (
                 <p className="text-2xl font-semibold text-center">No bookings have been scheduled.<br /><br /> Are any apartments available? Did Don actually finish? </p>
             ) : (
