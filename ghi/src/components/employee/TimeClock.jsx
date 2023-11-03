@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getFirestore, collection, addDoc, doc, query, where, getDocs, updateDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, query, where, getDocs, updateDoc, getDoc, onSnapshot } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 const TimeClock = () => {
@@ -15,15 +15,33 @@ const TimeClock = () => {
 
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
+    const [isAdminOrEmployee, setIsAdminOrEmployee] = useState(false);
+
 
     const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXN6bXgiLCJhIjoiY2xvOWNrbHJwMDh1eTJtbjFjN2RuM2ZqaiJ9.9eOlY2BnsF46Te7JgyeSuA';
 
     const userID = auth.currentUser?.uid;
     const user = auth.currentUser;
 
-    if (!auth.currentUser) {
-        return <div>You must be logged in to clock in/out.</div>;
-    }
+    useEffect(() => {
+        if (user) {
+            const userDocRef = doc(db, 'users', user.uid);
+            const unsubscribeUser = onSnapshot(userDocRef, docSnapshot => {
+                if (docSnapshot.exists() && (docSnapshot.data().role === 'admin' || docSnapshot.data().role === 'employee')) {
+                    setIsAdminOrEmployee(true);
+                } else {
+                    setIsAdminOrEmployee(false);
+                }
+            });
+            console.log("User is admin or employee", isAdminOrEmployee)
+            return unsubscribeUser;
+        }
+    })
+
+    // if (!auth.currentUser) {
+    //     return <div>Hey, you probably ended up on the wrong page. This page is for employees.</div>;
+    // }
+
 
 
     const fetchAttendance = async () => {
@@ -224,73 +242,74 @@ const TimeClock = () => {
 
 
 
+    if (isAdminOrEmployee) {
+        return (
+            <div className="p-4 sm:p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white h-screen cursor-default flex flex-col">
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-between mb-4">
+                    <button
+                        className={`mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 ${isClockedIn ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600 hover:bg-green-500'} rounded transition`}
+                        onClick={isClockedIn ? handleClockOut : handleClockIn}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <div className="w-5 h-5 border-t-2 border-white border-solid rounded-full animate-spin"></div>
+                        ) : (
+                            isClockedIn ? "Clock Out" : "Clock In"
+                        )}
+                    </button>
 
-    return (
-        <div className="p-4 sm:p-6 bg-gray-200 text-black dark:bg-gray-900 dark:text-white h-screen cursor-default flex flex-col">
-            <div className="flex flex-col-reverse sm:flex-row items-center justify-between mb-4">
-                <button
-                    className={`mt-2 sm:mt-0 w-full sm:w-auto text-center px-4 py-2.5 ${isClockedIn ? 'bg-red-600 hover:bg-red-500' : 'bg-green-600 hover:bg-green-500'} rounded transition`}
-                    onClick={isClockedIn ? handleClockOut : handleClockIn}
-                    disabled={loading}
-                >
-                    {loading ? (
-                        <div className="w-5 h-5 border-t-2 border-white border-solid rounded-full animate-spin"></div>
-                    ) : (
-                        isClockedIn ? "Clock Out" : "Clock In"
-                    )}
-                </button>
+                    <span className="text-lg font-semibold">
+                        {startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}
+                    </span>
+                </div>
 
-                <span className="text-lg font-semibold">
-                    {startDate.toDateString().split(' ')[1]} {startDate.getDate()} - {endDate.toDateString().split(' ')[1]} {endDate.getDate()}
-                </span>
-            </div>
+                <div>
+                    {userProfile ? <h3>Welcome, {userProfile.name}!</h3> : <h1 className='dark:text-gray-400'>Loading...</h1>}
+                    <p className='dark:text-gray-400'>{currentDateTime.toLocaleString()}</p>
+                </div>
 
-            <div>
-                {userProfile ? <h3>Welcome, {userProfile.name}!</h3> : <h1 className='dark:text-gray-400'>Loading...</h1>}
-                <p className='dark:text-gray-400'>{currentDateTime.toLocaleString()}</p>
-            </div>
+                <div className="flex-grow overflow-x-auto">
+                    <table className="w-full h-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
 
-            <div className="flex-grow overflow-x-auto">
-                <table className="w-full h-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
-
-                    <thead className="bg-gray-300 dark:bg-gray-700">
-                        <tr>
-                            <th className="px-4 py-2">Clock In</th>
-                            <th className="px-4 py-2">Clock Out</th>
-                            <th className="px-4 py-2">Date</th>
-                            <th className="px-4 py-2">Duration (hrs)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {attendances.map(a => (
-                            <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
-                                <td className="px-4 py-2 border-t dark:text-indigo-200">{new Date(a.clockInTime).toLocaleTimeString()}</td>
-                                <td className="px-4 py-2 border-t dark:text-red-300">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
-                                <td className="px-4 py-2 border-t dark:text-blue-300">{new Date(a.date.seconds * 1000).toDateString()}</td>
-                                <td className="px-4 py-2 border-t dark:text-green-500">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+                        <thead className="bg-gray-300 dark:bg-gray-700">
+                            <tr>
+                                <th className="px-4 py-2">Clock In</th>
+                                <th className="px-4 py-2">Clock Out</th>
+                                <th className="px-4 py-2">Date</th>
+                                <th className="px-4 py-2">Duration (hrs)</th>
                             </tr>
-                        ))}
-                    </tbody>
-                    <tfoot className="bg-gray-300 dark:bg-gray-700">
-                        <tr>
-                            <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
-                            <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHoursToday(attendances)}</td>
-                        </tr>
-                        <tr>
-                            <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
-                            <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {attendances.map(a => (
+                                <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
+                                    <td className="px-4 py-2 border-t dark:text-indigo-200">{new Date(a.clockInTime).toLocaleTimeString()}</td>
+                                    <td className="px-4 py-2 border-t dark:text-red-300">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
+                                    <td className="px-4 py-2 border-t dark:text-blue-300">{new Date(a.date.seconds * 1000).toDateString()}</td>
+                                    <td className="px-4 py-2 border-t dark:text-green-500">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot className="bg-gray-300 dark:bg-gray-700">
+                            <tr>
+                                <td className="px-4 py-2" colSpan="2">Total Hours Today</td>
+                                <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHoursToday(attendances)}</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-2" colSpan="2">Total Hours This Week</td>
+                                <td className="px-4 py-2 text-green-500" colSpan="2">{getTotalHours(attendances)}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
 
-            <div className="mt-4 flex justify-between">
-                <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-l transition" onClick={() => setWeekOffset(weekOffset - 1)}>Previous Week</button>
-                {weekOffset < 0 && <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-r transition ml-2" onClick={() => setWeekOffset(weekOffset + 1)}>Next Week</button>}
+                <div className="mt-4 flex justify-between">
+                    <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-l transition" onClick={() => setWeekOffset(weekOffset - 1)}>Previous Week</button>
+                    {weekOffset < 0 && <button className="flex-grow text-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-r transition ml-2" onClick={() => setWeekOffset(weekOffset + 1)}>Next Week</button>}
+                </div>
             </div>
-        </div>
-    );
-
+        );
+    }
+    return <div>You do not have permission to view this page.</div>;
 };
 
 export default TimeClock;
