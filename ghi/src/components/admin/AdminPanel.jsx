@@ -38,6 +38,14 @@ const AdminPanel = () => {
         return () => unsubscribeAuth();
     }, [auth]);
 
+    const [currentDateTime, setCurrentDateTime] = useState(new Date());
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentDateTime(new Date());
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     if (!isAdmin) {
         return <div>You do not have permission to view this page.</div>;
     }
@@ -46,6 +54,7 @@ const AdminPanel = () => {
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900 h-full">
             <header className="bg-indigo-600 text-white p-4 dark:bg-indigo-900 dark:text-gray-200">
                 <h1 className="text-2xl">Admin Panel</h1>
+                <p className='dark:text-gray-400'>{currentDateTime.toLocaleString()}</p>
                 </header>
             <main className="p-4">
 

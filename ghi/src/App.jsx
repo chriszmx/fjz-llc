@@ -39,7 +39,13 @@ function App() {
     }, []);
 
     if (initializing) {
-        return <div className="flex justify-center items-center h-screen bg-gray-900"><RingLoader color="#123abc" size={200} /></div>;
+        return <div className="flex justify-center items-center h-screen bg-gray-900">
+            <RingLoader color="#123abc" size={200} />
+            <div>
+                <h1 className="text-2xl text-white">Loading...</h1>
+                <a className="text-white" href="https://fjz-llc.web.app/">Loading slow? Please click HERE.</a>
+            </div>
+            </div>;
     }
 
     return (

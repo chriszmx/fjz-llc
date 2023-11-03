@@ -246,12 +246,12 @@ const TimeClock = () => {
             </div>
 
             <div>
-                {userProfile ? <h3>Welcome, {userProfile.name}!</h3> : <h1>Loading...</h1>}
-                <p>{currentDateTime.toLocaleString()}</p>
+                {userProfile ? <h3>Welcome, {userProfile.name}!</h3> : <h1 className='dark:text-gray-400'>Loading...</h1>}
+                <p className='dark:text-gray-400'>{currentDateTime.toLocaleString()}</p>
             </div>
 
             <div className="flex-grow overflow-x-auto">
-                <table className="w-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
+                <table className="w-full h-full text-center bg-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 cursor-default">
 
                     <thead className="bg-gray-300 dark:bg-gray-700">
                         <tr>
@@ -264,10 +264,10 @@ const TimeClock = () => {
                     <tbody>
                         {attendances.map(a => (
                             <tr key={a.id} className="even:bg-gray-400 dark:even:bg-gray-900">
-                                <td className="px-4 py-2 border-t">{new Date(a.clockInTime).toLocaleTimeString()}</td>
-                                <td className="px-4 py-2 border-t">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
-                                <td className="px-4 py-2 border-t">{new Date(a.date.seconds * 1000).toDateString()}</td>
-                                <td className="px-4 py-2 border-t">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
+                                <td className="px-4 py-2 border-t dark:text-indigo-200">{new Date(a.clockInTime).toLocaleTimeString()}</td>
+                                <td className="px-4 py-2 border-t dark:text-red-300">{a.clockOutTime ? new Date(a.clockOutTime).toLocaleTimeString() : "-"}</td>
+                                <td className="px-4 py-2 border-t dark:text-blue-300">{new Date(a.date.seconds * 1000).toDateString()}</td>
+                                <td className="px-4 py-2 border-t dark:text-green-500">{calculateDuration(a.clockInTime, a.clockOutTime)}</td>
                             </tr>
                         ))}
                     </tbody>
