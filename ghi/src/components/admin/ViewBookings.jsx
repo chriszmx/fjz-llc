@@ -9,12 +9,18 @@ import {
 } from "firebase/firestore";
 import { db } from "../../Firebase";
 
-const ViewBookings = () => {
+const ViewBookings = ( { onBookingCountChange }) => {
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
         fetchBookings();
     }, []);
+
+    useEffect(() => {
+        // Call the prop function to send the count back
+        onBookingCountChange(bookings.length);
+    }, [bookings, onBookingCountChange]);
+
 
     const fetchBookings = async () => {
         const bookingsCollection = collection(db, "bookings");

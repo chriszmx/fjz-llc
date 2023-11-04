@@ -15,13 +15,13 @@ const AdminPanel = () => {
     const [activeComponent, setActiveComponent] = useState(null);
     const auth = getAuth(app);
     const [value, onChange] = useState(new Date());
-    // const [showCalendar, setShowCalendar] = useState(false);
+    const [bookingCount, setBookingCount] = useState(0);
 
     const componentsList = [
         { title: 'View Applications', component: <AdminViewApplications /> },
         { title: 'Time Clock', component: <TimeClockAdmin /> },
         { title: 'Assign Role', component: <AssignRole /> },
-        { title: 'View Bookings', component: <ViewBookings /> },
+        { title: 'View Bookings', component: <ViewBookings onBookingCountChange={setBookingCount} /> },
         { title: 'Calendar', component: <Calendar onChange={onChange} value={value} className="text-black bg-gray-400 my-4" /> }
     ];
 
@@ -29,7 +29,14 @@ const AdminPanel = () => {
 
     const setActiveComponentByIndex = (index) => {
         setActiveComponentIndex(index);
-        setActiveComponent(componentsList[index].component);
+        const componentData = componentsList[index];
+        if (componentData.title === 'View Bookings') {
+            setActiveComponent(
+                <ViewBookings onBookingCountChange={setBookingCount} />
+            );
+        } else {
+            setActiveComponent(componentData.component);
+        }
     };
 
     useEffect(() => {
@@ -79,7 +86,7 @@ const AdminPanel = () => {
                             text-white`}
                             onClick={() => setActiveComponentByIndex(index)}
                         >
-                            {item.title}
+                            {item.title} {item.title === 'View Bookings' ? `(${bookingCount})` : ''}
                         </button>
                     ))}
                 </div>
