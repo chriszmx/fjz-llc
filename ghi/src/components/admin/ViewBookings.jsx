@@ -6,10 +6,11 @@ import {
     getDocs,
     doc,
     deleteDoc,
+    setDoc,
 } from "firebase/firestore";
 import { db } from "../../Firebase";
 
-const ViewBookings = ( { onBookingCountChange }) => {
+const ViewBookings = ({ onBookingCountChange }) => {
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
@@ -20,7 +21,6 @@ const ViewBookings = ( { onBookingCountChange }) => {
         // Call the prop function to send the count back
         onBookingCountChange(bookings.length);
     }, [bookings, onBookingCountChange]);
-
 
     const fetchBookings = async () => {
         const bookingsCollection = collection(db, "bookings");
@@ -42,11 +42,11 @@ const ViewBookings = ( { onBookingCountChange }) => {
 
     const cancelBooking = async (id) => {
         // Confirm with the user
-        if (window.confirm('Are you sure you want to cancel this booking?')) {
-        // Delete the booking from Firestore
-        await deleteDoc(doc(db, "bookings", id));
-        // Fetch the updated list of bookings
-        fetchBookings();
+        if (window.confirm("Are you sure you want to cancel this booking?")) {
+            // Delete the booking from Firestore
+            await deleteDoc(doc(db, "bookings", id));
+            // Fetch the updated list of bookings
+            fetchBookings();
         }
     };
 
@@ -59,12 +59,56 @@ const ViewBookings = ( { onBookingCountChange }) => {
         return acc;
     }, {});
 
+    const sendConfirmationEmail = async (booking) => {
+        if (
+            window.confirm(
+                "Do you want to send a confirmation email to " +
+                    booking.email +
+                    "?"
+            )
+        ) {
+            try {
+                // Here you should use a unique ID for each email. For simplicity, we're using booking.id here,
+                // but in a real-world scenario, you would want something that reflects that this is an email document.
+                const mailRef = doc(collection(db, "mail"), booking.id);
+                await setDoc(mailRef, {
+                    to: [booking.email], // Using the email from the booking
+                    message: {
+                        subject: "Booking Reminder",
+                        text: "Thank you for booking with us. This is a confirmation reminder:",
+                        html: `
+                <div style="font-family: Arial, sans-serif; padding: 15px; background-color: #f7f7f7; border: 1px solid #e4e4e4; border-radius: 5px;">
+                  <h2 style="color: #333; margin-top: 0;">Booking Confirmation</h2>
+                  <p>Hey ${booking.name},</p>
+                  <p>Thanks for booking a viewing with us! We're excited to show you around. Here's a recap of your booking details:</p>
+                  <p><strong>Apartment:</strong> ${booking.apartment}</p>
+                  <p><strong>Date:</strong> ${booking.date}</p>
+                  <p><strong>Time:</strong> ${booking.time}</p>
+                  <p></p>
+                  <p><strong>Note:</strong> To make sure everything runs smoothly, please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 10 minutes before your scheduled time. This helps us ensure you're on your way!</p>
+                  <p>We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!</p>
+                  <p>See you soon!</p>
+                  <p>- FJZ LLC Apartments Team</p>
+                </div>
+                `,
+                    },
+                });
+                alert(`Confirmation email sent to ${booking.email}`);
+            } catch (error) {
+                console.error("Error sending email: ", error);
+                alert("Failed to send confirmation email.");
+            }
+        }
+    };
 
     return (
         <div className="bg-dark:bg-black text-dark:text-white p-8 min-h-screen flex flex-col justify-center">
             <h1 className="text-4xl mb-10 text-center dark:text-gray-300">
                 Upcoming Bookings
             </h1>
+            <p className="text-center dark:text-gray-400 mb-4">
+                *Old bookings will be automatically deleted.
+            </p>
 
             {/* Summary of bookings by date */}
             <div className="w-full max-w-6xl">
@@ -90,7 +134,7 @@ const ViewBookings = ( { onBookingCountChange }) => {
                     bookings.map((booking, index) => (
                         <div
                             key={index}
-                            className="mb-8 p-6 bg-gradient-to-br dark:from-gray-700 dark:to-gray-800 from-gray-200 to-gray-300 rounded-xl shadow-lg transition-transform transform hover:scale-105"
+                            className="mb-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-transform hover:scale-105"
                         >
                             <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-300 border-b-2 border-gray-500 pb-2">
                                 Booking for {booking.name}
@@ -133,12 +177,25 @@ const ViewBookings = ( { onBookingCountChange }) => {
                                     {booking.additionalInfo}
                                 </p>
                             )}
-                            <button
-                                onClick={() => cancelBooking(booking.id)}
-                                className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                            >
-                                Cancel Viewing
-                            </button>
+                            <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-3 mt-4">
+                                {/* Send Confirmation Button */}
+                                <button
+                                    onClick={() =>
+                                        sendConfirmationEmail(booking)
+                                    }
+                                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 shadow-lg"
+                                >
+                                    Send Confirmation
+                                </button>
+
+                                {/* Delete Button */}
+                                <button
+                                    onClick={() => cancelBooking(booking.id)}
+                                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 shadow-lg"
+                                >
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     ))
                 )}
