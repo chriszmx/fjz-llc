@@ -15,7 +15,7 @@ const AdminPanel = () => {
     const [activeComponent, setActiveComponent] = useState(null);
     const auth = getAuth(app);
     const [value, onChange] = useState(new Date());
-    const [showCalendar, setShowCalendar] = useState(false);
+    // const [showCalendar, setShowCalendar] = useState(false);
 
     const componentsList = [
         { title: 'View Applications', component: <AdminViewApplications /> },
@@ -69,11 +69,11 @@ const AdminPanel = () => {
             <header className="bg-indigo-600 text-white p-4 dark:bg-indigo-900 dark:text-gray-200">
                 <h1 className="text-2xl mb-4">Admin Panel</h1>
 
-                <div className="mb-4 flex space-x-4">
+                <div className="space-x-4">
                     {componentsList.map((item, index) => (
                         <button
                             key={index}
-                            className={`p-2 rounded transition duration-200
+                            className={`p-1 mb-2 rounded transition duration-200
                             ${index === activeComponentIndex ? "bg-indigo-900" : "bg-indigo-600 hover:bg-indigo-700"}
                             dark:${index === activeComponentIndex ? "bg-indigo-400" : "hover:bg-indigo-500"}
                             text-white`}
