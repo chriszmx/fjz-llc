@@ -198,7 +198,7 @@ const TimeClockAdmin = () => {
     return (
         <div className="p-4 sm:p-6 bg-gray-100 dark:bg-gray-800 transition-colors duration-200">
             <h1 className="text-2xl sm:text-4xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-200">Employee Timesheet</h1>
-            <p className="mb-4 text-red-500 text-sm sm:text-base">*Be sure to use 24-hour time format when changing time. Do not modify AM/PM. E.g., 1PM = 13:00:00</p>
+            {/* <p className="mb-4 text-red-500 text-sm sm:text-base">*Be sure to use 24-hour time format when changing time. Do not modify AM/PM. E.g., 1PM = 13:00:00</p> */}
 
             {/* Dropdown to select a user */}
             <div className="mb-4 relative">

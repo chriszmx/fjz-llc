@@ -82,36 +82,43 @@ function AssignRole() {
       </button>
 
       {tableVisible && (
-      <table className="min-w-full bg-white rounded-md overflow-hidden shadow-md">
-        <thead className="bg-indigo-600 text-white">
-          <tr>
-            <th className="py-2 px-4">Email</th>
-            <th className="py-2 px-4">Role</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          {sortedUsers.map(user => (
-            <tr key={user.uid} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-              <td className="py-2 px-4">{user.email}</td>
-              <td className="py-2 px-4">{user.role}</td>
+        <table className="min-w-full bg-white rounded-md overflow-hidden shadow-md">
+          <thead className="bg-indigo-600 text-white">
+            <tr>
+              <th className="py-2 px-4">Email</th>
+              <th className="py-2 px-4">Role</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {sortedUsers.map(user => (
+              <tr key={user.uid} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                <td className="py-2 px-4">{user.email}</td>
+                <td className="py-2 px-4">{user.role}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
 
       {currentUserRole === 'admin' && (
         <div className="mt-10">
           <h2 className="text-2xl font-semibold mb-6 text-indigo-600">Update Role</h2>
-          <p className='mb-6'>
-            Admin - All Access <br />
-            Employee - Will be able to clockin/clockout in future update, schedule maintenance etc. <br />
-            Renter - Switch user to renter after accepting. <br />
-            Guest - Default role, used for application process. <br />
-            X - Remove user from database. <br />
+          <p className='mb-4'>
+            <span className="font-medium">Admin:</span> All-access privileges. <br /><br />
+            <span className="font-medium">Employee:</span> Able to clock in/out. In future updates, they can schedule maintenance and more. <br /><br />
+            <span className="font-medium">Renter:</span> Assign this role after accepting an application. This ensures users aren't removed during the 90-day purge. 🔪<br /><br />
+            <span className="font-medium">Guest:</span> Default role for application process. They have a 90-day lifespan. <br /><br />
+            <span className="font-medium">X:</span> Flags user for removal from the database. <br /><br />
           </p>
+          <p className='text-red-500 mb-2'>
+            Note: Users marked with role 'X' will be deleted within 24 hours.
+          </p>
+          <p className='text-red-500'>
+            Note: Users with the default 'Guest' role will be automatically deleted after 90 days. <br /><br /> *All data is destroyed on deletion and cannot be recovered.*
+          </p><br />
+
           <div className="space-y-4">
-          {/* <input
+            {/* <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}

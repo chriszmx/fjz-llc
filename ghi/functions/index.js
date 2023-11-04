@@ -99,68 +99,117 @@ exports.askOpenAI = functions.https.onRequest(async (req, res) => {
 
 
 exports.autoClockOutUsers = functions.pubsub.schedule('0 0 * * *') // Runs daily at midnight
-    .timeZone('America/New_York')
-    .onRun(async (context) => {
-        const db = admin.firestore();
+  .timeZone('America/New_York')
+  .onRun(async (context) => {
+    const db = admin.firestore();
 
-        // Today's date
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0);
+    // Today's date
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
 
-        // 11:59 PM of yesterday
-        const autoClockOutTime = new Date(currentDate);
-        autoClockOutTime.setMinutes(-1);  // 1 minute before midnight
+    // 11:59 PM of yesterday
+    const autoClockOutTime = new Date(currentDate);
+    autoClockOutTime.setMinutes(-1);  // 1 minute before midnight
 
-        const attendanceQuery = db.collection('attendance')
-            .where('clockOutTime', '==', null)
-            .where('date', '<', currentDate);
+    const attendanceQuery = db.collection('attendance')
+      .where('clockOutTime', '==', null)
+      .where('date', '<', currentDate);
 
-        const forgotToClockOutUsers = [];
-        const snapshot = await attendanceQuery.get();
-        if (!snapshot.empty) {
-            for (let doc of snapshot.docs) {
-                const attendance = doc.data();
-                forgotToClockOutUsers.push(attendance.userID); // Assuming you have a userID field in the attendance doc
-                await doc.ref.update({
-                    // clockOutTime: admin.firestore.Timestamp.fromDate(autoClockOutTime)
-                    clockOutTime: autoClockOutTime.toISOString()
-                });
-            }
+    const forgotToClockOutUsers = [];
+    const snapshot = await attendanceQuery.get();
+    if (!snapshot.empty) {
+      for (let doc of snapshot.docs) {
+        const attendance = doc.data();
+        forgotToClockOutUsers.push(attendance.userID); // Assuming you have a userID field in the attendance doc
+        await doc.ref.update({
+          // clockOutTime: admin.firestore.Timestamp.fromDate(autoClockOutTime)
+          clockOutTime: autoClockOutTime.toISOString()
+        });
+      }
+    }
+
+    if (forgotToClockOutUsers.length > 0) {
+      // Send email notification
+      const notificationRef = db.collection('mail').doc();
+      await notificationRef.set({
+        to: ['c.r.zambito@gmail.com', 'fjzllc@gmail.com', 'bz814@aol.com'],
+        message: {
+          subject: 'Users Forgot to Clock Out!',
+          text: `The following users forgot to clock out on ${currentDate.toLocaleDateString()}: ${forgotToClockOutUsers.join(', ')}. Their records have been auto-adjusted.`,
+          html: `<strong>The following users forgot to clock out:</strong><br>${forgotToClockOutUsers.join('<br>')}.<br><br><p>**This is an automated email. Please do not reply.**</p>`
         }
-
-        if (forgotToClockOutUsers.length > 0) {
-            // Send email notification
-            const notificationRef = db.collection('mail').doc();
-            await notificationRef.set({
-                to: ['c.r.zambito@gmail.com', 'fjzllc@gmail.com', 'bz814@aol.com'],
-                message: {
-                    subject: 'Users Forgot to Clock Out!',
-                    text: `The following users forgot to clock out on ${currentDate.toLocaleDateString()}: ${forgotToClockOutUsers.join(', ')}. Their records have been auto-adjusted.`,
-                    html: `<strong>The following users forgot to clock out:</strong><br>${forgotToClockOutUsers.join('<br>')}.<br><br><p>**This is an automated email. Please do not reply.**</p>`
-                }
-            });
-        }
-
-        return null; // Fulfill the function promise
-    });
-
-    // delete old bookings every day at midnight
-    exports.deleteOldBookings = functions.pubsub.schedule('every 24 hours').timeZone('America/New_York').onRun(async (context) => {
-      const currentDate = new Date();
-
-      // Get all bookings before today
-      const bookings = db.collection('bookings').where('date', '<', currentDate);
-
-      const snapshot = await bookings.get();
-
-      // Delete old bookings
-      const batch = db.batch();
-      snapshot.docs.forEach(doc => {
-          batch.delete(doc.ref);
       });
+    }
 
-      await batch.commit();
-
-      console.log(`Deleted ${snapshot.size} old bookings.`);
-      return null; // Indicates function execution is complete
+    return null; // Fulfill the function promise
   });
+
+// delete old bookings every day at midnight
+exports.deleteOldBookings = functions.pubsub.schedule('every 24 hours').timeZone('America/New_York').onRun(async (context) => {
+  const currentDate = new Date();
+
+  // Get all bookings before today
+  const bookings = db.collection('bookings').where('date', '<', currentDate);
+
+  const snapshot = await bookings.get();
+
+  // Delete old bookings
+  const batch = db.batch();
+  snapshot.docs.forEach(doc => {
+    batch.delete(doc.ref);
+  });
+
+  await batch.commit();
+
+  console.log(`Deleted ${snapshot.size} old bookings.`);
+  return null; // Indicates function execution is complete
+});
+
+
+// clean up of users, any user who has default role of guest for 90 days will be deleted
+//and user with role X will be deleted at midnight
+exports.dailyCleanup = functions.pubsub.schedule('0 0 * * *').timeZone('America/New_York').onRun(async (context) => {
+
+  const usersToDelete = [];
+
+  const guestUsersSnapshot = await admin.firestore().collection('users').where('role', '==', 'guest').get();
+  const xRoleUsersSnapshot = await admin.firestore().collection('users').where('role', '==', 'X').get();
+
+  const shouldDeleteUser = async (doc, daysOld) => {
+    try {
+      const userRecord = await admin.auth().getUser(doc.id);
+      const creationTime = new Date(userRecord.metadata.creationTime);
+      const cutoffDate = new Date();
+      cutoffDate.setDate(cutoffDate.getDate() - daysOld);
+      return creationTime <= cutoffDate;
+    } catch (error) {
+      console.error("Error checking user:", error);
+      return false;
+    }
+  };
+
+  for (const doc of guestUsersSnapshot.docs) {
+    if (await shouldDeleteUser(doc, 90)) {
+      usersToDelete.push(doc.id);
+    }
+  }
+
+  for (const doc of xRoleUsersSnapshot.docs) {
+    if (await shouldDeleteUser(doc, 1)) {
+      usersToDelete.push(doc.id);
+    }
+  }
+
+  const batch = admin.firestore().batch();
+  for (const uid of usersToDelete) {
+    try {
+      await admin.auth().deleteUser(uid);
+      const userDocRef = admin.firestore().collection('users').doc(uid);
+      batch.delete(userDocRef);
+    } catch (error) {
+      console.error("Error deleting user:", uid, error);
+    }
+  }
+  await batch.commit();
+});
+
