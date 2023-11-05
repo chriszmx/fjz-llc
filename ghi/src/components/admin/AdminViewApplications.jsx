@@ -375,16 +375,16 @@ const AdminViewApplications = () => {
                 key={application.id}
                 onClick={() => handleApplicationClick(application)}
                 style={selectedApplication && selectedApplication.id === application.id ? selectedStyle : {}}
-                className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded mb-4 grid grid-cols-2 gap-4 border border-gray-200 dark:border-gray-800"
-            >
+                className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 sm:p-1 rounded mb-4 sm:mb-3 grid sm:grid-cols-1 md:grid-cols-2 gap-3 sm:gap-2 border border-gray-200 dark:border-gray-800"
+                >
                         {application["First Name"] && application["Last Name"] ? (
                             <>
-                                <span className="block dark:text-gray-200 text-2xl">{`${application["First Name"]} ${application["Last Name"]}`}</span>
-                                <span className="block dark:text-indigo-300 text-lg">{application['Apartment Address']}</span>
-                                <span className="block dark:text-green-500 text-lg">{application["Today's Date"]}</span>
-                                <span className="block dark:text-indigo-300 text-lg">{`Apt No: ${application['Apartment Number']}`}</span>
-                                <span className="block dark:text-yellow-300 text-lg">{`${application['Occupation']}`}</span>
-                                <span className="block dark:text-red-300 text-lg">{`$${application['Current Income/Amount']}`}</span>
+                                <span className="block dark:text-gray-200 text-xl">{`${application["First Name"]} ${application["Last Name"]}`}</span>
+                                <span className="block dark:text-gray-400 text-lg">{`${application['Apartment Address']} # ${application['Apartment Number']}`}</span>
+                                <span className="block dark:text-gray-400 text-lg">{application["Today's Date"]}</span>
+                                {/* <span className="block dark:text-indigo-300 text-lg">{`Apt No: ${application['Apartment Number']}`}</span> */}
+                                <span className="block dark:text-gray-500 text-lg">{`${application['Occupation']}`}</span>
+                                <span className="block dark:text-green-500 text-lg">{`$${application['Current Income/Amount']}`}</span>
                             </>
                         ) : (
                             <span className="block">{application.email}</span>
