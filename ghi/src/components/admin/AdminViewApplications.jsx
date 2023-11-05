@@ -333,38 +333,48 @@ const AdminViewApplications = () => {
 
             <div className="space-y-4 pt-10">
                 {/* Status change buttons */}
+
+                <p>Applications Actions</p>
+
                 <div className="flex items-center space-x-4">
-                    <button className="bg-gradient-to-r from-green-400 to-green-600 dark:from-green-700 dark:to-green-900 hover:from-blue-400 hover:to-purple-500 hover:animate-spin dark:hover:from-pink-500 dark:hover:to-yellow-500 p-2 text-white rounded-lg" onClick={() => openModal('accept')}>
-                        MOVE TO <strong className="text-gray-200">ACCEPT</strong>
+                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => openModal('accept')}>
+                        Approve Application
                     </button>
-
-                    <button className="bg-red-500 hover:shadow-xl transition-shadow duration-300 p-2 text-white rounded-lg hover:animate-bounce" onClick={() => openModal('deny')}>
-                        MOVE TO <strong>DENY</strong>
+                    <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" onClick={() => openModal('deny')}>
+                        Reject Application
                     </button>
-
-                    <button className="bg-red-600 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg" onClick={() => openModal('delete')}>
-                        <strong>*DELETE*</strong>
+                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => openModal('delete')}>
+                        Delete Application
                     </button>
                 </div>
 
-                {/* Communication related buttons */}
-                <div className="flex items-center space-x-4">
-                    <button className="bg-green-700 p-2 text-white rounded-lg group hover:animate-spin" onClick={() => openModal('sendAcceptanceEmail')}>
-                        SEND <strong>ACCEPTANCE EMAIL</strong> TO APPLICANT
-                    </button>
+                <div className="space-y-4 pt-10">
+                    <p>Communication Actions</p>
+                    <div className="flex items-center space-x-4">
+                        <button className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded" onClick={() => openModal('sendAcceptanceEmail')}>
+                            Send Acceptance Email
+                        </button>
+                    </div>
 
-                    <button className="bg-gradient-to-r from-red-800 to-red-900 dark:from-red-600 dark:to-red-700 hover:from-blue-400 hover:to-purple-500 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg hover:animate-ping" onClick={() => openModal('deleteAndSendEmail')}>
-                        <strong>*DELETE*</strong> & SEND <strong>REJECTION</strong> EMAIL
-                    </button>
+                    <p>Rejection Actions (Deletes User)</p>
+                    <div className="flex items-center space-x-4">
+                        <button className="bg-yellow-600 hover:bg-yellow-800 text-white font-bold py-2 px-4 rounded" onClick={() => openModal('deleteAndSendEmail')}>
+                            Reject & Schedule Deletion (90 Days)
+                        </button>
 
-                    <button className="bg-gradient-to-r from-red-800 to-red-900 dark:from-red-600 dark:to-red-700 hover:from-blue-400 hover:to-purple-500 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg hover:animate-ping" onClick={() => openModal('deleteAndSendEmailAndUpdateRole')}>
-                        <strong>*DELETE USER & APPLICATION*</strong> & SEND <strong>REJECTION</strong> EMAIL
-                    </button>
+                        <button className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded" onClick={() => openModal('deleteAndSendEmailAndUpdateRole')}>
+                            Reject & Immediate Deletion (24 Hours)
+                        </button>
+                    </div>
 
+                    <p>Personal Tools</p>
+                    <div className="flex items-center space-x-4">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => openModal('sendApplicationByEmail')}>
+                            Email Application to Me
+                        </button>
+                    </div>
                 </div>
-                    <button className="bg-blue-500 hover:shadow-xl transition-shadow duration-300 p-2 text-white rounded-lg group hover:animate-bounce" onClick={() => openModal('sendApplicationByEmail')}>
-                        EMAIL APPLICATION TO SELF
-                    </button>
+
             </div>
         </>
     );
@@ -409,12 +419,12 @@ const AdminViewApplications = () => {
             <div className="w-full md:w-1/3">
                 <h2 className="text-xl font-bold mb-4">Pending Applications</h2>
                 {applications.filter(app => app.status === 'pending').map(application => (
-                <div
-                key={application.id}
-                onClick={() => handleApplicationClick(application)}
-                style={selectedApplication && selectedApplication.id === application.id ? selectedStyle : {}}
-                className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 sm:p-1 rounded mb-4 sm:mb-3 grid sm:grid-cols-1 md:grid-cols-2 gap-3 sm:gap-2 border border-gray-200 dark:border-gray-800"
-                >
+                    <div
+                        key={application.id}
+                        onClick={() => handleApplicationClick(application)}
+                        style={selectedApplication && selectedApplication.id === application.id ? selectedStyle : {}}
+                        className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 sm:p-1 rounded mb-4 sm:mb-3 grid sm:grid-cols-1 md:grid-cols-2 gap-3 sm:gap-2 border border-gray-200 dark:border-gray-800"
+                    >
                         {application["First Name"] && application["Last Name"] ? (
                             <>
                                 <span className="block dark:text-gray-200 text-xl">{`${application["First Name"]} ${application["Last Name"]}`}</span>
