@@ -135,6 +135,36 @@ const AdminViewApplications = () => {
         await handleDelete(appId);
     };
 
+    const handleDeleteAndSendEmailAndUpdateRole = async (appId, email, uid) => {
+        const db = getFirestore(app);
+
+        // Create a notification document
+        const notificationRef = doc(collection(db, 'mail'));
+        await setDoc(notificationRef, {
+            to: email,
+            message: {
+                subject: 'Update on Your Apartment Application',
+                text: 'We appreciate your interest in FJZ Apartments.',
+                html: `${rejectionEmailHTML}<br><br><p>**This is an automated email. Please do not reply.**</p>`
+            }
+        });
+
+        // Delete the application
+        await handleDelete(appId);
+
+        // Update the user's role to 'rejected'
+        console.log(uid);
+        const userRef = doc(db, 'users', uid); // Use UID as the document ID
+        await updateDoc(userRef, {
+            role: 'X' // 'X' is the role for rejected users
+        }).catch((error) => {
+            console.error("Error updating user's role: ", error);
+        });
+    };
+
+
+
+
     const handleAcceptAndSendEmail = async (email) => {
         console.log("Trying to send acceptance email to:", email);
         const db = getFirestore(app);
@@ -171,6 +201,9 @@ const AdminViewApplications = () => {
                 case 'sendApplicationByEmail':
                     sendApplicationByEmail(selectedApplication);
                     break;
+                case 'deleteAndSendEmailAndUpdateRole':
+                    handleDeleteAndSendEmailAndUpdateRole(selectedApplication.id, selectedApplication.email, selectedApplication.uid);
+                    break;
                 default:
                     break;
             }
@@ -198,6 +231,7 @@ const AdminViewApplications = () => {
             deny: '**SAFE** Confirm application denial? THIS WILL NOT NOTIFY APPLICANT.',
             delete: '**DELETE WARNING** Confirm application deletion? WILL NOT NOTIFY APPLICANT. This Will Delete ALL Photos/Data Associated With This Application.',
             deleteAndSendEmail: '**EMAIL WARNING** Confirm application deletion and sending of email? This Will Remove All Data Associated With This Application.',
+            deleteAndSendEmailAndUpdateRole: '**EMAIL WARNING** Confirm application deletion and sending of email? This Will Remove All Data Associated With This Application. This will also automatically delete the user in 24 hours.',
             sendApplicationByEmail: '**SAFE** Confirm sending of application details email to FJZ?',
         };
 
@@ -323,10 +357,14 @@ const AdminViewApplications = () => {
                         <strong>*DELETE*</strong> & SEND <strong>REJECTION</strong> EMAIL
                     </button>
 
+                    <button className="bg-gradient-to-r from-red-800 to-red-900 dark:from-red-600 dark:to-red-700 hover:from-blue-400 hover:to-purple-500 hover:rotate-3 transform transition-transform duration-300 p-2 text-white rounded-lg hover:animate-ping" onClick={() => openModal('deleteAndSendEmailAndUpdateRole')}>
+                        <strong>*DELETE USER & APPLICATION*</strong> & SEND <strong>REJECTION</strong> EMAIL
+                    </button>
+
+                </div>
                     <button className="bg-blue-500 hover:shadow-xl transition-shadow duration-300 p-2 text-white rounded-lg group hover:animate-bounce" onClick={() => openModal('sendApplicationByEmail')}>
                         EMAIL APPLICATION TO SELF
                     </button>
-                </div>
             </div>
         </>
     );
