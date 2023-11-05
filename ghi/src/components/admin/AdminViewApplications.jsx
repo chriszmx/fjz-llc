@@ -14,6 +14,16 @@ const AdminViewApplications = () => {
     const [showModal, setShowModal] = useState(false);
     const [actionType, setActionType] = useState(null);
 
+    const handleApplicationClick = (application) => {
+        setSelectedApplication(application);
+    };
+
+    const selectedStyle = {
+        // backgroundColor: '#e2e8f0',
+        borderColor: '#bfdbfe',
+        borderLeft: '8px solid #00c4ff',
+    };
+
     useEffect(() => {
         const fetchApplications = async () => {
             const db = getFirestore(app);
@@ -361,17 +371,20 @@ const AdminViewApplications = () => {
             <div className="w-full md:w-1/3">
                 <h2 className="text-xl font-bold mb-4">Pending Applications</h2>
                 {applications.filter(app => app.status === 'pending').map(application => (
-                    <div
-                        key={application.id}
-                        onClick={() => setSelectedApplication(application)}
-                        className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded mb-4"
-                    >
+                <div
+                key={application.id}
+                onClick={() => handleApplicationClick(application)}
+                style={selectedApplication && selectedApplication.id === application.id ? selectedStyle : {}}
+                className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded mb-4 grid grid-cols-2 gap-4 border border-gray-200 dark:border-gray-800"
+            >
                         {application["First Name"] && application["Last Name"] ? (
                             <>
                                 <span className="block dark:text-gray-200 text-2xl">{`${application["First Name"]} ${application["Last Name"]}`}</span>
                                 <span className="block dark:text-indigo-300 text-lg">{application['Apartment Address']}</span>
-                                <span className="block dark:text-indigo-300 text-lg">{`Apt No: ${application['Apartment Number']}`}</span>
                                 <span className="block dark:text-green-500 text-lg">{application["Today's Date"]}</span>
+                                <span className="block dark:text-indigo-300 text-lg">{`Apt No: ${application['Apartment Number']}`}</span>
+                                <span className="block dark:text-yellow-300 text-lg">{`${application['Occupation']}`}</span>
+                                <span className="block dark:text-red-300 text-lg">{`$${application['Current Income/Amount']}`}</span>
                             </>
                         ) : (
                             <span className="block">{application.email}</span>

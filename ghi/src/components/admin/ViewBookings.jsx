@@ -85,7 +85,7 @@ const ViewBookings = ({ onBookingCountChange }) => {
                   <p><strong>Date:</strong> ${booking.date}</p>
                   <p><strong>Time:</strong> ${booking.time}</p>
                   <p></p>
-                  <p><strong>Note:</strong> To make sure everything runs smoothly, please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 10 minutes before your scheduled time. This helps us ensure you're on your way!</p>
+                  <p><strong>Note:</strong> To make sure everything runs smoothly, please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 15 minutes before your scheduled time. This helps us ensure you're on your way!</p>
                   <p>We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!</p>
                   <p>See you soon!</p>
                   <p>- FJZ LLC Apartments Team</p>

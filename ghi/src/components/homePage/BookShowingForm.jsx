@@ -279,7 +279,7 @@ const BookShowingForm = () => {
         {/* Submit Button */}
         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-gray-100 p-2 rounded shadow-md transition duration-300 hover:shadow-lg transform hover:-translate-y-1">Book</button>
         <p>*After booking please check email/spam for confirmation and following steps from: <br /><br /> FJZ LLC noreply@fjzapartments.com</p>
-        <p>*To make sure everything runs smoothly, you will also be provided a phone number to <strong>text 10 minutes before showing up to apartment.</strong> This helps us ensure you're on your way.</p>
+        <p>*To make sure everything runs smoothly, you will also be provided a phone number to <strong>text 15 minutes before showing up to apartment.</strong> This helps us ensure you're on your way.</p>
       </form>
       <br /><br /><br /><br /><br />
     </div>
