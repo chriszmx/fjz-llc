@@ -18,9 +18,12 @@ const ViewBookings = ({ onBookingCountChange }) => {
     }, []);
 
     useEffect(() => {
-        // Call the prop function to send the count back
-        onBookingCountChange(bookings.length);
+        // Call the prop function to send the count back, if it exists
+        if(onBookingCountChange && typeof onBookingCountChange === 'function') {
+            onBookingCountChange(bookings.length);
+        }
     }, [bookings, onBookingCountChange]);
+
 
     const fetchBookings = async () => {
         const bookingsCollection = collection(db, "bookings");

@@ -17,6 +17,11 @@ import EmployeeAI from "./components/ai-chat/EmployeeAI";
 import { RingLoader } from 'react-spinners';
 import checkRedirectResult from "./components/utils/checkRedirectResult";
 
+import AdminViewApplications from "./components/admin/AdminViewApplications";
+import TimeClockAdmin from "./components/admin/TimeClockAdmin";
+import AssignRole from "./components/admin/AssignRole";
+import ViewBookings from "./components/admin/ViewBookings";
+
 
 
 function App() {
@@ -85,6 +90,10 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin" element={<AdminPanel />} />
+                    <Route path="/view-applications" element={<AdminViewApplications />} />
+                    <Route path="/timeclock-admin" element={<TimeClockAdmin />} />
+                    <Route path="/assign-role" element={<AssignRole />} />
+                    <Route path="/view-bookings" element={<ViewBookings />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/application" element={<Application />} />
                     <Route path="/employee" element={<TimeClock />} />

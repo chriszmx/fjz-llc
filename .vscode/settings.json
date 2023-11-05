@@ -3,6 +3,7 @@
         "datepicker",
         "firestore",
         "OPENAI",
+        "timeclock",
         "toastify",
         "Tonawanda"
     ]
