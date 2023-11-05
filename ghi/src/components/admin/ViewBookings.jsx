@@ -7,11 +7,34 @@ import {
     doc,
     deleteDoc,
     setDoc,
+    onSnapshot
 } from "firebase/firestore";
-import { db } from "../../Firebase";
+import { db, app } from "../../Firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 const ViewBookings = ({ onBookingCountChange }) => {
     const [bookings, setBookings] = useState([]);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const auth = getAuth(app);
+
+    useEffect(() => {
+        const unsubscribeAuth = onAuthStateChanged(auth, user => {
+            if (user) {
+                const userDocRef = doc(db, 'users', user.uid);
+                const unsubscribeUser = onSnapshot(userDocRef, docSnapshot => {
+                    if (docSnapshot.exists && docSnapshot.data().role === 'admin') {
+                        setIsAdmin(true);
+                    } else {
+                        setIsAdmin(false);
+                    }
+                });
+                return unsubscribeUser;
+            }
+        });
+
+        return () => unsubscribeAuth();
+    }, [auth]);
 
     useEffect(() => {
         fetchBookings();
@@ -103,6 +126,11 @@ const ViewBookings = ({ onBookingCountChange }) => {
             }
         }
     };
+
+    if (!isAdmin) {
+        return <div>You do not have permission to view this page.</div>;
+    }
+
 
     return (
         <div className="bg-dark:bg-black text-dark:text-white p-8 min-h-screen flex flex-col justify-center">
