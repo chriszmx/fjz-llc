@@ -215,6 +215,7 @@ const AdminViewApplications = () => {
     };
 
     const orderList = [
+        "ID Proof",
         "First Name",
         "Middle Initial",
         "Last Name",
@@ -257,7 +258,6 @@ const AdminViewApplications = () => {
         "Have you ever been found guilty of a felony?",
         "Have you ever been evicted?",
         "Have you ever broken a lease?",
-        "ID Proof",
         "Proof Income 1",
         "Proof Income 2",
         "Sign Here",
