@@ -21,6 +21,7 @@ import AdminViewApplications from "./components/admin/AdminViewApplications";
 import TimeClockAdmin from "./components/admin/TimeClockAdmin";
 import AssignRole from "./components/admin/AssignRole";
 import ViewBookings from "./components/admin/ViewBookings";
+import AiAppEvaluation from "./components/admin/AIAppEvaluation";
 
 
 
@@ -71,7 +72,7 @@ function App() {
             </div>
         );
     }
-    
+
 
     return (
         <BrowserRouter>
@@ -99,6 +100,7 @@ function App() {
                     <Route path="/application" element={<Application />} />
                     <Route path="/employee" element={<TimeClock />} />
                     <Route path="/AI-Employee-Assistant" element={<EmployeeAI />} />
+                    <Route path="/AI-App-Evaluation" element={<AiAppEvaluation />} />
                 </Routes>
                 <Footer />
             </DarkModeProvider>

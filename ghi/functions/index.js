@@ -213,3 +213,91 @@ exports.dailyCleanup = functions.pubsub.schedule('0 0 * * *').timeZone('America/
   await batch.commit();
 });
 
+
+// AI Evaluation of Application
+exports.evaluateTenant = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async () => {
+
+    if (req.method !== 'POST') {
+      return res.status(405).send('Method Not Allowed');
+    }
+
+    const applicationData = req.body.applicantData;
+
+    const messages = [{
+      "role": "user",
+      "content": `🔍 Tenant Risk Assessment Request:
+
+      - Name: ${applicationData['First Name']} ${applicationData['Middle Initial']} ${applicationData['Last Name']}
+      - Email: ${applicationData['Email']}
+      - Phone Number: ${applicationData['Phone Number']}
+      - Date of Birth: ${applicationData['Date of Birth (DOB)']}
+      - Marital Status: ${applicationData['Marital Status']}
+      - Monthly Rent at Last Apartment: $${applicationData['Amount of Rent']}
+      - Present Home Address: ${applicationData['Present Home Address']}
+      - Time at Current Address: ${applicationData['Length of Time at Address']}
+      - Landlord Phone: ${applicationData['Landlord Phone']}
+      - Reason for Leaving Current Address: ${applicationData['Reason for Leaving']}
+      - Present Rent Status: ${applicationData['Is your present rent up to date?']}
+      - Number of Occupants: ${applicationData['Number of occupants']}
+      - Occupants Details: ${applicationData['Details of each occupant (Name, Age, Occupation)']}
+      - Pets: ${applicationData['Do you have pets? How many & type.']}
+      - Vehicles: ${applicationData['Number of vehicles']}
+      - Vehicle Details: ${applicationData['Details of each vehicle (Make, Model, Color, Plate, Year)']}
+      - Employment Status: ${applicationData['Employment Status']}
+      - Current Employer and Occupation: ${applicationData['Current Employer']} - ${applicationData['Occupation']}
+      - Hours per Week: ${applicationData['Hours per Week']}
+      - Supervisor Name: ${applicationData['Supervisor Name']}
+      - Annual Income: $${applicationData['Current Income/Amount']}
+      - Car Debt: $${applicationData['Current Car Debt']}
+      - Credit Card Debt: $${applicationData['Current Credit Card Debt']}
+      - Emergency Contact: ${applicationData['Emergency Contact (Name, Phone, Relationship)']}
+      - Personal Reference: ${applicationData['Personal Reference (Name, Phone, Relationship)']}
+      - Legal Issues with Landlords: ${applicationData['Have you ever been brought to court by another landlord?']}
+      - Evictions: ${applicationData['Have you ever been evicted?']}
+      - Sheriff Lockouts: ${applicationData['Have you ever been locked out of your apartment by the sheriff?']}
+      - Sued for Bills: ${applicationData['Have you ever been sued for bills?']}
+      - Bankruptcies: ${applicationData['Have you ever filed for bankruptcy?']}
+      - Felony Convictions: ${applicationData['Have you ever been found guilty of a felony?']}
+      - Broken Leases: ${applicationData['Have you ever broken a lease?']}
+      - Owing Rent/Damaged Previous Apartment: ${applicationData['Have you ever moved owing rent or damaged an apartment?']}
+      - Move-in Amount Availability: ${applicationData['Is the total move-in amount available now?']}
+
+      🤔 Now, let's get down to the nitty-gritty. This person seems more guarded than Fort Knox with all their previous landlord run-ins! 😅
+
+      On a scale of 1-100, where do they land on the 'Risky Business' meter? Let's crunch those numbers and see if they're the tenant of dreams... or the kind that comes with a 'handle with care' label! 📈🚨
+
+      Please present this in a dark humor theme that brings a chuckle, but also keeps it real - because who wants to play hide and seek with rent payments? 🙈💸
+
+      Remember, a stitch in time saves nine, and in this case, it might just save the roof over your head! 🏠⏳
+
+      Don't hold back, and be sure to wrap it up in some nifty dark-themed HTML using Tailwind CSS for that sweet dark mode aesthetic. 😎🌒
+
+      Also remember that this is going to help my parents rental properties. so if the person seems like they lied, or are full of BS be sure to target it.`
+    }];
+
+
+
+    try {
+      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+        model: "gpt-3.5-turbo",
+        messages: messages
+      }, {
+        headers: {
+          'Authorization': `Bearer ${functions.config().openai.key}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const evaluation = response.data.choices[0].message.content.trim();
+      res.json({ evaluation: evaluation });
+
+    } catch (error) {
+      console.error('Error:', error);
+      if (error.response) {
+        console.error('OpenAI Response Error:', error.response.data, error.response.status);
+      }
+      res.status(500).send('Error in OpenAI request');
+    }
+  });
+});

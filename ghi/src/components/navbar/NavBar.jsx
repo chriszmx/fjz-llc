@@ -65,7 +65,7 @@ const NavBar = () => {
     const navigationLinks = [
         { name: 'Home', href: '/', current: location.pathname === '/' },
         ...loggedIn ? [] : [],
-        ...role === 'admin' ? [{ name: 'Admin', href: '/admin', current: location.pathname === '/admin' }] : [],
+        ...role === 'admin' ? [{ name: 'Admin', href: '/admin', current: location.pathname === '/admin' }, { name: 'AI APP EVALUATION', href: '/AI-App-Evaluation', current: location.pathname === '/AI-App-Evaluation'}] : [],
         ...role === 'employee' || role === 'admin' ? [{ name: 'Employee', href: '/employee', current: location.pathname === '/employee' }, { name: 'AI Assistant', href: '/AI-Employee-Assistant'}] : [],
         ...role === 'guest' || role === 'admin' ? [{ name: 'Fill Out Application', href: '/application', current: location.pathname === '/application' }] : []
     ];
