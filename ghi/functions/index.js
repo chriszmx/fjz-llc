@@ -227,7 +227,7 @@ exports.evaluateTenant = functions.https.onRequest(async (req, res) => {
     const messages = [
       {
         "role": "user",
-        "content": "Hello! I'd like an evaluation of a tenant. Please format your response with clear paragraphs and line breaks. Here's the data:"
+        "content": "Hello! I'd like an evaluation of a tenant. Please be brutally honest, as people can lie about stuff on their applications. If you think they are suspicious, too good to be true, be honest, because it is probably not worth renting too. I want a scale of 1 - 100 (1 being no risk, 100 being not worth renting to at all.) Also our apartments range from 1,000-1,500 a month for rent. No smoking, no pets, 1 car parking. They must have first month and security due at lease as well.  Here's the data:"
       },
 
       {
@@ -254,7 +254,7 @@ exports.evaluateTenant = functions.https.onRequest(async (req, res) => {
       - Current Employer and Occupation: ${applicationData['Current Employer']} - ${applicationData['Occupation']}
       - Hours per Week: ${applicationData['Hours per Week']}
       - Supervisor Name: ${applicationData['Supervisor Name']}
-      - Annual Income: $${applicationData['Current Income/Amount']}
+      - Income Weekly or annually or hourly: $${applicationData['Current Income/Amount']} (if < 100 its probably hourly if < 10,000 its probably weekly, if its > 10,000 its probably annually)
       - Car Debt: $${applicationData['Current Car Debt']}
       - Credit Card Debt: $${applicationData['Current Credit Card Debt']}
       - Emergency Contact: ${applicationData['Emergency Contact (Name, Phone, Relationship)']}
@@ -267,37 +267,25 @@ exports.evaluateTenant = functions.https.onRequest(async (req, res) => {
       - Felony Convictions: ${applicationData['Have you ever been found guilty of a felony?']}
       - Broken Leases: ${applicationData['Have you ever broken a lease?']}
       - Owing Rent/Damaged Previous Apartment: ${applicationData['Have you ever moved owing rent or damaged an apartment?']}
-      - Move-in Amount Availability: ${applicationData['Is the total move-in amount available now?']}
-
-      🤔 Now, let's get down to the nitty-gritty. This person seems more guarded than Fort Knox with all their previous landlord run-ins! 😅
-
-      On a scale of 1-100, where do they land on the 'Risky Business' meter? Let's crunch those numbers and see if they're the tenant of dreams... or the kind that comes with a 'handle with care' label! 📈🚨
-
-      Please present this in a dark humor theme that brings a chuckle, but also keeps it real - because who wants to play hide and seek with rent payments? 🙈💸
-
-      Remember, a stitch in time saves nine, and in this case, it might just save the roof over your head! 🏠⏳
-
-      Don't hold back, and be sure to wrap it up in some nifty dark-themed for that sweet dark mode aesthetic. 😎🌒
-
-      Also remember that this is going to help my parents rental properties. so if the person seems like they lied, or are full of BS be sure to target it.`
+      - Move-in Amount Availability: ${applicationData['Is the total move-in amount available now?']}`
     },
 
     {
       "role": "user",
-      "content": "🤔 Now, let's get down to the nitty-gritty. This person seems more guarded than Fort Knox ... or the kind that comes with a 'handle with care' label! 📈🚨"
+      "content": "🤔 Scale of 1 - 100 how risky are they, 1 being no risk, 100 being DO NOT RENT! Use all the data collected to give a simple analysis but most important should we rent or not! 📈🚨 Keep the document short and VERY FIRST THING TO TYPE IS AN EMOJI WITH THE RISK NUMBER FROM 1 - 100 & keep the analysis short and sweet. dont need a ton of wording. More so if they are great or if they suck! Be sure to add statement in all caps DO NOT RENT if you expect they might just not be a good fit for any reason at all at the top by risk assessment. and but MIGHT BE WORTH RENTING if they seem like they might be worth renting to. Wrap emojis around key points so if the user doesn't want to read the entire thing, because people typically don't sadly.. they will see the key points like they are horrible! Also use creative language, i am not censoring your language at all."
   },
-  {
-      "role": "user",
-      "content": "Please present this in a dark humor theme ...  for that sweet dark mode aesthetic. 😎🌒"
-  },
-  {
-      "role": "user",
-      "content": "Also remember that this is going to help my parents rental properties. so if the person seems like they lied, or are full of BS be sure to target it."
-  },
-  {
-    "role": "user",
-    "content": "Also a friendly reminder, that the user has already seen the application data, so when you provide your response, you probably don't need to list out everything like name: name, email: email, etc."
-  }
+  // {
+  //     "role": "user",
+  //     "content": "Please present this in a dark humor theme ...  for that sweet dark mode aesthetic. 😎🌒"
+  // },
+  // {
+  //     "role": "user",
+  //     "content": "Also remember that this is going to help my parents rental properties. so if the person seems like they lied, or are full of BS be sure to target it."
+  // },
+  // {
+  //   "role": "user",
+  //   "content": "Also a friendly reminder, that the user has already seen the application data, so when you provide your response, you probably don't need to list out everything like name: name, email: email, etc."
+  // }
   ];
 
 
