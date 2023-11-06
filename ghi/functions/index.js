@@ -224,7 +224,13 @@ exports.evaluateTenant = functions.https.onRequest(async (req, res) => {
 
     const applicationData = req.body.applicantData;
 
-    const messages = [{
+    const messages = [
+      {
+        "role": "user",
+        "content": "Hello! I'd like an evaluation of a tenant. Please format your response with clear paragraphs and line breaks. Here's the data:"
+      },
+
+      {
       "role": "user",
       "content": `🔍 Tenant Risk Assessment Request:
 
@@ -271,10 +277,28 @@ exports.evaluateTenant = functions.https.onRequest(async (req, res) => {
 
       Remember, a stitch in time saves nine, and in this case, it might just save the roof over your head! 🏠⏳
 
-      Don't hold back, and be sure to wrap it up in some nifty dark-themed HTML using Tailwind CSS for that sweet dark mode aesthetic. 😎🌒
+      Don't hold back, and be sure to wrap it up in some nifty dark-themed for that sweet dark mode aesthetic. 😎🌒
 
       Also remember that this is going to help my parents rental properties. so if the person seems like they lied, or are full of BS be sure to target it.`
-    }];
+    },
+
+    {
+      "role": "user",
+      "content": "🤔 Now, let's get down to the nitty-gritty. This person seems more guarded than Fort Knox ... or the kind that comes with a 'handle with care' label! 📈🚨"
+  },
+  {
+      "role": "user",
+      "content": "Please present this in a dark humor theme ...  for that sweet dark mode aesthetic. 😎🌒"
+  },
+  {
+      "role": "user",
+      "content": "Also remember that this is going to help my parents rental properties. so if the person seems like they lied, or are full of BS be sure to target it."
+  },
+  {
+    "role": "user",
+    "content": "Also a friendly reminder, that the user has already seen the application data, so when you provide your response, you probably don't need to list out everything like name: name, email: email, etc."
+  }
+  ];
 
 
 
