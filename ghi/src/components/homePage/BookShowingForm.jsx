@@ -395,7 +395,7 @@ const BookShowingForm = () => {
           <label className="font-semibold text-white" htmlFor="apartment">Apartment</label>
           <select value={formData.apartment} className="bg-gray-700 p-2 rounded shadow-md transition duration-300 hover:shadow-lg" id="apartment" name="apartment" onChange={handleChange} required>
             <option value="">Select an apartment</option>
-            <option value="1108 Kenmore Ave Apt 5">1108 Kenmore Ave Apt 5</option>
+            <option value="1108 Kenmore Ave, Unit 5, Buffalo NY 14216">1108 Kenmore Ave Apt 5</option>
             {/* <option value="Apt 2">Apt 2</option> */}
           </select>
         </div>
