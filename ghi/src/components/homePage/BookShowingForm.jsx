@@ -5,6 +5,8 @@ import { db } from '../../Firebase';
 import { setDoc, doc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import bookingConf from '../../assets/bookingConf.png'
+import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage";
+
 
 
 const BookShowingForm = () => {
@@ -20,6 +22,7 @@ const BookShowingForm = () => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [showModal, setShowModal] = useState(false);
 
 
   const dayToTimeMapping = {
@@ -137,13 +140,15 @@ const BookShowingForm = () => {
     console.log(formData);
 
     try {
-      // Email to the administrators
+      const downloadURL = await handleFormSubmit();
+      // Now you have the downloadURL, you can use it in the email content
+
+      // Email to the user with the download link
       await setDoc(doc(collection(db, 'mail')), {
-        // to: ['c.r.zambito@gmail.com'],
-        to: ['c.r.zambito@gmail.com', 'bz814@aol.com', 'fjzllc@gmail.com', 'synthia.taylor@yahoo.com'],
+        to: [formData.email],
         message: {
-          subject: `New Booking from ${formData.email}`,
-          text: 'See Booking details below:',
+          subject: 'Booking Confirmation',
+          text: 'Thank you for booking with us. See your booking details below:',
           html: `
   <div style="font-family: Arial, sans-serif; padding: 15px; background-color: #f7f7f7; border: 1px solid #e4e4e4; border-radius: 5px;">
     <h2 style="color: #333; margin-top: 0;">New Booking Alert!</h2>
@@ -154,6 +159,7 @@ const BookShowingForm = () => {
     <p><strong>Date:</strong> ${formatDate(formData.date)}</p>
     <p><strong>Time:</strong> ${formData.time}</p>
     <p><strong>Additional Info:</strong> ${formData.additionalInfo}</p>
+    <p><a href="${downloadURL}" target="_blank" style="background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 50%; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Save to Calendar</a></p>
   </div>
 `,
 
@@ -175,11 +181,13 @@ const BookShowingForm = () => {
             <p><strong>Date:</strong> ${formatDate(formData.date)}</p>
             <p><strong>Time:</strong> ${formData.time}</p>
             <p></p>
-            <p><strong>Note:</strong> To make sure everything runs smoothly, <strong>please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 10 minutes before your scheduled time.</strong> This helps us ensure you're on your way!</p>
+            <p><strong>Note:</strong> To make sure everything runs smoothly, <strong>please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 15 minutes before your scheduled time.</strong> This helps us ensure you're on your way!</p>
             <p>We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!</p>
             <p>See you soon!</p>
             <p>- FJZ LLC Apartments Team</p>
+            <p><a href="${downloadURL}" target="_blank" style="background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 50%; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Save to Calendar</a></p>
           </div>
+
         `,
 
         }
@@ -197,13 +205,128 @@ const BookShowingForm = () => {
         additionalInfo: formData.additionalInfo
       });
 
-      toast.success('Your viewing has been scheduled! Please check your email/spam to confirm and follow next steps.');
+      toast.success(`Your viewing has been scheduled! Please check your email/spam to confirm and follow next steps. `);
+      setShowModal(true);
 
     } catch (error) {
       console.error("Error sending email:", error);
     }
-    setFormData(initialFormData); // reset the form
+    // setFormData(initialFormData); // reset the form
   };
+
+  function generateICSFile(formData) {
+    const { date, time, apartment, additionalInfo } = formData;
+
+    // Convert the date and time to a Date object
+    const dateTime = new Date(`${date.toDateString()} ${time}`);
+    const formattedStart = dateTime.toISOString().replace(/-|:|\.\d\d\d/g,"");
+
+    // Assuming the event lasts for 1 hour
+    const endDateTime = new Date(dateTime.getTime() + 15*60*1000);
+    const formattedEnd = endDateTime.toISOString().replace(/-|:|\.\d\d\d/g,"");
+
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'BEGIN:VEVENT',
+      `DTSTART:${formattedStart}`,
+      `DTEND:${formattedEnd}`,
+      `SUMMARY:Apartment Viewing: ${apartment}`,
+      `LOCATION:${apartment}`,
+      `DESCRIPTION:${additionalInfo}... To make sure everything runs smoothly, please send a text to 716-698-8355 about 15 minutes before your scheduled time. This helps us ensure you're on your way!
+      We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!
+      See you soon!
+      - FJZ LLC Apartments Team`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\n');
+
+    return icsContent;
+  }
+
+
+  const handleDownloadICS = () => {
+    if (!formData.date) {
+      toast.error("Please select a date before downloading the calendar file.");
+      return;
+    }
+
+    const icsContent = generateICSFile(formData);
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const downloadUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.setAttribute('download', 'appointment.ics');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  async function handleFormSubmit() {
+    // Generate the ICS content
+    const icsContent = generateICSFile(formData);
+
+    // Get a reference to the storage service
+    const storage = getStorage();
+
+    // Create a storage reference from our storage service
+    const icsRef = ref(storage, 'calendarFiles/' + formData.name + '.ics');
+
+    // Upload ICS content as a string
+    await uploadString(icsRef, icsContent);
+
+    // Get the download URL
+    const downloadURL = await getDownloadURL(icsRef);
+
+    // Return the download URL so it can be used in the email
+    return downloadURL;
+  }
+
+  async function sendEmailWithICSLink(downloadURL) {
+    // Set up your email content
+    const emailContent = {
+      // to: [formData.email],
+      to: ['c.r.zambito@gmail.com'],
+      message: {
+        subject: 'Booking Confirmation',
+        text: 'Thank you for booking with us. See your booking details below:',
+        html: `TEST TEST TEST
+          <div style="font-family: Arial, sans-serif; padding: 15px; background-color: #f7f7f7; border: 1px solid #e4e4e4; border-radius: 5px;">
+            ... [Other HTML Content] ...
+            <p><a href="${downloadURL}" target="_blank" style="background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 50%; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Save to Calendar</a></p>
+          </div>
+        `,
+      }
+    };
+
+    // Use Firestore to trigger the email function
+    await setDoc(doc(collection(db, 'mail')), emailContent);
+  }
+
+
+  const CalendarModal = ({ onClose, onAddToCalendar }) => {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="bg-white p-4 rounded-lg shadow-lg text-center">
+          <h3 className="text-lg font-bold">Add to Calendar</h3>
+          <p>Would you like to add this event to your calendar?</p>
+          <div className="mt-4 space-x-2">
+            <button onClick={onAddToCalendar} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Yes</button>
+            <button onClick={onClose} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">No</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const handleCloseModalAndResetForm = () => {
+    setShowModal(false);
+    setFormData(initialFormData); // Reset the form data here
+  };
+
+
+
 
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center text-gray-400 p-4">
@@ -278,6 +401,17 @@ const BookShowingForm = () => {
 
         {/* Submit Button */}
         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-gray-100 p-2 rounded shadow-md transition duration-300 hover:shadow-lg transform hover:-translate-y-1">Book</button>
+
+        {showModal && (
+    <CalendarModal
+      onClose={handleCloseModalAndResetForm}
+      onAddToCalendar={() => {
+        handleDownloadICS();
+        setShowModal(false);
+      }}
+    />
+  )}
+
         <p>*After booking please check email/spam for confirmation and following steps from: <br /><br /> FJZ LLC noreply@fjzapartments.com</p>
         <p>*To make sure everything runs smoothly, you will also be provided a phone number to <strong>text 15 minutes before showing up to apartment.</strong> This helps us ensure you're on your way.</p>
       </form>
