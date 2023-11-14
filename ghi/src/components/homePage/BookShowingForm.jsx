@@ -370,7 +370,7 @@ const BookShowingForm = () => {
 
 
   return (
-    <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center text-gray-400 p-4">
+    <div id="scheduleViewing" className="bg-gray-900 min-h-screen flex flex-col items-center justify-center text-gray-400 p-4">
       <h1 className="text-3xl font-bold mb-8 text-center text-white">Schedule a Viewing</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-8 space-y-6 border-2 border-indigo-400">
         <img src={bookingConf} alt="booking" className='rounded-lg w-full md:w-3/4 mx-auto my-4 shadow-md' />
