@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "calandar",
+        "CALSCALE",
         "datepicker",
         "DTEND",
         "DTSTART",
@@ -9,7 +10,10 @@
         "timeclock",
         "toastify",
         "Tonawanda",
+        "TZID",
+        "VALARM",
         "VCALENDAR",
-        "VEVENT"
+        "VEVENT",
+        "VTIMEZONE"
     ]
 }

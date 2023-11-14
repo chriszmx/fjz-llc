@@ -215,35 +215,70 @@ const BookShowingForm = () => {
   };
 
   function generateICSFile(formData) {
-    const { date, time, apartment, additionalInfo } = formData;
+    const { date, time, apartment, name, additionalInfo, phoneNumber } = formData;
 
     // Convert the date and time to a Date object
     const dateTime = new Date(`${date.toDateString()} ${time}`);
-    const formattedStart = dateTime.toISOString().replace(/-|:|\.\d\d\d/g,"");
+    const formattedStart = formatDateTime(dateTime);
 
     // Assuming the event lasts for 1 hour
-    const endDateTime = new Date(dateTime.getTime() + 15*60*1000);
-    const formattedEnd = endDateTime.toISOString().replace(/-|:|\.\d\d\d/g,"");
+    const endDateTime = new Date(dateTime.getTime() + 30 * 60 * 1000);
+    const formattedEnd = formatDateTime(endDateTime);
+
+    // Additional instructions for the event
+    const instructions = `
+  To make sure everything runs smoothly, please send a text to 716-912-8764 about 15 minutes before your scheduled time. This helps us ensure you're on your way!
+
+  We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!
+
+  See you soon!
+
+  - FJZ LLC Apartments Team
+
+  `;
 
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
+      'CALSCALE:GREGORIAN',
+      `UID:${generateUID()}`,
+      'BEGIN:VTIMEZONE',
+      'TZID:America/New_York',
+      'END:VTIMEZONE',
       'BEGIN:VEVENT',
-      `DTSTART:${formattedStart}`,
-      `DTEND:${formattedEnd}`,
-      `SUMMARY:Apartment Viewing: ${apartment}`,
+      `DTSTART;TZID=America/New_York:${formattedStart}`,
+      `DTEND;TZID=America/New_York:${formattedEnd}`,
+      `SUMMARY:🏡 Apartment Viewing: ${apartment} Name: ${name}`,
       `LOCATION:${apartment}`,
-      `DESCRIPTION:${additionalInfo}... To make sure everything runs smoothly, please send a text to 716-912-8764 about 15 minutes before your scheduled time. This helps us ensure you're on your way!
-      We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!
-      See you soon!
-      - FJZ LLC Apartments Team`,
+      `DESCRIPTION:${formatDescription(instructions + "\\nAdditional Info: " + additionalInfo + "\\n" + formData.name + ", " + formData.phoneNumber)}`,
+      'STATUS:CONFIRMED',
+      'CATEGORIES:Apartment Viewing',
+      `ORGANIZER;CN="FJZ LLC Apartments":mailto:fjzllc@gmail.com`,
       'ATTENDEE;CN="Frank":mailto:fjzllc@gmail.com',
       'ATTENDEE;CN="Chris":mailto:c.r.zambito@gmail.com',
+      'BEGIN:VALARM',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Reminder',
+      'TRIGGER:-PT15M',
+      'END:VALARM',
       'END:VEVENT',
       'END:VCALENDAR'
-    ].join('\n');
+    ].join('\r\n');
 
     return icsContent;
+  }
+
+  function generateUID() {
+    return 'uid-' + Math.random().toString(36).substr(2, 10) + '@example.com';
+  }
+
+  function formatDateTime(date) {
+    return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+  }
+
+  function formatDescription(description) {
+    // Escape newlines, commas, and semicolons for the ICS format
+    return description.replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
   }
 
 
