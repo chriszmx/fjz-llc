@@ -145,7 +145,7 @@ const BookShowingForm = () => {
 
       // Email to the user with the download link
       await setDoc(doc(collection(db, 'mail')), {
-        to: [formData.email],
+        to: ['c.r.zambito@gmail.com', 'fjzllc@gmail.com', 'bz814@aol.com'],
         message: {
           subject: 'Booking Confirmation',
           text: 'Thank you for booking with us. See your booking details below:',
@@ -181,7 +181,7 @@ const BookShowingForm = () => {
             <p><strong>Date:</strong> ${formatDate(formData.date)}</p>
             <p><strong>Time:</strong> ${formData.time}</p>
             <p></p>
-            <p><strong>Note:</strong> To make sure everything runs smoothly, <strong>please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 15 minutes before your scheduled time.</strong> This helps us ensure you're on your way!</p>
+            <p><strong>Note:</strong> To make sure everything runs smoothly, <strong>please send a text to <a href="tel:716-912-8764">716-912-8764</a> about 15 minutes before your scheduled time.</strong> This helps us ensure you're on your way!</p>
             <p>We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!</p>
             <p>See you soon!</p>
             <p>- FJZ LLC Apartments Team</p>
@@ -233,7 +233,7 @@ const BookShowingForm = () => {
       `DTEND:${formattedEnd}`,
       `SUMMARY:Apartment Viewing: ${apartment}`,
       `LOCATION:${apartment}`,
-      `DESCRIPTION:${additionalInfo}... To make sure everything runs smoothly, please send a text to 716-698-8355 about 15 minutes before your scheduled time. This helps us ensure you're on your way!
+      `DESCRIPTION:${additionalInfo}... To make sure everything runs smoothly, please send a text to 716-912-8764 about 15 minutes before your scheduled time. This helps us ensure you're on your way!
       We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!
       See you soon!
       - FJZ LLC Apartments Team`,
@@ -309,11 +309,15 @@ const BookShowingForm = () => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
         <div className="bg-white p-4 rounded-lg shadow-lg text-center">
-          <h3 className="text-lg font-bold">Add to Calendar</h3>
-          <p>Would you like to add this event to your calendar?</p>
+          <h2>Congrats! 🎉 🥳 🍾 One step closer to your new apartment! 🏡</h2>
+          <p>Next steps:</p>
+          <h3>Add to your calendar 📅</h3>
+          <p>Check your email / spam for confirmation email with further steps! 📧</p>
+          {/* <h3 className="text-lg font-bold">Add to Calendar</h3>
+          <p>Would you like to add this event to your calendar?</p> */}
           <div className="mt-4 space-x-2">
-            <button onClick={onAddToCalendar} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Yes</button>
-            <button onClick={onClose} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">No</button>
+            <button onClick={onAddToCalendar} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Add to Calendar</button>
+            {/* <button onClick={onClose} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">No</button> */}
           </div>
         </div>
       </div>
