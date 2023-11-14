@@ -237,6 +237,8 @@ const BookShowingForm = () => {
       We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!
       See you soon!
       - FJZ LLC Apartments Team`,
+      'ATTENDEE;CN="Person One":mailto:fjzllc@gmail.com',
+      'ATTENDEE;CN="Person Two":mailto:c.r.zambito@gmail.com',
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\n');
@@ -316,7 +318,7 @@ const BookShowingForm = () => {
           {/* <h3 className="text-lg font-bold">Add to Calendar</h3>
           <p>Would you like to add this event to your calendar?</p> */}
           <div className="mt-4 space-x-2">
-            <button onClick={onAddToCalendar} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Add to Calendar</button>
+            <button onClick={onAddToCalendar} target="_blank" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Add to Calendar</button>
             {/* <button onClick={onClose} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">No</button> */}
           </div>
         </div>
