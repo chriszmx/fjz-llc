@@ -237,8 +237,8 @@ const BookShowingForm = () => {
       We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!
       See you soon!
       - FJZ LLC Apartments Team`,
-      'ATTENDEE;CN="Person One":mailto:fjzllc@gmail.com',
-      'ATTENDEE;CN="Person Two":mailto:c.r.zambito@gmail.com',
+      'ATTENDEE;CN="Frank":mailto:fjzllc@gmail.com',
+      'ATTENDEE;CN="Chris":mailto:c.r.zambito@gmail.com',
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\n');
