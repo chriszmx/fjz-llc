@@ -20,6 +20,7 @@
     "firebase": "^10.3.1",
     "firebase-admin": "^11.10.1",
     "firebase-tools": "^12.5.2",
+    "ics": "^3.5.0",
     "react": "^18.2.0",
     "react-calendar": "^4.6.1",
     "react-datepicker": "^4.21.0",
