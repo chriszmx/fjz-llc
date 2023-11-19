@@ -2,7 +2,7 @@ import DarkModeToggle from "../darkMode/DarkModeToggle"
 
 const navigation = [
     {
-      name: 'GitHub',
+      name: 'GitHub-Chris',
       href: 'https://github.com/chriszmx',
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -15,7 +15,7 @@ const navigation = [
       ),
     },
     {
-      name: 'GitHub',
+      name: 'GitHub-Shahem',
       href: 'https://github.com/salhadid',
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -28,7 +28,7 @@ const navigation = [
       ),
     },
     {
-      name: 'GitHub',
+      name: 'GitHub-Stesha',
       href: 'https://github.com/steshacarle',
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
