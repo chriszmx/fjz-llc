@@ -2,57 +2,57 @@ import React from "react";
 import { useState } from "react";
 
 const apartments = [
-    {
-        name: "1108 Kenmore Ave #5, Buffalo 14216",
-        description:`
-        **Newly Renovated Urban Oasis in the Heart of North Buffalo**
+    // {
+    //     name: "1108 Kenmore Ave #5, Buffalo 14216",
+    //     description:`
+    //     **Newly Renovated Urban Oasis in the Heart of North Buffalo**
 
-        **Modern Updates Throughout**
+    //     **Modern Updates Throughout**
 
-        **Convenient Utilities Included**
+    //     **Convenient Utilities Included**
 
-        Discover the perfect blend of comfort and city living in this fully renovated 1 bedroom upper apartment. Located in the bustling heart of North Buffalo, this home offers a fresh start with its contemporary updates and convenient amenities.
+    //     Discover the perfect blend of comfort and city living in this fully renovated 1 bedroom upper apartment. Located in the bustling heart of North Buffalo, this home offers a fresh start with its contemporary updates and convenient amenities.
 
-        **Apartment Features:**
-        - **Contemporary Living Space:** Experience urban living with new carpeting and a fully updated interior that reflects modern tastes.
-        - **Updated Kitchen:** A brand new kitchen complete with a stove, refrigerator, and built-in microwave for your culinary adventures.
-        - **Sleek Bathroom:** Enjoy the comforts of an updated bathroom with stylish fixtures.
-        - **Essential Utilities Covered:** Water and trash services are included, simplifying your monthly bills.
-        - **Parking Included:** Take advantage of the off-street parking, a true luxury in city living.
+    //     **Apartment Features:**
+    //     - **Contemporary Living Space:** Experience urban living with new carpeting and a fully updated interior that reflects modern tastes.
+    //     - **Updated Kitchen:** A brand new kitchen complete with a stove, refrigerator, and built-in microwave for your culinary adventures.
+    //     - **Sleek Bathroom:** Enjoy the comforts of an updated bathroom with stylish fixtures.
+    //     - **Essential Utilities Covered:** Water and trash services are included, simplifying your monthly bills.
+    //     - **Parking Included:** Take advantage of the off-street parking, a true luxury in city living.
 
-        **Additional Advantages:**
-        - **Electric and Gas Responsibility:** You have control over your electric and gas usage, allowing you to manage your energy expenses efficiently.
-        - **Smoke-Free Environment:** Live in a smoke-free apartment for a cleaner, healthier lifestyle.
-        - **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
-        - **Prime Location:** Situated in the lively North Buffalo area, you'll be at the center of it all with dining, shopping, and entertainment options just steps away.
+    //     **Additional Advantages:**
+    //     - **Electric and Gas Responsibility:** You have control over your electric and gas usage, allowing you to manage your energy expenses efficiently.
+    //     - **Smoke-Free Environment:** Live in a smoke-free apartment for a cleaner, healthier lifestyle.
+    //     - **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
+    //     - **Prime Location:** Situated in the lively North Buffalo area, you'll be at the center of it all with dining, shopping, and entertainment options just steps away.
 
-        This apartment is not just a place to live; it's a launching pad to the vibrant North Buffalo lifestyle. Perfect for individuals seeking an affordable, updated space in a dynamic neighborhood. Don't miss the chance to make this inviting apartment your new home!
+    //     This apartment is not just a place to live; it's a launching pad to the vibrant North Buffalo lifestyle. Perfect for individuals seeking an affordable, updated space in a dynamic neighborhood. Don't miss the chance to make this inviting apartment your new home!
 
-        **Available Now:** Ready for immediate move-in, this apartment is waiting for you to bring it to life.
-        `,
-        includes: "1 Bedroom, 1 Bathroom, 900sqft",
-        available: "Available Now",
-        price: "$900/month",
-        images: [
-            "https://images.craigslist.org/00k0k_8R3P4Hpjq8I_0CI0t2_600x450.jpg",
-            "https://images.craigslist.org/00l0l_6KX5BsMW8Nt_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00i0i_fdgr1gsBf8U_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/01414_6iTd99KQLFf_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00606_kvvUrAbxkma_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00101_2ROECO5Hvrj_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00R0R_fdgUAQPYO1x_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00y0y_ascSvQouPiO_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00909_awLNOh1Mu9F_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00Z0Z_lAWWJv1BecZ_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00404_8Xshf8kNLjm_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00C0C_koKEbbKcZ6n_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00D0D_2qEnSVZlaAY_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/01717_iztXY6fhg6b_0t20CI_1200x900.jpg",
-            "https://images.craigslist.org/00j0j_4mTy8DnFwbq_0t20CI_1200x900.jpg",
-        ],
-        image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1076.9769952932356!2d-78.85977596767476!3d42.95853549020618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36d40249f98cb%3A0x7c96c87e2777dc70!2s1108%20Kenmore%20Ave%20%235%2C%20Buffalo%2C%20NY%2014216!5e1!3m2!1sen!2sus!4v1698608360196!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-        component: "",
-    },
+    //     **Available Now:** Ready for immediate move-in, this apartment is waiting for you to bring it to life.
+    //     `,
+    //     includes: "1 Bedroom, 1 Bathroom, 900sqft",
+    //     available: "Available Now",
+    //     price: "$900/month",
+    //     images: [
+    //         "https://images.craigslist.org/00k0k_8R3P4Hpjq8I_0CI0t2_600x450.jpg",
+    //         "https://images.craigslist.org/00l0l_6KX5BsMW8Nt_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00i0i_fdgr1gsBf8U_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/01414_6iTd99KQLFf_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00606_kvvUrAbxkma_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00101_2ROECO5Hvrj_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00R0R_fdgUAQPYO1x_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00y0y_ascSvQouPiO_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00909_awLNOh1Mu9F_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00Z0Z_lAWWJv1BecZ_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00404_8Xshf8kNLjm_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00C0C_koKEbbKcZ6n_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00D0D_2qEnSVZlaAY_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/01717_iztXY6fhg6b_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00j0j_4mTy8DnFwbq_0t20CI_1200x900.jpg",
+    //     ],
+    //     image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1076.9769952932356!2d-78.85977596767476!3d42.95853549020618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36d40249f98cb%3A0x7c96c87e2777dc70!2s1108%20Kenmore%20Ave%20%235%2C%20Buffalo%2C%20NY%2014216!5e1!3m2!1sen!2sus!4v1698608360196!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+    //     component: "",
+    // },
 
 
 
@@ -110,7 +110,7 @@ const apartments = [
 
 
     {
-        name: "171 Mead St #5, North Tonawanda 14120",
+        name: "171 Mead St #6, North Tonawanda 14120",
         description: `
         **Brand New Garden-View Apartment with All-Inclusive Amenities**
 

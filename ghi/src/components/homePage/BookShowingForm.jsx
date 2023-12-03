@@ -28,7 +28,6 @@ const BookShowingForm = () => {
   const dayToTimeMapping = {
     "Sunday": ['Football Sunday, Sorry.'],  // No hours on Sunday
     "Monday": [
-      "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM",
       "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM",
       "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM",
       "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
@@ -41,7 +40,6 @@ const BookShowingForm = () => {
       "5:00 PM"
     ],
     "Tuesday": [
-      "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM",
       "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM",
       "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM",
       "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
@@ -54,7 +52,6 @@ const BookShowingForm = () => {
       "5:00 PM"
     ],
     "Wednesday": [
-      "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM",
       "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM",
       "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM",
       "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
@@ -67,7 +64,6 @@ const BookShowingForm = () => {
       "5:00 PM"
     ],
     "Thursday": [
-      "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM",
       "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM",
       "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM",
       "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
@@ -80,7 +76,6 @@ const BookShowingForm = () => {
       "5:00 PM"
     ],
     "Friday": [
-      "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM",
       "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM",
       "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM",
       "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
@@ -93,7 +88,6 @@ const BookShowingForm = () => {
       "5:00 PM"
     ],
     "Saturday": [
-      "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM",
       "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM",
       "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM",
       "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM",
@@ -272,8 +266,16 @@ const BookShowingForm = () => {
     return 'uid-' + Math.random().toString(36).substr(2, 10) + '@example.com';
   }
 
+  // function formatDateTime(date) {
+  //   return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+  // }
+
   function formatDateTime(date) {
-    return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    // Create a new Date object that offsets the local time zone
+    const offset = date.getTimezoneOffset() * 60000; // Convert minutes to milliseconds
+    const adjustedDate = new Date(date.getTime() - offset);
+    // Format the date to an ISO string without milliseconds and adjust for the local time zone
+    return adjustedDate.toISOString().replace(/-|:|\.\d\d\d/g, "").slice(0, -1);
   }
 
   function formatDescription(description) {
@@ -395,9 +397,9 @@ const BookShowingForm = () => {
           <label className="font-semibold text-white" htmlFor="apartment">Apartment</label>
           <select value={formData.apartment} className="bg-gray-700 p-2 rounded shadow-md transition duration-300 hover:shadow-lg" id="apartment" name="apartment" onChange={handleChange} required>
             <option value="">Select an apartment</option>
-            <option value="1108 Kenmore Ave, Unit 5, Buffalo NY 14216">1108 Kenmore Ave Apt 5 ($900/month) Buffalo</option>
+            {/* <option value="1108 Kenmore Ave, Unit 5, Buffalo NY 14216">1108 Kenmore Ave Apt 5 ($900/month) Buffalo</option> */}
             <option value="171 Mead St #3, North Tonawanda 14120">171 Mead St Apt 3 ($1,200/month) Tonawanda</option>
-            <option value="171 Mead St #5, North Tonawanda 14120">171 Mead St Apt 5 ($1,100/month) Tonawanda</option>
+            <option value="171 Mead St #5, North Tonawanda 14120">171 Mead St Apt 6 ($1,100/month) Tonawanda</option>
           </select>
         </div>
 
