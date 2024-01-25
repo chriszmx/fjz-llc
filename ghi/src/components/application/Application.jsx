@@ -54,7 +54,12 @@ const FormTemplate = ({ user }) => {
 				{ name: "Email", type: "email", required: true },
 				{ name: "Phone Number", type: "tel", required: true },
 				{ name: "Date of Birth (DOB)", type: "text", required: true },
-				{ name: "Marital Status", type: "text", required: false },
+				{
+					name: "Marital Status",
+					type: "dropdown",
+					required: false,
+					options: ["Married", "Divorced", "single"],
+				},
 			],
 		},
 
@@ -581,15 +586,40 @@ const FormTemplate = ({ user }) => {
 };
 
 const InputField = ({ field, value, onChange }) => {
-	return (
-		<div className="mb-4">
-			{field.type === "file" ? (
+	if (field.type === "dropdown") {
+		return (
+			<div className="mb-4">
+				<label className="block text-gray-700 dark:text-gray-200">
+					{/* {field.name} */}
+				</label>
+				<select
+					className="border dark:border-gray-600 w-full p-2 rounded-md dark:bg-gray-700 dark:text-gray-300"
+					required={field.required}
+					value={value}
+					onChange={onChange}
+				>
+					<option value="">Please select</option>
+					{field.options.map((option) => (
+						<option key={option} value={option}>
+							{option}
+						</option>
+					))}
+				</select>
+			</div>
+		);
+	} else if (field.type === "file") {
+		return (
+			<div className="mb-4">
 				<input
 					type={field.type}
 					required={field.required}
 					onChange={onChange}
 				/>
-			) : (
+			</div>
+		);
+	} else {
+		return (
+			<div className="mb-4">
 				<input
 					className="border dark:border-gray-600 w-full p-2 rounded-md dark:bg-gray-700 dark:text-gray-300"
 					placeholder={field.name}
@@ -598,9 +628,9 @@ const InputField = ({ field, value, onChange }) => {
 					value={value}
 					onChange={onChange}
 				/>
-			)}
-		</div>
-	);
+			</div>
+		);
+	}
 };
 
 export default Application;
