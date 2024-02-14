@@ -79,7 +79,7 @@ const apartments = [
 		includes: "2 Bedroom, 1 Bathroom, 1,100sqft",
 		available:
 			"Available February - Currently under renovation to ensure everything is perfect for your move-in.",
-		price: "$1,100/month",
+		price: "$1,200/month",
 		images: [
 			"https://photos.zillowstatic.com/fp/9e4530f12d404ebacecc4b238e53701a-cc_ft_1152.webp",
 			"https://photos.zillowstatic.com/fp/ef1275e4443526c8ba5887c49f438a79-cc_ft_384.webp",
@@ -92,10 +92,9 @@ const apartments = [
 			"https://photos.zillowstatic.com/fp/55d78706bb6cb27dd0e5e2359cdeccea-cc_ft_384.webp",
 			"https://photos.zillowstatic.com/fp/f46bb50de1ec617aa952d09cd707c692-cc_ft_384.webp",
 		],
-		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d609.2636887534613!2d-78.83468631728852!3d42.9592409722134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d3729ee237ac15%3A0x329a6c3954e4145c!2s360%20Englewood%20Ave%20Unit%204%2C%20Tonawanda%2C%20NY%2014223!5e1!3m2!1sen!2sus!4v1707922542961!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d442.8362335974812!2d-78.8347151224042!3d42.95922773955618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d3729ee237ac15%3A0xc88778cbf3aa4fbe!2s360%20Englewood%20Ave%20Unit%203%2C%20Tonawanda%2C%20NY%2014223!5e1!3m2!1sen!2sus!4v1707934383417!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
 		component: "",
 	},
-
 
 	// {
 	// 	name: "171 Mead St #3, North Tonawanda 14120",
