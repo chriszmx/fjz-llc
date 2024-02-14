@@ -26,7 +26,7 @@ const BookShowingForm = () => {
 
 
   const dayToTimeMapping = {
-    "Sunday": ['Football Sunday, Sorry.'],  // No hours on Sunday
+    "Sunday": ['Not Available.'],  // No hours on Sunday
     "Monday": [
       "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM",
       "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM",
@@ -397,9 +397,10 @@ const BookShowingForm = () => {
           <label className="font-semibold text-white" htmlFor="apartment">Apartment</label>
           <select value={formData.apartment} className="bg-gray-700 p-2 rounded shadow-md transition duration-300 hover:shadow-lg" id="apartment" name="apartment" onChange={handleChange} required>
             <option value="">Select an apartment</option>
+            <option value="360 Englewood Ave APT 3 Buffalo NY 14223">360 Englewood Ave APT 3($1,200/month) Tonawanda</option>
             {/* <option value="1108 Kenmore Ave, Unit 5, Buffalo NY 14216">1108 Kenmore Ave Apt 5 ($900/month) Buffalo</option> */}
-            <option value="171 Mead St #3, North Tonawanda 14120">171 Mead St Apt 3 ($1,200/month) Tonawanda</option>
-            <option value="171 Mead St #5, North Tonawanda 14120">171 Mead St Apt 6 ($1,100/month) Tonawanda</option>
+            {/* <option value="171 Mead St #3, North Tonawanda 14120">171 Mead St Apt 3 ($1,200/month) Tonawanda</option>
+            <option value="171 Mead St #5, North Tonawanda 14120">171 Mead St Apt 6 ($1,100/month) Tonawanda</option> */}
           </select>
         </div>
 
