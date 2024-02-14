@@ -55,17 +55,16 @@ const apartments = [
 	// },
 
 	{
-		name: "171 Mead St #3, North Tonawanda 14120",
+		name: "360 Englewood Ave, APT 3, Buffalo 14223",
 		description: `
         **Charming 2nd-Floor Apartment with Private Balcony**
 
-        Step into comfort with this newly renovated apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
+        Step into comfort with this apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
 
         **Apartment Features:**
-        - **Private Balcony:** Your own outdoor space to relax and enjoy the fresh air.
-        - **Fully-Equipped Kitchen:** Brand new appliances including a stove, refrigerator, dishwasher, and built-in microwave.
+        - **Fully-Equipped Kitchen:** Appliances including a stove, refrigerator, and built-in microwave.
         - **Contemporary Bathroom:** An updated bathroom with sleek fixtures.
-        - **Utilities Included:** Heat, water, and trash services are all taken care of.
+        - **Utilities Included:** Water and garbage.
         - **Maintenance-Free Living:** Snow removal and lawn care are included, ensuring a pristine environment all year round.
         - **Convenient Laundry:** Coin-operated laundry facilities on-site for your ease.
         - **Parking:** Off-street parking available for your vehicle's security.
@@ -73,94 +72,82 @@ const apartments = [
         **Additional Perks:**
         - **Energy-Efficient:** You only pay for electric and gas, with all other utilities included.
         - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
-        - **Available January 1st:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
+        - **Available February:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
 
         This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
             `,
-		includes: "2 Bedroom, 1 Bathroom, 1,200sqft",
+		includes: "2 Bedroom, 1 Bathroom, 1,100sqft",
 		available:
-			"Available January 1st - Currently under renovation to ensure everything is perfect for your move-in.",
-		price: "$1,200/month",
-		images: [
-			"https://images.craigslist.org/00202_bEVUdxAxmvP_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00Q0Q_3EpR6X4bpFQ_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00k0k_j1SAMZ9pMrI_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00505_9CNmpnkBmuV_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00C0C_dGl1h1Azaa3_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00A0A_cQeQKR3Al98_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00K0K_emEJ275PmZ5_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00404_gCzJsjHQiIA_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00707_id8O3eKbPhO_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/01515_kJrfxyuBRQk_0CI0t2_1200x900.jpg",
-			"https://images.craigslist.org/00Z0Z_7ERy9LEdN6w_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00I0I_awzekRPPNl5_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00i0i_g7wBsa4kVZ4_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00101_1Xr3KCMTu8q_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00Y0Y_cB1D54XNYZF_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00K0K_367NaIqXTUm_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/01212_2uLjH3PKQrT_0t20CI_1200x900.jpg",
-			"https://images.craigslist.org/00T0T_j7CrE7nBeHj_0t20CI_1200x900.jpg",
-		],
-		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d848.633870970211!2d-78.86046251377002!3d43.03909557186535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6f20066d%3A0x47a7a12a66133a55!2s171%20Mead%20St%20Apartment%203%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1700193853842!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-		component: "",
-	},
-
-	{
-		name: "171 Mead St #6, North Tonawanda 14120",
-		description: `
-        **Brand New Garden-View Apartment with All-Inclusive Amenities**
-
-        **Newly Remodeled**
-
-        **Garden View**
-
-        **All Utilities Included**
-
-        Immerse yourself in the tranquility of this brand new, garden-view apartment. Situated in a cozy 4-unit building, this home has been completely remodeled to offer you a peaceful haven with the perks of urban living.
-
-        **Apartment Features:**
-        - **Garden View:** Revel in the beauty of nature with a serene garden outlook.
-        - **All-Inclusive Utilities:** Enjoy the ease of having heat, electric, water, and trash services all included.
-        - **State-of-the-Art Kitchen:** Equipped with new appliances such as a stove, refrigerator, built-in microwave, and dishwasher.
-        - **Sleek Bathroom:** A brand new bathroom outfitted with modern fixtures.
-        - **Maintenance-Free Lifestyle:** Benefit from included snow removal and lawn care for a pristine living environment throughout the seasons.
-        - **On-Site Laundry:** Convenient coin-operated laundry facilities available within the building.
-        - **Dedicated Parking:** Have peace of mind with off-street parking for your vehicle.
-
-        **Additional Benefits:**
-        - **Energy Efficiency:** With all utilities covered, manage your budget with ease.
-        - **Smoke-Free Policy:** Breathe easy in a smoke-free environment that promotes a healthier way of life.
-        - **No Pet Policy:** Enjoy a pet-free space that's clean and well-maintained.
-        - **Available December 15th:** Be the first to experience the comfort and style of this newly renovated apartment. Ready for you to move in just in time for the holidays.
-
-        This apartment is ideal for those who value new, clean spaces with the convenience of included amenities. Seize the opportunity to call this exceptional garden-view apartment your new home!
-        `,
-		includes: "",
+			"Available February - Currently under renovation to ensure everything is perfect for your move-in.",
 		price: "$1,100/month",
-		available: "Available December 15th",
 		images: [
-			"https://images.craigslist.org/00W0W_5q5ANxEPFi2_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00707_3OveI01zZWF_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00I0I_fM7HKoCU3CX_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00Y0Y_cpFCyUKVUHq_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00k0k_eGyiI6CugGc_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00M0M_7uFa3QLnID7_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00R0R_kptUaxoKUYv_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00Z0Z_hH2KJprcAy7_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00404_aKZ5MIIljDZ_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00K0K_g4tn38icjfG_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/01515_5QURtaAK9xF_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00808_kRAWKMQ2DDI_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00p0p_dIpJFgJxtTl_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00707_kFRCvFy7cw2_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00S0S_kPQD1IfmGnO_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00n0n_gwQdGjz6mK3_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00d0d_34LS4MNdK3M_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00d0d_34LS4MNdK3M_0t20CI_600x450.jpg",
+			"https://photos.zillowstatic.com/fp/9e4530f12d404ebacecc4b238e53701a-cc_ft_1152.webp",
+			"https://photos.zillowstatic.com/fp/ef1275e4443526c8ba5887c49f438a79-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/22f9edb0a88ae7403d1308043479bd20-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/7afbd535abe5bc71aa47c323f67a7e70-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/822006eab11143bb73d8c1f1d86638f9-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/595bf254388a823a9af386c22873afe3-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/4a605ab1f334ea5528c896e821eb9cba-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/4c03d304bfb0e23e6bd4d5589451f9c6-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/55d78706bb6cb27dd0e5e2359cdeccea-cc_ft_384.webp",
+			"https://photos.zillowstatic.com/fp/f46bb50de1ec617aa952d09cd707c692-cc_ft_384.webp",
 		],
-		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4226.076704406418!2d-78.86262742299064!3d43.03918359192539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6f14cdf9%3A0xfb561de98d8c1bad!2s171%20Mead%20St%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1698608178595!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d609.2636887534613!2d-78.83468631728852!3d42.9592409722134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d3729ee237ac15%3A0x329a6c3954e4145c!2s360%20Englewood%20Ave%20Unit%204%2C%20Tonawanda%2C%20NY%2014223!5e1!3m2!1sen!2sus!4v1707922542961!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
 		component: "",
 	},
+
+
+	// {
+	// 	name: "171 Mead St #3, North Tonawanda 14120",
+	// 	description: `
+    //     **Charming 2nd-Floor Apartment with Private Balcony**
+
+    //     Step into comfort with this newly renovated apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
+
+    //     **Apartment Features:**
+    //     - **Private Balcony:** Your own outdoor space to relax and enjoy the fresh air.
+    //     - **Fully-Equipped Kitchen:** Brand new appliances including a stove, refrigerator, dishwasher, and built-in microwave.
+    //     - **Contemporary Bathroom:** An updated bathroom with sleek fixtures.
+    //     - **Utilities Included:** Heat, water, and trash services are all taken care of.
+    //     - **Maintenance-Free Living:** Snow removal and lawn care are included, ensuring a pristine environment all year round.
+    //     - **Convenient Laundry:** Coin-operated laundry facilities on-site for your ease.
+    //     - **Parking:** Off-street parking available for your vehicle's security.
+
+    //     **Additional Perks:**
+    //     - **Energy-Efficient:** You only pay for electric and gas, with all other utilities included.
+    //     - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
+    //     - **Available January 1st:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
+
+    //     This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
+    //         `,
+	// 	includes: "2 Bedroom, 1 Bathroom, 1,200sqft",
+	// 	available:
+	// 		"Available January 1st - Currently under renovation to ensure everything is perfect for your move-in.",
+	// 	price: "$1,200/month",
+	// 	images: [
+	// 		"https://images.craigslist.org/00202_bEVUdxAxmvP_0t20CI_600x450.jpg",
+	// 		"https://images.craigslist.org/00Q0Q_3EpR6X4bpFQ_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00k0k_j1SAMZ9pMrI_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00505_9CNmpnkBmuV_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00C0C_dGl1h1Azaa3_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00A0A_cQeQKR3Al98_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00K0K_emEJ275PmZ5_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00404_gCzJsjHQiIA_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00707_id8O3eKbPhO_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/01515_kJrfxyuBRQk_0CI0t2_1200x900.jpg",
+	// 		"https://images.craigslist.org/00Z0Z_7ERy9LEdN6w_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00I0I_awzekRPPNl5_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00i0i_g7wBsa4kVZ4_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00101_1Xr3KCMTu8q_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00Y0Y_cB1D54XNYZF_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00K0K_367NaIqXTUm_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/01212_2uLjH3PKQrT_0t20CI_1200x900.jpg",
+	// 		"https://images.craigslist.org/00T0T_j7CrE7nBeHj_0t20CI_1200x900.jpg",
+	// 	],
+	// 	image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d848.633870970211!2d-78.86046251377002!3d43.03909557186535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6f20066d%3A0x47a7a12a66133a55!2s171%20Mead%20St%20Apartment%203%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1700193853842!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+	// 	component: "",
+	// },
+
 ];
 
 function ApartmentDescription({ description }) {
@@ -276,7 +263,8 @@ function AvailableApartments() {
 					No apartments currently available.
 				</div>
 			) : (
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+				{/* adjust col-span-2 to 1 when adding more then 1 apt */}
 					{apartments.map((apt) => (
 						<ApartmentCard key={apt.name} apartment={apt} />
 					))}
