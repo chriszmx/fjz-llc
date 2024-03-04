@@ -29,6 +29,7 @@ export default function Example() {
                                     <li><strong>Criminal Background:</strong> Must have no felony convictions.</li>
                                     <li><strong>Income Verification:</strong> Income must be at least 3x the rent amount.</li>
                                     <li><strong>Application Process:</strong> All applicants over 18 must fill out an application.</li>
+                                    <li><strong>No Pets: </strong>A pet-free space ensures a clean and well-maintained environment for all residents.</li>
                                 </ul>
                             </div>
                             <p className="mt-8 text-lg text-gray-400">
