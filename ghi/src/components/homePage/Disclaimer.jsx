@@ -20,20 +20,68 @@ export default function Example() {
                                 Apartment Application Requirements
                             </h1>
                             <p className="mt-6 text-xl text-gray-300 sm:mx-auto">
-                                Welcome to our community! We're delighted that you're considering making your home with us. To ensure a smooth and transparent application process, we kindly ask all prospective tenants to meet the following qualifications:
+                                Welcome to our community! We're delighted that
+                                you're considering making your home with us. To
+                                ensure a smooth and transparent application
+                                process, we kindly ask all prospective tenants
+                                to meet the following qualifications:
                             </p>
                             <div className="mt-10">
                                 <ul className="list-disc space-y-4 text-left text-lg leading-8 text-gray-300 sm:mx-auto sm:text-center sm:list-inside">
-                                    <li><strong>Credit Score:</strong> Applicants must have a credit score of 600 or above.</li>
-                                    <li><strong>Rental History:</strong> No evictions in the past 7 years.</li>
-                                    <li><strong>Criminal Background:</strong> Must have no felony convictions.</li>
-                                    <li><strong>Income Verification:</strong> Income must be at least 3x the rent amount.</li>
-                                    <li><strong>Application Process:</strong> All applicants over 18 must fill out an application.</li>
-                                    <li><strong>No Pets: </strong>A pet-free space ensures a clean and well-maintained environment for all residents.</li>
+                                    <li>
+                                        <strong>Credit Score:</strong>{" "}
+                                        Applicants must have a credit score of
+                                        600 or above.
+                                    </li>
+                                    <li>
+                                        <strong>Rental History:</strong> No
+                                        evictions in the past 7 years.
+                                    </li>
+                                    <li>
+                                        <strong>Criminal Background:</strong>{" "}
+                                        Must have no felony convictions.
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <strong>
+                                                Income Verification:
+                                            </strong>
+                                            <ul className="list-disc ml-4">
+                                                <li>
+                                                    For single occupants in a
+                                                    one-bedroom unit, verified
+                                                    income must be at least
+                                                    twice (2x) the monthly rent.
+                                                </li>
+                                                <li>
+                                                    For households or shared
+                                                    accommodations in two (or
+                                                    more)-bedroom units, the
+                                                    combined income should be at
+                                                    least three times (3x) the
+                                                    monthly rent.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                    <li>
+                                        <strong>Application Process:</strong>{" "}
+                                        All applicants over 18 must fill out an
+                                        application.
+                                    </li>
+                                    <li>
+                                        <strong>No Pets: </strong>A pet-free
+                                        space ensures a clean and
+                                        well-maintained environment for all
+                                        residents.
+                                    </li>
                                 </ul>
                             </div>
                             <p className="mt-8 text-lg text-gray-400">
-                                We are committed to providing equal housing opportunities and ensuring our application process is fair and transparent.
+                                We are committed to providing equal housing
+                                opportunities and ensuring our application
+                                process is fair and transparent.
                             </p>
                         </div>
                     </div>
