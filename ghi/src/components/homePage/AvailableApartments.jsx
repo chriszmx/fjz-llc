@@ -54,47 +54,47 @@ const apartments = [
 	//     component: "",
 	// },
 
-	{
-		name: "360 Englewood Ave, APT 3, Buffalo 14223 (RENTED)",
-		description: `
-        **2nd-Floor Apartment**
+	// {
+	// 	name: "360 Englewood Ave, APT 3, Buffalo 14223 (RENTED)",
+	// 	description: `
+    //     **2nd-Floor Apartment**
 
-        Step into comfort with this apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
+    //     Step into comfort with this apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
 
-        **Apartment Features:**
-        - **Fully-Equipped Kitchen:** Appliances including a stove, refrigerator, and built-in microwave.
-        - **Contemporary Bathroom:** An updated bathroom with sleek fixtures.
-        - **Utilities Included:** Water and garbage.
-        - **Maintenance-Free Living:** Snow removal and lawn care are included, ensuring a pristine environment all year round.
-        - **Convenient Laundry:** Coin-operated laundry facilities on-site for your ease.
-        - **Parking:** Off-street parking available for your vehicle's security.
+    //     **Apartment Features:**
+    //     - **Fully-Equipped Kitchen:** Appliances including a stove, refrigerator, and built-in microwave.
+    //     - **Contemporary Bathroom:** An updated bathroom with sleek fixtures.
+    //     - **Utilities Included:** Water and garbage.
+    //     - **Maintenance-Free Living:** Snow removal and lawn care are included, ensuring a pristine environment all year round.
+    //     - **Convenient Laundry:** Coin-operated laundry facilities on-site for your ease.
+    //     - **Parking:** Off-street parking available for your vehicle's security.
 
-        **Additional Perks:**
-        - **Energy-Efficient:** You only pay for electric and gas, with all other utilities included.
-        - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
-        - **Available February:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
+    //     **Additional Perks:**
+    //     - **Energy-Efficient:** You only pay for electric and gas, with all other utilities included.
+    //     - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
+    //     - **Available February:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
 
-        This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
-            `,
-		includes: "2 Bedroom, 1 Bathroom, 1,100sqft",
-		available:
-			"Available February - Currently under renovation to ensure everything is perfect for your move-in.",
-		price: "$1,200/month",
-		images: [
-			"https://photos.zillowstatic.com/fp/9e4530f12d404ebacecc4b238e53701a-cc_ft_1152.webp",
-			"https://photos.zillowstatic.com/fp/ef1275e4443526c8ba5887c49f438a79-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/22f9edb0a88ae7403d1308043479bd20-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/7afbd535abe5bc71aa47c323f67a7e70-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/822006eab11143bb73d8c1f1d86638f9-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/595bf254388a823a9af386c22873afe3-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/4a605ab1f334ea5528c896e821eb9cba-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/4c03d304bfb0e23e6bd4d5589451f9c6-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/55d78706bb6cb27dd0e5e2359cdeccea-cc_ft_384.webp",
-			"https://photos.zillowstatic.com/fp/f46bb50de1ec617aa952d09cd707c692-cc_ft_384.webp",
-		],
-		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d442.8362335974812!2d-78.8347151224042!3d42.95922773955618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d3729ee237ac15%3A0xc88778cbf3aa4fbe!2s360%20Englewood%20Ave%20Unit%203%2C%20Tonawanda%2C%20NY%2014223!5e1!3m2!1sen!2sus!4v1707934383417!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-		component: "",
-	},
+    //     This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
+    //         `,
+	// 	includes: "2 Bedroom, 1 Bathroom, 1,100sqft",
+	// 	available:
+	// 		"Available February - Currently under renovation to ensure everything is perfect for your move-in.",
+	// 	price: "$1,200/month",
+	// 	images: [
+	// 		"https://photos.zillowstatic.com/fp/9e4530f12d404ebacecc4b238e53701a-cc_ft_1152.webp",
+	// 		"https://photos.zillowstatic.com/fp/ef1275e4443526c8ba5887c49f438a79-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/22f9edb0a88ae7403d1308043479bd20-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/7afbd535abe5bc71aa47c323f67a7e70-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/822006eab11143bb73d8c1f1d86638f9-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/595bf254388a823a9af386c22873afe3-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/4a605ab1f334ea5528c896e821eb9cba-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/4c03d304bfb0e23e6bd4d5589451f9c6-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/55d78706bb6cb27dd0e5e2359cdeccea-cc_ft_384.webp",
+	// 		"https://photos.zillowstatic.com/fp/f46bb50de1ec617aa952d09cd707c692-cc_ft_384.webp",
+	// 	],
+	// 	image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d442.8362335974812!2d-78.8347151224042!3d42.95922773955618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d3729ee237ac15%3A0xc88778cbf3aa4fbe!2s360%20Englewood%20Ave%20Unit%203%2C%20Tonawanda%2C%20NY%2014223!5e1!3m2!1sen!2sus!4v1707934383417!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+	// 	component: "",
+	// },
 
 	{
 		name: "165 Mead St #6, North Tonawanda 14120",
@@ -309,7 +309,7 @@ function AvailableApartments() {
 					No apartments currently available.
 				</div>
 			) : (
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
 				{/* adjust col-span-2 to 1 when adding more then 1 apt */}
 					{apartments.map((apt) => (
 						<ApartmentCard key={apt.name} apartment={apt} />

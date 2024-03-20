@@ -41,29 +41,31 @@ export default function Example() {
                                         <strong>Criminal Background:</strong>{" "}
                                         Must have no felony convictions.
                                     </li>
-                                    <ul>
-                                        <li>
-                                            <strong>
-                                                Income Verification:
-                                            </strong>
-                                            <ul className="list-disc ml-4">
-                                                <li>
-                                                    For single occupants in a
-                                                    one-bedroom unit, verified
-                                                    income must be at least
-                                                    twice (2x) the monthly rent.
-                                                </li>
-                                                <li>
-                                                    For households or shared
-                                                    accommodations in two (or
-                                                    more)-bedroom units, the
-                                                    combined income should be at
-                                                    least three times (3x) the
-                                                    monthly rent.
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                    <li>
+                                        <strong>Income Verification:</strong>
+                                        <ul>
+                                            <li>
+                                                <ul className="list-disc ml-4">
+                                                    <li>
+                                                        For single occupants in
+                                                        a one-bedroom unit,
+                                                        verified income must be
+                                                        at least twice (2x) the
+                                                        monthly rent.
+                                                    </li>
+                                                    <li>
+                                                        For households or shared
+                                                        accommodations in two
+                                                        (or more)-bedroom units,
+                                                        the combined income
+                                                        should be at least three
+                                                        times (3x) the monthly
+                                                        rent.
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
 
                                     <li>
                                         <strong>Application Process:</strong>{" "}
