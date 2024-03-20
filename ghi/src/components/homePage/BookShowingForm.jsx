@@ -175,7 +175,7 @@ const BookShowingForm = () => {
             <p><strong>Date:</strong> ${formatDate(formData.date)}</p>
             <p><strong>Time:</strong> ${formData.time}</p>
             <p></p>
-            <p><strong>Note:</strong> To make sure everything runs smoothly, <strong>please send a text to <a href="tel:716-912-8764">716-912-8764</a> about 15 minutes before your scheduled time.</strong> This helps us ensure you're on your way!</p>
+            <p><strong>Note:</strong> To make sure everything runs smoothly, <strong>please send a text to <a href="tel:716-698-8355">716-698-8355</a> about 15 minutes before your scheduled time.</strong> This helps us ensure you're on your way!</p>
             <p>We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!</p>
             <p>See you soon!</p>
             <p>- FJZ LLC Apartments Team</p>
@@ -221,7 +221,7 @@ const BookShowingForm = () => {
 
     // Additional instructions for the event
     const instructions = `
-  To make sure everything runs smoothly, please send a text to 716-912-8764 about 15 minutes before your scheduled time. This helps us ensure you're on your way!
+  To make sure everything runs smoothly, please send a text to 716-698-8355 about 15 minutes before your scheduled time. This helps us ensure you're on your way!
 
   We understand that things come up, but no-shows can be quite challenging for our schedules. If you can't make it, just let us know. We appreciate the heads up!
 
@@ -397,7 +397,7 @@ const BookShowingForm = () => {
           <label className="font-semibold text-white" htmlFor="apartment">Apartment</label>
           <select value={formData.apartment} className="bg-gray-700 p-2 rounded shadow-md transition duration-300 hover:shadow-lg" id="apartment" name="apartment" onChange={handleChange} required>
             <option value="">Select an apartment</option>
-            <option value="171 Mead St #6, North Tonawanda 14120">171 Mead St Apt 6 ($1,200/month) Tonawanda</option>
+            <option value="165 Mead St #6, North Tonawanda 14120">165 Mead St Apt 6 ($1,200/month) Tonawanda</option>
             <option value="75 1/2 Mead St #2, North Tonawanda 14120">75 1/2 Mead St Apt 2 ($1,100/month) Tonawanda</option>
             {/* <option value="360 Englewood Ave APT 3 Buffalo NY 14223">360 Englewood Ave APT 3($1,200/month) Tonawanda</option> */}
             {/* <option value="1108 Kenmore Ave, Unit 5, Buffalo NY 14216">1108 Kenmore Ave Apt 5 ($900/month) Buffalo</option> */}
