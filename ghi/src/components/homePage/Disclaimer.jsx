@@ -1,6 +1,6 @@
 export default function Example() {
     return (
-        <div className="bg-gray-900 text-white">
+        <div className="bg-gray-900 text-white select-none">
             <div className="relative isolate pt-14">
                 <div
                     className="absolute inset-x-0 -top-40 -z-40 transform-gpu overflow-hidden blur-3xl sm:-top-0"
@@ -77,6 +77,15 @@ export default function Example() {
                                         space ensures a clean and
                                         well-maintained environment for all
                                         residents.
+                                    </li>
+                                    <li className="underline">
+                                        <strong>Non-Smoking Property:</strong>{" "}
+                                        Smoking is not permitted within 20 feet
+                                        of the building. Smoking inside the
+                                        apartment will result in non-renewal of
+                                        your lease or early eviction, and
+                                        automatic forfeit of your security
+                                        deposit.
                                     </li>
                                 </ul>
                             </div>

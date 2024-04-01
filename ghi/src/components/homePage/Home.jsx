@@ -8,7 +8,7 @@ import Disclaimer from './Disclaimer'
 const Home = () => {
   return (
     <>
-    <div>
+    <div className='select-none'>
         <Welcome />
         <Disclaimer />
         <AvailableApartments />
