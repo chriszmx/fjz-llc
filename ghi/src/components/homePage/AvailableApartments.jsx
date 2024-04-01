@@ -2,61 +2,61 @@ import React from "react";
 import { useState } from "react";
 
 const apartments = [
-	// {
-	//     name: "1108 Kenmore Ave #5, Buffalo 14216",
-	//     description:`
-	//     **Newly Renovated Urban Oasis in the Heart of North Buffalo**
+    // {
+    //     name: "1108 Kenmore Ave #5, Buffalo 14216",
+    //     description:`
+    //     **Newly Renovated Urban Oasis in the Heart of North Buffalo**
 
-	//     **Modern Updates Throughout**
+    //     **Modern Updates Throughout**
 
-	//     **Convenient Utilities Included**
+    //     **Convenient Utilities Included**
 
-	//     Discover the perfect blend of comfort and city living in this fully renovated 1 bedroom upper apartment. Located in the bustling heart of North Buffalo, this home offers a fresh start with its contemporary updates and convenient amenities.
+    //     Discover the perfect blend of comfort and city living in this fully renovated 1 bedroom upper apartment. Located in the bustling heart of North Buffalo, this home offers a fresh start with its contemporary updates and convenient amenities.
 
-	//     **Apartment Features:**
-	//     - **Contemporary Living Space:** Experience urban living with new carpeting and a fully updated interior that reflects modern tastes.
-	//     - **Updated Kitchen:** A brand new kitchen complete with a stove, refrigerator, and built-in microwave for your culinary adventures.
-	//     - **Sleek Bathroom:** Enjoy the comforts of an updated bathroom with stylish fixtures.
-	//     - **Essential Utilities Covered:** Water and trash services are included, simplifying your monthly bills.
-	//     - **Parking Included:** Take advantage of the off-street parking, a true luxury in city living.
+    //     **Apartment Features:**
+    //     - **Contemporary Living Space:** Experience urban living with new carpeting and a fully updated interior that reflects modern tastes.
+    //     - **Updated Kitchen:** A brand new kitchen complete with a stove, refrigerator, and built-in microwave for your culinary adventures.
+    //     - **Sleek Bathroom:** Enjoy the comforts of an updated bathroom with stylish fixtures.
+    //     - **Essential Utilities Covered:** Water and trash services are included, simplifying your monthly bills.
+    //     - **Parking Included:** Take advantage of the off-street parking, a true luxury in city living.
 
-	//     **Additional Advantages:**
-	//     - **Electric and Gas Responsibility:** You have control over your electric and gas usage, allowing you to manage your energy expenses efficiently.
-	//     - **Smoke-Free Environment:** Live in a smoke-free apartment for a cleaner, healthier lifestyle.
-	//     - **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
-	//     - **Prime Location:** Situated in the lively North Buffalo area, you'll be at the center of it all with dining, shopping, and entertainment options just steps away.
+    //     **Additional Advantages:**
+    //     - **Electric and Gas Responsibility:** You have control over your electric and gas usage, allowing you to manage your energy expenses efficiently.
+    //     - **Smoke-Free Environment:** Live in a smoke-free apartment for a cleaner, healthier lifestyle.
+    //     - **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
+    //     - **Prime Location:** Situated in the lively North Buffalo area, you'll be at the center of it all with dining, shopping, and entertainment options just steps away.
 
-	//     This apartment is not just a place to live; it's a launching pad to the vibrant North Buffalo lifestyle. Perfect for individuals seeking an affordable, updated space in a dynamic neighborhood. Don't miss the chance to make this inviting apartment your new home!
+    //     This apartment is not just a place to live; it's a launching pad to the vibrant North Buffalo lifestyle. Perfect for individuals seeking an affordable, updated space in a dynamic neighborhood. Don't miss the chance to make this inviting apartment your new home!
 
-	//     **Available Now:** Ready for immediate move-in, this apartment is waiting for you to bring it to life.
-	//     `,
-	//     includes: "1 Bedroom, 1 Bathroom, 900sqft",
-	//     available: "Available Now",
-	//     price: "$900/month",
-	//     images: [
-	//         "https://images.craigslist.org/00k0k_8R3P4Hpjq8I_0CI0t2_600x450.jpg",
-	//         "https://images.craigslist.org/00l0l_6KX5BsMW8Nt_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00i0i_fdgr1gsBf8U_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/01414_6iTd99KQLFf_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00606_kvvUrAbxkma_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00101_2ROECO5Hvrj_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00R0R_fdgUAQPYO1x_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00y0y_ascSvQouPiO_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00909_awLNOh1Mu9F_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00Z0Z_lAWWJv1BecZ_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00404_8Xshf8kNLjm_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00C0C_koKEbbKcZ6n_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00D0D_2qEnSVZlaAY_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/01717_iztXY6fhg6b_0t20CI_1200x900.jpg",
-	//         "https://images.craigslist.org/00j0j_4mTy8DnFwbq_0t20CI_1200x900.jpg",
-	//     ],
-	//     image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1076.9769952932356!2d-78.85977596767476!3d42.95853549020618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36d40249f98cb%3A0x7c96c87e2777dc70!2s1108%20Kenmore%20Ave%20%235%2C%20Buffalo%2C%20NY%2014216!5e1!3m2!1sen!2sus!4v1698608360196!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-	//     component: "",
-	// },
+    //     **Available Now:** Ready for immediate move-in, this apartment is waiting for you to bring it to life.
+    //     `,
+    //     includes: "1 Bedroom, 1 Bathroom, 900sqft",
+    //     available: "Available Now",
+    //     price: "$900/month",
+    //     images: [
+    //         "https://images.craigslist.org/00k0k_8R3P4Hpjq8I_0CI0t2_600x450.jpg",
+    //         "https://images.craigslist.org/00l0l_6KX5BsMW8Nt_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00i0i_fdgr1gsBf8U_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/01414_6iTd99KQLFf_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00606_kvvUrAbxkma_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00101_2ROECO5Hvrj_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00R0R_fdgUAQPYO1x_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00y0y_ascSvQouPiO_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00909_awLNOh1Mu9F_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00Z0Z_lAWWJv1BecZ_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00404_8Xshf8kNLjm_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00C0C_koKEbbKcZ6n_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00D0D_2qEnSVZlaAY_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/01717_iztXY6fhg6b_0t20CI_1200x900.jpg",
+    //         "https://images.craigslist.org/00j0j_4mTy8DnFwbq_0t20CI_1200x900.jpg",
+    //     ],
+    //     image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1076.9769952932356!2d-78.85977596767476!3d42.95853549020618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36d40249f98cb%3A0x7c96c87e2777dc70!2s1108%20Kenmore%20Ave%20%235%2C%20Buffalo%2C%20NY%2014216!5e1!3m2!1sen!2sus!4v1698608360196!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+    //     component: "",
+    // },
 
-	// {
-	// 	name: "360 Englewood Ave, APT 3, Buffalo 14223 (RENTED)",
-	// 	description: `
+    // {
+    // 	name: "360 Englewood Ave, APT 3, Buffalo 14223 (RENTED)",
+    // 	description: `
     //     **2nd-Floor Apartment**
 
     //     Step into comfort with this apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
@@ -76,29 +76,29 @@ const apartments = [
 
     //     This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
     //         `,
-	// 	includes: "2 Bedroom, 1 Bathroom, 1,100sqft",
-	// 	available:
-	// 		"Available February - Currently under renovation to ensure everything is perfect for your move-in.",
-	// 	price: "$1,200/month",
-	// 	images: [
-	// 		"https://photos.zillowstatic.com/fp/9e4530f12d404ebacecc4b238e53701a-cc_ft_1152.webp",
-	// 		"https://photos.zillowstatic.com/fp/ef1275e4443526c8ba5887c49f438a79-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/22f9edb0a88ae7403d1308043479bd20-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/7afbd535abe5bc71aa47c323f67a7e70-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/822006eab11143bb73d8c1f1d86638f9-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/595bf254388a823a9af386c22873afe3-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/4a605ab1f334ea5528c896e821eb9cba-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/4c03d304bfb0e23e6bd4d5589451f9c6-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/55d78706bb6cb27dd0e5e2359cdeccea-cc_ft_384.webp",
-	// 		"https://photos.zillowstatic.com/fp/f46bb50de1ec617aa952d09cd707c692-cc_ft_384.webp",
-	// 	],
-	// 	image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d442.8362335974812!2d-78.8347151224042!3d42.95922773955618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d3729ee237ac15%3A0xc88778cbf3aa4fbe!2s360%20Englewood%20Ave%20Unit%203%2C%20Tonawanda%2C%20NY%2014223!5e1!3m2!1sen!2sus!4v1707934383417!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-	// 	component: "",
-	// },
+    // 	includes: "2 Bedroom, 1 Bathroom, 1,100sqft",
+    // 	available:
+    // 		"Available February - Currently under renovation to ensure everything is perfect for your move-in.",
+    // 	price: "$1,200/month",
+    // 	images: [
+    // 		"https://photos.zillowstatic.com/fp/9e4530f12d404ebacecc4b238e53701a-cc_ft_1152.webp",
+    // 		"https://photos.zillowstatic.com/fp/ef1275e4443526c8ba5887c49f438a79-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/22f9edb0a88ae7403d1308043479bd20-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/7afbd535abe5bc71aa47c323f67a7e70-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/822006eab11143bb73d8c1f1d86638f9-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/595bf254388a823a9af386c22873afe3-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/4a605ab1f334ea5528c896e821eb9cba-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/4c03d304bfb0e23e6bd4d5589451f9c6-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/55d78706bb6cb27dd0e5e2359cdeccea-cc_ft_384.webp",
+    // 		"https://photos.zillowstatic.com/fp/f46bb50de1ec617aa952d09cd707c692-cc_ft_384.webp",
+    // 	],
+    // 	image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d442.8362335974812!2d-78.8347151224042!3d42.95922773955618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d3729ee237ac15%3A0xc88778cbf3aa4fbe!2s360%20Englewood%20Ave%20Unit%203%2C%20Tonawanda%2C%20NY%2014223!5e1!3m2!1sen!2sus!4v1707934383417!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+    // 	component: "",
+    // },
 
-	{
-		name: "165 Mead St #6, North Tonawanda 14120",
-		description: `
+    {
+        name: "165 Mead St #6, North Tonawanda 14120",
+        description: `
         **Charming 2nd-Floor Apartment with Private Balcony**
 
         Step into comfort with this newly renovated apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
@@ -120,37 +120,37 @@ const apartments = [
 
         This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
             `,
-		includes: "2 Bedroom, 1 Bathroom, 1,000sqft",
-		available:
-			"Available April 1st - Currently under renovation to ensure everything is perfect for your move-in.",
-		price: "$1,200/month",
-		images: [
-			"https://images.craigslist.org/01010_5oj10UYcaY7_0CI0t2_600x450.jpg",
-			"https://images.craigslist.org/00303_7QyIjca3ys6_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00T0T_52ShNi0VQrP_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00X0X_5106sFMNGQD_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00101_eo5VmG0VpJw_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00F0F_aS48YAKUxVX_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00I0I_lVeobFMReuF_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00z0z_27pPLpUtA7F_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00Q0Q_2kmdiwOUdUi_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/01414_kZc1qDrKrv9_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00i0i_962SPbajQTt_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00202_jIEywPk3mTZ_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00303_56zu0VvipPM_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00p0p_bcf55dhbES7_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00A0A_LmqQ9M6a5l_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00g0g_ahlcnVUWtOn_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00x0x_c0ZT2fQyNmt_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00f0f_lgtmWuUBxzg_0t20CI_600x450.jpg",
-		],
-		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d581.2913845791846!2d-78.86042970218536!3d43.038992616914896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6fcd8f41%3A0xfff07115192305fc!2s165%20Mead%20St%20Apartment%206%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1709511860877!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-		component: "",
-	},
+        includes: "2 Bedroom, 1 Bathroom, 1,000sqft",
+        available:
+            "Available April 1st - Currently under renovation to ensure everything is perfect for your move-in.",
+        price: "$1,200/month",
+        images: [
+            "https://images.craigslist.org/01010_5oj10UYcaY7_0CI0t2_600x450.jpg",
+            "https://images.craigslist.org/00303_7QyIjca3ys6_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00T0T_52ShNi0VQrP_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00X0X_5106sFMNGQD_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00101_eo5VmG0VpJw_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00F0F_aS48YAKUxVX_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00I0I_lVeobFMReuF_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00z0z_27pPLpUtA7F_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00Q0Q_2kmdiwOUdUi_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/01414_kZc1qDrKrv9_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00i0i_962SPbajQTt_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00202_jIEywPk3mTZ_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00303_56zu0VvipPM_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00p0p_bcf55dhbES7_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00A0A_LmqQ9M6a5l_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00g0g_ahlcnVUWtOn_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00x0x_c0ZT2fQyNmt_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00f0f_lgtmWuUBxzg_0t20CI_600x450.jpg",
+        ],
+        image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d581.2913845791846!2d-78.86042970218536!3d43.038992616914896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6fcd8f41%3A0xfff07115192305fc!2s165%20Mead%20St%20Apartment%206%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1709511860877!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+        component: "",
+    },
 
-	{
-		name: "75 1/2 Mead St #2, North Tonawanda 14120",
-		description: `
+    {
+        name: "75 1/2 Mead St #2, North Tonawanda 14120",
+        description: `
         **First Floor Apartment**
 
         Step into comfort with this newly renovated apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
@@ -172,29 +172,54 @@ const apartments = [
 
         This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
             `,
-		includes: "1 Bedroom, 1 Bathroom, 1,000sqft",
-		available:
-			"Available March 15th - Currently under renovation to ensure everything is perfect for your move-in.",
-		price: "$1,100/month",
-		images: [
-			"https://images.craigslist.org/00s0s_PMitgjsM2y_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00p0p_98hnaq2ZZHy_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00x0x_caOoKKjY3Je_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00M0M_kghZyHCYavU_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00A0A_8jyeejJKBBQ_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00303_3ClhiW3HfE8_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00s0s_fdGkpqYQ9bJ_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00M0M_7DhVRiXXPim_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00G0G_2o8WDB0CMHn_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00w0w_jFDCNADXnV_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00707_ckl2Uz93dEu_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00f0f_iN4nMEc24eM_0t20CI_600x450.jpg",
-			"https://images.craigslist.org/00Z0Z_fiDhOrMRgqP_0CI0t2_600x450.jpg",
-		],
-		image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1054.6662695889186!2d-78.86066993030987!3d43.03653047843475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3fe57f7739%3A0x22c7bd6cf3b13fb8!2s75%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1709512640807!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-		component: "",
-	},
+        includes: "1 Bedroom, 1 Bathroom, 1,000sqft",
+        available:
+            "Available March 15th - Currently under renovation to ensure everything is perfect for your move-in.",
+        price: "$1,100/month",
+        images: [
+            "https://images.craigslist.org/00s0s_PMitgjsM2y_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00p0p_98hnaq2ZZHy_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00x0x_caOoKKjY3Je_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00M0M_kghZyHCYavU_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00A0A_8jyeejJKBBQ_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00303_3ClhiW3HfE8_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00s0s_fdGkpqYQ9bJ_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00M0M_7DhVRiXXPim_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00G0G_2o8WDB0CMHn_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00w0w_jFDCNADXnV_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00707_ckl2Uz93dEu_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00f0f_iN4nMEc24eM_0t20CI_600x450.jpg",
+            "https://images.craigslist.org/00Z0Z_fiDhOrMRgqP_0CI0t2_600x450.jpg",
+        ],
+        image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1054.6662695889186!2d-78.86066993030987!3d43.03653047843475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3fe57f7739%3A0x22c7bd6cf3b13fb8!2s75%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1709512640807!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+        component: "",
+    },
+    {
+        name: "171 Mead St #2, North Tonawanda 14120",
+        description: `
+
+            `,
+        includes: "2 Bedroom, 1 Bathroom, 1,000sqft",
+        available:
+            "Available Mid April - Currently under renovation to ensure everything is perfect for your move-in.",
+        price: "$1,100/month",
+        images: [
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/67dfee0fac3dc8fa931f1e281c1140ee-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/65f0dd3da9d17f004a34bbc5139343d5-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/20e2584b9223160294071240fc0ab8eb-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/73364e9244687f661707751bfb8f36f5-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/bddeb70be330620eb3bc109317c95e8e-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/4cb448d04c519e5b211228f352cd8a23-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/0e1d620c59f454251a4af3693dfe4f0a-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/abc9f138e6217d251551e4444fa126b5-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/c7e6e219826bef02a0cb284179033969-full.webp",
+            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/236428359c98a9f0281cb4d43a07aab6-full.webp",
+        ],
+        image: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d791.1403616183827!2d-78.86057152333844!3d43.039251805222946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6f20066d%3A0xda3c60e4a55b13bc!2s171%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1711979167498!5m2!1sen!2sus",
+        component: "",
+    },
 ];
+
 
 function ApartmentDescription({ description }) {
 	const formattedDescription = description
@@ -309,7 +334,7 @@ function AvailableApartments() {
 					No apartments currently available.
 				</div>
 			) : (
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				{/* adjust col-span-2 to 1 when adding more then 1 apt */}
 					{apartments.map((apt) => (
 						<ApartmentCard key={apt.name} apartment={apt} />
