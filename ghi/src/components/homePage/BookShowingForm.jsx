@@ -337,8 +337,10 @@ const BookShowingForm = () => {
           <label className="font-semibold text-white" htmlFor="apartment">Apartment</label>
           <select value={formData.apartment} className="bg-gray-700 p-2 rounded shadow-md transition duration-300 hover:shadow-lg" id="apartment" name="apartment" onChange={handleChange} required>
             <option value="">Select an apartment</option>
-            <option value="165 Mead St #6, North Tonawanda 14120">165 Mead St Apt 6 ($1,200/month) Tonawanda</option>
             <option value="75 1/2 Mead St #2, North Tonawanda 14120">75 1/2 Mead St Apt 2 ($1,100/month) Tonawanda</option>
+            <option value="165 Mead St #6, North Tonawanda 14120">165 Mead St Apt 6 ($1,200/month) Tonawanda</option>
+            <option value="171 Mead St #2, North Tonawanda 14120">171 Mead St Apt 2 ($1,200/month) Tonawanda</option>
+            <option value="Other">Other - Please write in the additional info box</option>
             {/* <option value="360 Englewood Ave APT 3 Buffalo NY 14223">360 Englewood Ave APT 3($1,200/month) Tonawanda</option> */}
             {/* <option value="1108 Kenmore Ave, Unit 5, Buffalo NY 14216">1108 Kenmore Ave Apt 5 ($900/month) Buffalo</option> */}
             {/* <option value="171 Mead St #3, North Tonawanda 14120">171 Mead St Apt 3 ($1,200/month) Tonawanda</option>
