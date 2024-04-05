@@ -202,7 +202,7 @@ const apartments = [
         includes: "2 Bedroom, 1 Bathroom, 1,000sqft",
         available:
             "Available Mid April - Currently under renovation to ensure everything is perfect for your move-in.",
-        price: "$1,100/month",
+        price: "$1,200/month",
         images: [
             "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/67dfee0fac3dc8fa931f1e281c1140ee-full.webp",
             "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/65f0dd3da9d17f004a34bbc5139343d5-full.webp",
