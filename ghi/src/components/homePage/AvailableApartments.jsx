@@ -148,76 +148,76 @@ const apartments = [
         component: "",
     },
 
-    {
-        name: "75 1/2 Mead St #2, North Tonawanda 14120",
-        description: `
-        **First Floor Apartment**
+    // {
+    //     name: "75 1/2 Mead St #2, North Tonawanda 14120",
+    //     description: `
+    //     **First Floor Apartment**
 
-        Step into comfort with this newly renovated apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
+    //     Step into comfort with this newly renovated apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
 
-        **Apartment Features:**
-        - **Garden Level:** Enjoy the convenience of a first-floor apartment with easy access to the outdoors.
-        - **Fully-Equipped Kitchen:** including a stove, refrigerator, and built-in microwave.
-        - **Contemporary Bathroom:** An updated bathroom with sleek fixtures.
-        - **Utilities Included:** Heat, water, and trash services are all taken care of.
-        - **Maintenance-Free Living:** Snow removal and lawn care are included, ensuring a pristine environment all year round.
-        - **Convenient Laundry:** Coin-operated laundry facilities on-site for your ease.
-        - **Parking:** Off-street parking available for your vehicle's security.
+    //     **Apartment Features:**
+    //     - **Garden Level:** Enjoy the convenience of a first-floor apartment with easy access to the outdoors.
+    //     - **Fully-Equipped Kitchen:** including a stove, refrigerator, and built-in microwave.
+    //     - **Contemporary Bathroom:** An updated bathroom with sleek fixtures.
+    //     - **Utilities Included:** Heat, water, and trash services are all taken care of.
+    //     - **Maintenance-Free Living:** Snow removal and lawn care are included, ensuring a pristine environment all year round.
+    //     - **Convenient Laundry:** Coin-operated laundry facilities on-site for your ease.
+    //     - **Parking:** Off-street parking available for your vehicle's security.
 
-        **Additional Perks:**
-        - **Energy-Efficient:** You only pay for electric, with all other utilities included.
-        - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
-		- **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
-        - **Available April 1st:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
+    //     **Additional Perks:**
+    //     - **Energy-Efficient:** You only pay for electric, with all other utilities included.
+    //     - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
+	// 	- **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
+    //     - **Available April 1st:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
 
-        This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
-            `,
-        includes: "1 Bedroom, 1 Bathroom, 1,000sqft",
-        available:
-            "Available March 15th - Currently under renovation to ensure everything is perfect for your move-in.",
-        price: "$1,100/month",
-        images: [
-            "https://images.craigslist.org/00s0s_PMitgjsM2y_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00p0p_98hnaq2ZZHy_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00x0x_caOoKKjY3Je_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00M0M_kghZyHCYavU_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00A0A_8jyeejJKBBQ_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00303_3ClhiW3HfE8_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00s0s_fdGkpqYQ9bJ_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00M0M_7DhVRiXXPim_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00G0G_2o8WDB0CMHn_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00w0w_jFDCNADXnV_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00707_ckl2Uz93dEu_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00f0f_iN4nMEc24eM_0t20CI_600x450.jpg",
-            "https://images.craigslist.org/00Z0Z_fiDhOrMRgqP_0CI0t2_600x450.jpg",
-        ],
-        image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1054.6662695889186!2d-78.86066993030987!3d43.03653047843475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3fe57f7739%3A0x22c7bd6cf3b13fb8!2s75%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1709512640807!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
-        component: "",
-    },
-    {
-        name: "171 Mead St #2, North Tonawanda 14120",
-        description: `
+    //     This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
+    //         `,
+    //     includes: "1 Bedroom, 1 Bathroom, 1,000sqft",
+    //     available:
+    //         "Available March 15th - Currently under renovation to ensure everything is perfect for your move-in.",
+    //     price: "$1,100/month",
+    //     images: [
+    //         "https://images.craigslist.org/00s0s_PMitgjsM2y_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00p0p_98hnaq2ZZHy_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00x0x_caOoKKjY3Je_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00M0M_kghZyHCYavU_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00A0A_8jyeejJKBBQ_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00303_3ClhiW3HfE8_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00s0s_fdGkpqYQ9bJ_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00M0M_7DhVRiXXPim_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00G0G_2o8WDB0CMHn_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00w0w_jFDCNADXnV_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00707_ckl2Uz93dEu_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00f0f_iN4nMEc24eM_0t20CI_600x450.jpg",
+    //         "https://images.craigslist.org/00Z0Z_fiDhOrMRgqP_0CI0t2_600x450.jpg",
+    //     ],
+    //     image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1054.6662695889186!2d-78.86066993030987!3d43.03653047843475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3fe57f7739%3A0x22c7bd6cf3b13fb8!2s75%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1709512640807!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+    //     component: "",
+    // },
+    // {
+    //     name: "171 Mead St #2, North Tonawanda 14120",
+    //     description: `
 
-            `,
-        includes: "2 Bedroom, 1 Bathroom, 1,000sqft",
-        available:
-            "Available Mid April - Currently under renovation to ensure everything is perfect for your move-in.",
-        price: "$1,200/month",
-        images: [
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/67dfee0fac3dc8fa931f1e281c1140ee-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/65f0dd3da9d17f004a34bbc5139343d5-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/20e2584b9223160294071240fc0ab8eb-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/73364e9244687f661707751bfb8f36f5-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/bddeb70be330620eb3bc109317c95e8e-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/4cb448d04c519e5b211228f352cd8a23-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/0e1d620c59f454251a4af3693dfe4f0a-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/abc9f138e6217d251551e4444fa126b5-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/c7e6e219826bef02a0cb284179033969-full.webp",
-            "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/236428359c98a9f0281cb4d43a07aab6-full.webp",
-        ],
-        image: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d791.1403616183827!2d-78.86057152333844!3d43.039251805222946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6f20066d%3A0xda3c60e4a55b13bc!2s171%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1711979167498!5m2!1sen!2sus",
-        component: "",
-    },
+    //         `,
+    //     includes: "2 Bedroom, 1 Bathroom, 1,000sqft",
+    //     available:
+    //         "Available Mid April - Currently under renovation to ensure everything is perfect for your move-in.",
+    //     price: "$1,200/month",
+    //     images: [
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/67dfee0fac3dc8fa931f1e281c1140ee-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/65f0dd3da9d17f004a34bbc5139343d5-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/20e2584b9223160294071240fc0ab8eb-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/73364e9244687f661707751bfb8f36f5-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/bddeb70be330620eb3bc109317c95e8e-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/4cb448d04c519e5b211228f352cd8a23-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/0e1d620c59f454251a4af3693dfe4f0a-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/abc9f138e6217d251551e4444fa126b5-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/c7e6e219826bef02a0cb284179033969-full.webp",
+    //         "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/236428359c98a9f0281cb4d43a07aab6-full.webp",
+    //     ],
+    //     image: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d791.1403616183827!2d-78.86057152333844!3d43.039251805222946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6f20066d%3A0xda3c60e4a55b13bc!2s171%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1711979167498!5m2!1sen!2sus",
+    //     component: "",
+    // },
 ];
 
 
@@ -334,7 +334,7 @@ function AvailableApartments() {
 					No apartments currently available.
 				</div>
 			) : (
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
 				{/* adjust col-span-2 to 1 when adding more then 1 apt */}
 					{apartments.map((apt) => (
 						<ApartmentCard key={apt.name} apartment={apt} />
