@@ -97,14 +97,13 @@ const apartments = [
     // },
 
     {
-        name: "165 Mead St #6, North Tonawanda 14120",
+        name: "165 Mead St #2, North Tonawanda 14120",
         description: `
-        **Charming 2nd-Floor Apartment with Private Balcony**
+        **Charming 1st Floor Apartment**
 
         Step into comfort with this newly renovated apartment that's designed for modern living. Nestled in a quaint 4-unit building, this gem offers a serene retreat with the convenience of city living.
 
         **Apartment Features:**
-        - **Private Balcony:** Your own outdoor space to relax and enjoy the fresh air.
         - **Fully-Equipped Kitchen:** including a stove, refrigerator, and built-in microwave.
         - **Contemporary Bathroom:** An updated bathroom with sleek fixtures.
         - **Utilities Included:** Heat, water, and trash services are all taken care of.
@@ -116,13 +115,12 @@ const apartments = [
         - **Energy-Efficient:** You only pay for electric, with all other utilities included.
         - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
 		- **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
-        - **Available April 1st:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
+        - **Available May 1st:** Start the new year in your new home.
 
         This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
             `,
         includes: "2 Bedroom, 1 Bathroom, 1,000sqft",
-        available:
-            "Available April 1st - Currently under renovation to ensure everything is perfect for your move-in.",
+        available: "Available May 1st",
         price: "$1,200/month",
         images: [
             "https://images.craigslist.org/01010_5oj10UYcaY7_0CI0t2_600x450.jpg",
@@ -144,7 +142,7 @@ const apartments = [
             "https://images.craigslist.org/00x0x_c0ZT2fQyNmt_0t20CI_600x450.jpg",
             "https://images.craigslist.org/00f0f_lgtmWuUBxzg_0t20CI_600x450.jpg",
         ],
-        image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d581.2913845791846!2d-78.86042970218536!3d43.038992616914896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6fcd8f41%3A0xfff07115192305fc!2s165%20Mead%20St%20Apartment%206%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1709511860877!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
+        image: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d799.3245584866796!2d-78.86055657538596!3d43.03908390511775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d36e3f6fcd8f41%3A0xdb44a8a832c92d1e!2s165%20Mead%20St%20Apartment%202%2C%20North%20Tonawanda%2C%20NY%2014120!5e1!3m2!1sen!2sus!4v1714353792041!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade',
         component: "",
     },
 
@@ -167,7 +165,7 @@ const apartments = [
     //     **Additional Perks:**
     //     - **Energy-Efficient:** You only pay for electric, with all other utilities included.
     //     - **No Smoking Policy:** Enjoy a smoke-free living space for a healthier lifestyle.
-	// 	- **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
+    // 	- **No Pet Policy:** A pet-free space ensures a clean and well-maintained environment for all residents.
     //     - **Available April 1st:** Start the new year in your new home. Currently under renovation to ensure everything is perfect for your move-in.
 
     //     This apartment is perfect for those seeking a blend of comfort and convenience. Don't miss out on making this lovely space your next home!
